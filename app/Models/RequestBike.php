@@ -15,6 +15,7 @@ class RequestBike extends Model
         'purpose_of_funding',
         'user_id',
         'total_funds',
+        'request_document',
         'description',
     ];
 
