@@ -15,6 +15,9 @@ class Company extends Model
         'status',
         'register_num',
         'phone',
+        'register_certificate',
+        'commercial_certificate',
+        'licenses',
         'user_id',
     ];
 

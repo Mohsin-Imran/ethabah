@@ -20,9 +20,9 @@
             </div>
             <div class="row gy-3">
                 <div class="col-md-3">
-                    <div class="dashboard-card bg-white">
+                    <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa fa-dollar-sign"></i>
+                            <i class="fa fa-chart-line"></i> <!-- Updated to "chart-line" icon for Revenue -->
                         </div>
                         <div class="dashboard-content">
                             <h5>78.423K</h5>
@@ -31,9 +31,9 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="dashboard-card bg-white">
+                    <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa fa-flag"></i>
+                            <i class="fa fa-hand-holding-usd"></i> <!-- Updated to "hand-holding-usd" icon for Fund -->
                         </div>
                         <div class="dashboard-content">
                             <h5>Total Fund</h5>
@@ -42,9 +42,9 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="dashboard-card bg-white">
+                    <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa fa-key"></i>
+                            <i class="fa fa-users"></i> <!-- Updated to "users" icon for Companies -->
                         </div>
                         <div class="dashboard-content">
                             <h5>Companies</h5>
@@ -53,9 +53,9 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="dashboard-card bg-white">
+                    <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa fa-car"></i>
+                            <i class="fa fa-people-carry"></i> <!-- Updated to "people-carry" icon for Investors -->
                         </div>
                         <div class="dashboard-content">
                             <h5>Investors</h5>
@@ -64,6 +64,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div class="row align-items-stretch">

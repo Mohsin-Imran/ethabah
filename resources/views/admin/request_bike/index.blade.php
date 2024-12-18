@@ -23,9 +23,9 @@
     </div>
     <div class="row gy-3">
         <div class="col-md-3">
-            <div class="dashboard-card bg-white">
+            <div class="dashboard-card">
                 <div class="dashboard-icon">
-                    <i class="fa fa-dollar-sign"></i>
+                    <i class="fa fa-chart-line"></i> <!-- Updated to "chart-line" icon for Revenue -->
                 </div>
                 <div class="dashboard-content">
                     <h5>78.423K</h5>
@@ -34,9 +34,9 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="dashboard-card bg-white">
+            <div class="dashboard-card">
                 <div class="dashboard-icon">
-                    <i class="fa fa-flag"></i>
+                    <i class="fa fa-hand-holding-usd"></i> <!-- Updated to "hand-holding-usd" icon for Fund -->
                 </div>
                 <div class="dashboard-content">
                     <h5>Total Fund</h5>
@@ -45,9 +45,9 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="dashboard-card bg-white">
+            <div class="dashboard-card">
                 <div class="dashboard-icon">
-                    <i class="fa fa-key"></i>
+                    <i class="fa fa-users"></i> <!-- Updated to "users" icon for Companies -->
                 </div>
                 <div class="dashboard-content">
                     <h5>Companies</h5>
@@ -56,9 +56,9 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="dashboard-card bg-white">
+            <div class="dashboard-card">
                 <div class="dashboard-icon">
-                    <i class="fa fa-car"></i>
+                    <i class="fa fa-people-carry"></i> <!-- Updated to "people-carry" icon for Investors -->
                 </div>
                 <div class="dashboard-content">
                     <h5>Investors</h5>
@@ -97,10 +97,19 @@
                             <span class="badge bg-danger">Decline</span>
                                 @endif
                             </td>
-                            <td class="p-1">
-                                <a href="{{ route('admin.request.bike.declineRequest', $data->id) }}" class="btn-sm btn-primary">Decline</a>
-                                <a href="{{ route('admin.request.bike.acceptRequest', $data->id) }}" class="btn-sm btn-success">Accept</a>
-                                <a href="{{ route('admin.request.bike.view', $data->id) }}" class="btn-sm btn-info text-white">View</a>
+                            <td class="p-2">
+                                <a href="{{ route('admin.request.bike.declineRequest', $data->id) }}" class="btn-sm btn-primary m-1" title="Decline">
+                                    <i class="fa fa-times"></i>  
+                                    Decline
+                                </a>
+                                <a href="{{ route('admin.request.bike.acceptRequest', $data->id) }}" class="btn-sm btn-success m-1" title="Accept">
+                                    <i class="fa fa-check"></i>
+                                    Accept
+                                </a>
+                                <a href="{{ route('admin.request.bike.view', $data->id) }}" class="btn-sm btn-info text-white m-1" title="View">
+                                    <i class="fa fa-eye"></i> 
+                                    View
+                                </a>
                             </td>
                         </tr>
                         {{-- <div class="modal fade" id="modalId{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">

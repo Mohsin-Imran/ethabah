@@ -52,6 +52,14 @@
                     <span class="text-secondary">{{ $requestBike->total_funds ?? 'Not Available' }}</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <strong class="text-dark">Document</strong>
+                    <span class="text-secondary">
+                        <a href="{{ asset('request_document/'.$requestBike->request_document) }}" data-fancybox="gallery" data-caption="Register Certificate">
+                            <img src="{{ asset('request_document/'.$requestBike->request_document) }}" width="80px" class="img-fluid" alt="Image of {{ $company->user->name ?? 'User' }}">
+                        </a>
+                    </span>
+                </div>
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">Description</strong>
                     <span class="text-secondary">{{ $requestBike->description ?? 'Not Available' }}</span>
                 </div>

@@ -24,17 +24,14 @@ class HomeController extends Controller
     public function index()
     {
         if (auth()->check()) {
-            if (auth()->check() && auth()->user()->role == 1) {
+            $user = auth()->user();
+            if ($user->role == 1) {
                 return redirect()->route('admin.admin.dashboard');
-            } elseif (auth()->check() && auth()->user()->role == 2) {
+            } elseif ($user->role == 2) {
                 return redirect()->route('company.company.dashboard');
-            } else {
-                Auth::logout();
-                return redirect()->route('login');
             }
-        } else {
-            return redirect()->route('login');
         }
+        return redirect()->route('login');
     }
 
     public function logout()
