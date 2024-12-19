@@ -3,7 +3,7 @@
         <div class="main-header-left d-lg-block" style="background-color: #214d45;">
             <div class="logo-wrapper">
                 <a href="index.html">
-                    <img class="img-fluid" style="height: 100px !important; position: relative;right: 0px;" src="{{ asset('logo.png') }}" alt="Personal Portfolio Images">
+                    {{-- <img class="img-fluid" style="height: 100px !important; position: relative;right: 0px;" src="{{ asset('logo.png') }}" alt="Personal Portfolio Images"> --}}
                 </a>
                 {{-- <a href="#" class="mt-3" style="font-size: 30px; color: #214d45; text-decoration: none;">
                  شمعات
@@ -55,6 +55,12 @@
                     </a>
                     <ul class="sidebar-submenu" style="display: none;">
                         <li>
+                            <a href="{{ route('admin.company.index') }}">
+                                <i class="fa fa-circle"></i>
+                                <span>Profiles</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('admin.request.bike.index') }}">
                                 <i class="fa fa-circle"></i>
                                 <span>Request</span>
@@ -66,23 +72,17 @@
                                 <span>Statistic</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('admin.company.index') }}">
-                                <i class="fa fa-circle"></i>
-                                <span>Profiles</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
-                <li>
+                {{-- <li>
                     <a class="sidebar-header" href="{{ route('admin.assigned.company.index') }}" style="{{ request()->routeIs('admin.assigned.company.index') ? 'background-color: white; color: #214d45;' : '' }}">
-                        <!-- New SVG (Home Icon) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                            <path d="M3 12l2-2V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6l2 2 7-7-9-9-9 9 7 7z"></path>
-                        </svg>
-                        <span>Investor Funds Companies</span>
-                    </a>
-                </li>
+                <!-- New SVG (Home Icon) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                    <path d="M3 12l2-2V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6l2 2 7-7-9-9-9 9 7 7z"></path>
+                </svg>
+                <span>Investor Funds Companies</span>
+                </a>
+                </li> --}}
                 <li class="">
                     <a class="sidebar-header" href="{{ route('admin.investor.index') }}" style="{{ request()->routeIs('admin.investor.index') ? 'background-color: white; color: #214d45;' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -106,7 +106,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                             <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM5 19V5h14v14H5zM12 7v6l4 4"></path>
                         </svg>
-                        <span>Investors Funds</span>
+                        <span>investment Funds</span>
                     </a>
                 </li>
 

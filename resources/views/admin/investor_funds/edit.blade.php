@@ -27,34 +27,25 @@
     <div class="row">
         <div class="card p-1">
             <div class="card-header p-2 bg-primary d-flex flex-row justify-content-between">
-                <h3 class="mb-0 text-white">Update Investor Funds</h3>
+                <h3 class="mb-0 text-white">Update investment Funds</h3>
             </div>
             <div class="card-body p-2">
                 <form method="POST" action="{{ route('admin.investor.funds.update', $investorFund->id) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <!-- Investor Selection -->
                         <div class="mb-3 mt-2 col-lg-12">
-                            <label for="user_id" class="form-label">Investors <span style="color: red;">*</span></label>
-                            <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror">
-                                <option value="">Select Investor</option>
-                                @foreach ($investors as $user)
-                                <option value="{{ $user->id }}" {{ old('user_id', $investorFund->user_id) == $user->id ? 'selected' : '' }}>
-                                    {{ $user->name ?? '' }}
-                                </option>
-                                @endforeach
-                            </select>
-                            @error('user_id')
+                            <label for="name" class="form-label">Name <span style="color: red;">*</span></label>
+                            <input type="text" placeholder="Name" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name', $investorFund->name) }}">
+                            @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
                         </div>
 
-                        <!-- Category Selection -->
                         <div class="mb-3 mt-2 col-lg-12">
-                            <label for="categorySelect" class="form-label">Category <span style="color: red;">*</span></label>
-                            <select name="category_id" id="categorySelect" class="form-control @error('category_id') is-invalid @enderror">
+                            <label for="category_id" class="form-label">Category <span style="color: red;">*</span></label>
+                            <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
                                 <option value="">Select Category</option>
                                 @foreach ($categories as $category)
                                 <option value="{{ $category->id }}" {{ old('category_id', $investorFund->category_id) == $category->id ? 'selected' : '' }}>
@@ -69,14 +60,12 @@
                             @enderror
                         </div>
 
-                        <!-- Company Selection -->
                         <div class="mb-3 mt-2 col-lg-12">
-                            <label for="companySelect" class="form-label">Company <span style="color: red;">*</span></label>
-                            <select name="company_id" id="companySelect" class="form-control @error('company_id') is-invalid @enderror">
-                                <option value="">Select Company</option>
-                                @foreach ($companies as $assigned)
-                                <option value="{{ $assigned->company->id }}" {{ old('company_id', $investorFund->company_id) == $assigned->company->id ? 'selected' : '' }}>
-                                    {{ $assigned->company->name }}
+                            <label for="company_id" class="form-label">Company <span style="color: red;">*</span></label>
+                            <select name="company_id[]" id="select3" multiple="multiple" class="form-control @error('company_id') is-invalid @enderror">
+                                @foreach ($companies as $company)
+                                <option value="{{ $company->id }}" {{ in_array($company->id, old('company_id', $investorFund->companies->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                    {{ $company->name }}
                                 </option>
                                 @endforeach
                             </select>
@@ -86,49 +75,63 @@
                             </span>
                             @enderror
                         </div>
-                    </div>
 
-                    <!-- Profit Percentage -->
-                    <div class="mb-3 mt-2 col-lg-12">
-                        <label for="profit_percentage" class="form-label">Profit Percentage <span style="color: red;">*</span></label>
-                        <input type="number" placeholder="Profit Percentage" class="form-control @error('profit_percentage') is-invalid @enderror" name="profit_percentage" id="profit_percentage" value="{{ old('profit_percentage', $investorFund->profit_percentage) }}">
-                        @error('profit_percentage')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
+                        <div class="mb-3 mt-2 col-lg-12">
+                            <label for="amount" class="form-label">Amount <span style="color: red;">*</span></label>
+                            <input type="number" placeholder="Amount" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount" value="{{ old('amount', $investorFund->amount) }}">
+                            @error('amount')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
 
-                    <!-- Duration Of Investment -->
-                    <div class="mb-3 mt-2 col-lg-12">
-                        <label for="duration_of_investment" class="form-label">Duration Of Investment <span style="color: red;">*</span></label>
-                        <input type="number" placeholder="Duration Of Investment" class="form-control @error('duration_of_investment') is-invalid @enderror" name="duration_of_investment" id="duration_of_investment" value="{{ old('duration_of_investment', $investorFund->duration_of_investment) }}">
-                        @error('duration_of_investment')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
+                        <div class="mb-3 mt-2 col-lg-12">
+                            <label for="profit_percentage" class="form-label">Profit Percentage <span style="color: red;">*</span></label>
+                            <input type="number" placeholder="Profit Percentage" class="form-control @error('profit_percentage') is-invalid @enderror" name="profit_percentage" id="profit_percentage" value="{{ old('profit_percentage', $investorFund->profit_percentage) }}">
+                            @error('profit_percentage')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
 
-                    <!-- Message -->
-                    <div class="mb-3 mt-2 col-lg-12">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea name="message" id="message" class="form-control" cols="30" rows="5" placeholder="Message">{{ old('message', $investorFund->message) }}</textarea>
-                        @error('message')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                        <div class="mb-3 mt-2 col-lg-12">
+                            <label for="duration_of_investment" class="form-label">Duration Of Investment <span style="color: red;">*</span></label>
+                            <input type="number" placeholder="Duration Of Investment" class="form-control @error('duration_of_investment') is-invalid @enderror" name="duration_of_investment" id="duration_of_investment" value="{{ old('duration_of_investment', $investorFund->duration_of_investment) }}">
+                            @error('duration_of_investment')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3 mt-2 col-lg-12">
+                            <label class="form-label">Profit will be paid <span style="color: red;">*</span></label>
+                            <div>
+                                <input type="radio" id="monthly" name="profit" value="monthly" {{ old('profit', $investorFund->profit) == 'monthly' ? 'checked' : '' }}>
+                                <label for="monthly">Monthly</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="quarterly" name="profit" value="quarterly" {{ old('profit', $investorFund->profit) == 'quarterly' ? 'checked' : '' }}>
+                                <label for="quarterly">Quarterly</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="yearly" name="profit" value="yearly" {{ old('profit', $investorFund->profit) == 'yearly' ? 'checked' : '' }}>
+                                <label for="yearly">Yearly</label>
+                            </div>
+                            @error('profit')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
                     </div>
+                    <button type="submit" class="btn-sm btn-primary">Update</button>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary btn-sm">Update</button>
-            </form>
-
         </div>
     </div>
 </div>
-</div>
-
-
-
+@include('select')
 @endsection

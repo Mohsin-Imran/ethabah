@@ -22,4 +22,10 @@ class InvestorFunds extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class, 'investment_fund_companies');
+    }
+
 }

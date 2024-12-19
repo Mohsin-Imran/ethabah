@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('investor_funds', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('created_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('company_id');
-            $table->string('user_id');
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->string('name');
+            $table->string('profit');
+            $table->string('amount');
             $table->string('profit_percentage');
             $table->longText('duration_of_investment');
-            $table->longText('message');
             $table->timestamps();
         });
     }

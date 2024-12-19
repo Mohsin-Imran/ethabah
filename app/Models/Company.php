@@ -30,4 +30,10 @@ class Company extends Model
     {
         return $this->hasMany(AssignedCompany::class);
     }
+
+    public function investorFunds()
+    {
+        return $this->belongsToMany(InvestorFunds::class, 'investment_fund_companies');
+    }
+
 }

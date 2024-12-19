@@ -23,9 +23,8 @@ class User extends Authenticatable
         'password',
         'role',
         'company_id',
-        'register_certificate',
-        'commercial_certificate',
-        'licenses',
+        'passport',
+        'national_id',
         'phone',
     ];
 

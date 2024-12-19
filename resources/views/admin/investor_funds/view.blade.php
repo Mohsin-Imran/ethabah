@@ -16,7 +16,7 @@
     <div class="row justify-content-center">
         <div class="card p-4 shadow-sm border-0" style="background: #f4f4f4;">
             <div class="card-header p-2 bg-primary text-white arabic-text">
-                <h3 class="mb-0 text-white">Investor Fund View</h3>
+                <h3 class="mb-0 text-white">investment Fund View</h3>
             </div>
             <div class="card-body bg-white" style="border-radius: 0 0 15px 15px;">
                 <div class="d-flex flex-row justify-content-between mt-1 p-1 border-bottom">
@@ -29,7 +29,24 @@
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">Company Name</strong>
-                    <span class="text-secondary">{{ $investorFund->company->name ?? 'Not Available' }}</span>
+                    <div class="d-flex flex-wrap">
+                        @if($investorFund->companies->isNotEmpty())
+                        @foreach ($investorFund->companies as $company)
+                        <span class="text-secondary badge bg-primary me-2 mb-2">
+                            {{ $company->name ?? 'Not Available' }}
+                        </span>
+                        @endforeach
+                        @else
+                        <span class="text-secondary badge bg-warning">
+                            Not Available
+                        </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <strong class="text-dark">Amount</strong>
+                    <span class="text-secondary">{{ $investorFund->amount ?? 'Not Available' }}%</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">Profit Percentage</strong>
@@ -40,8 +57,8 @@
                     <span class="text-secondary">{{ $investorFund->duration_of_investment ?? 'Not Available' }}</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Message</strong>
-                    <span class="text-secondary">{{ $investorFund->message ?? 'Not Available' }}</span>
+                    <strong class="text-dark">Profit will be paid</strong>
+                    <span class="text-secondary">{{ $investorFund->profit ?? 'Not Available' }}</span>
                 </div>
             </div>
             <div class="card-footer text-center" style="background-color: #e0e0e0; padding: 15px; border-radius: 0 0 15px 15px;">

@@ -19,9 +19,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone')->nullable();
             $table->string('password');
-            $table->longText('register_certificate')->nullable();
-            $table->longText('commercial_certificate')->nullable();
-            $table->longText('licenses')->nullable();
+            $table->longText('passport')->nullable();
+            $table->longText('national_id')->nullable();
             $table->string('status')->default(0);
             $table->rememberToken();
             $table->timestamps();

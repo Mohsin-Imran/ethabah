@@ -14,51 +14,52 @@ class ApiController extends Controller
     public function register(Request $request)
     {
         try {
+            // Validate the request data
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required',
-                'register_certificate' => 'required|file|mimes:jpg,jpeg,png,pdf',
-                'commercial_certificate' => 'required|file|mimes:jpg,jpeg,png,pdf',
-                'licenses' => 'required|file|mimes:jpg,jpeg,png,pdf',
+                'passport' => 'required', // File validation
+                'national_id' => 'required', // File validation
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|min:8|confirmed',
                 'password_confirmation' => 'required|string|min:8',
             ]);
 
+            // Hash the password
             $hashedPassword = bcrypt($validatedData['password']);
 
+            // Create a new user instance
             $user = new User();
             $user->name = $validatedData['name'];
             $user->email = $validatedData['email'];
             $user->phone = $validatedData['phone'];
             $user->password = $hashedPassword;
-            $user->role = 2;
+            $user->role = 2; // Assuming role '2' is for investors
 
-            if ($request->hasFile('register_certificate') && $request->file('register_certificate')->isValid()) {
-                $registerCertName = time() . '.' . $request->register_certificate->extension();
-                $request->register_certificate->move(public_path('register_certificate'), $registerCertName);
-                $user->register_certificate = $registerCertName;
+            // Handle file uploads
+            if ($request->hasFile('passport') && $request->file('passport')->isValid()) {
+                $passportName = time() . '_passport.' . $request->passport->extension();
+                $request->passport->move(public_path('investor_register'), $passportName);
+                $user->passport = $passportName;
             }
-            if ($request->hasFile('commercial_certificate') && $request->file('commercial_certificate')->isValid()) {
-                $commercialCertName = time() . '.' . $request->commercial_certificate->extension();
-                $request->commercial_certificate->move(public_path('commercial_certificate'), $commercialCertName);
-                $user->commercial_certificate = $commercialCertName;
+
+            if ($request->hasFile('national_id') && $request->file('national_id')->isValid()) {
+                $nationalIdName = time() . '_national_id.' . $request->national_id->extension();
+                $request->national_id->move(public_path('investor_register'), $nationalIdName);
+                $user->national_id = $nationalIdName;
             }
-            if ($request->hasFile('licenses') && $request->file('licenses')->isValid()) {
-                $licensesName = time() . '.' . $request->licenses->extension();
-                $request->licenses->move(public_path('licenses'), $licensesName);
-                $user->licenses = $licensesName;
-            }
+
+            // Save the user
             $user->save();
 
             return response()->json([
-                'message' => 'user registered successfully.',
+                'message' => 'User registered successfully.',
                 'user' => $user,
             ], 201);
 
         } catch (ValidationException $e) {
             return response()->json([
-                'message' => 'Validation Error',
+                'message' => 'Validation Error.',
                 'errors' => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
@@ -69,7 +70,6 @@ class ApiController extends Controller
         }
     }
 
-    // Login API
     public function login(Request $request)
     {
         try {
