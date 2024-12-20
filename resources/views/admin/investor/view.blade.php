@@ -61,7 +61,7 @@
                             @endif
                         </span>
                         @endforeach
-                        <button class="btn-sm btn-primary h-25" onclick="downloadAll('commercial-certificates')"> <i class="fa fa-download"></i></button>
+                        {{-- <button class="btn-sm btn-primary h-25" onclick="downloadAll('commercial-certificates')"> <i class="fa fa-download"></i></button> --}}
                     </div>
                     <br>
                 </div>
@@ -91,7 +91,7 @@
                             @endif
                         </span>
                         @endforeach
-                        <button class="btn-sm btn-primary h-25" onclick="downloadAll('commercial-certificates')"> <i class="fa fa-download"></i></button>
+                        {{-- <button class="btn-sm btn-primary h-25" onclick="downloadAll('commercial-certificates')"> <i class="fa fa-download"></i></button> --}}
                     </div>
                     <br>
                 </div>

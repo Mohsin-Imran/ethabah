@@ -16,10 +16,12 @@ class ApiController extends Controller
         try {
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
-                'phone' => 'required',
-                'passport' => 'required',
-                'national_id' => 'required',
-                'address' => 'required',
+                'phone' => 'required|string',
+                'passport' => 'required', // Required, can be single or multiple
+                'passport.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:5120',
+                'national_id' => 'required', // Required, can be single or multiple
+                'national_id.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:5120',
+                'address' => 'required|string',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|min:8|confirmed',
                 'password_confirmation' => 'required|string|min:8',
@@ -33,24 +35,20 @@ class ApiController extends Controller
             $user->phone = $validatedData['phone'];
             $user->address = $validatedData['address'];
             $user->password = $hashedPassword;
-            $user->role = 2;
-            $passportName = [];
+            $user->role = 0;
+
+            // Handle single or multiple passport uploads
+            $passportFiles = [];
             if ($request->hasFile('passport')) {
-                foreach ($request->file('passport') as $file) {
-                    $fileName = time() . '_' . uniqid() . '.' . $file->extension();
-                    $file->move(public_path('investor_register'), name: $fileName);
-                    $passportName[] = $fileName;
-                }
-                $user->passport = json_encode($passportName);
+                $passportFiles = $this->processUploadedFiles($request->file('passport'));
+                $user->passport = json_encode($passportFiles);
             }
-            $nationalID = [];
+
+            // Handle single or multiple national_id uploads
+            $nationalIDFiles = [];
             if ($request->hasFile('national_id')) {
-                foreach ($request->file('national_id') as $file) {
-                    $fileName = time() . '_' . uniqid() . '.' . $file->extension();
-                    $file->move(public_path('investor_register'), name: $fileName);
-                    $nationalID[] = $fileName;
-                }
-                $user->national_id = json_encode($nationalID);
+                $nationalIDFiles = $this->processUploadedFiles($request->file('national_id'));
+                $user->national_id = json_encode($nationalIDFiles);
             }
 
             $user->save();
@@ -71,6 +69,26 @@ class ApiController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    private function processUploadedFiles($files): array
+    {
+        $uploadedFiles = [];
+
+        if (is_array($files)) {
+            foreach ($files as $file) {
+                $fileName = time() . '_' . uniqid() . '.' . $file->extension();
+                $file->move(public_path('investor_register'), $fileName);
+                $uploadedFiles[] = $fileName;
+            }
+        } else {
+            // Single file case
+            $fileName = time() . '_' . uniqid() . '.' . $files->extension();
+            $files->move(public_path('investor_register'), $fileName);
+            $uploadedFiles[] = $fileName;
+        }
+
+        return $uploadedFiles;
     }
 
     public function login(Request $request)

@@ -37,17 +37,24 @@ class RequestController extends Controller
                 'total_funds' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
                 'request_document' => 'required',
+                'request_document.*' => 'file|mimes:jpg,jpeg,png,pdf|max:2048',
             ]);
 
             $requestData = new RequestBike;
-            if ($request->hasFile('request_document') && $request->file('request_document')->isValid()) {
-                $imageName = time() . '.' . $request->file('request_document')->getClientOriginalExtension();
-                $request->file('request_document')->move(public_path('request_document'), $imageName);
-                $requestData->request_document = $imageName;
-            } else {
-                return response()->json([
-                    'message' => 'Image file is required or invalid.',
-                ], 400);
+            $uploadedFiles = [];
+            if ($request->hasFile('request_document')) {
+                $documents = $request->file('request_document');
+                if (is_array($documents)) {
+                    foreach ($documents as $file) {
+                        $fileName = time() . '_' . uniqid() . '.' . $file->extension();
+                        $file->move(public_path('request_document'), $fileName);
+                        $uploadedFiles[] = $fileName;
+                    }
+                } else {
+                    $fileName = time() . '_' . uniqid() . '.' . $documents->extension();
+                    $documents->move(public_path('request_document'), $fileName);
+                    $uploadedFiles[] = $fileName;
+                }
             }
             $requestData->user_id = auth()->user()->id;
             $requestData->name = $validatedData['name'];

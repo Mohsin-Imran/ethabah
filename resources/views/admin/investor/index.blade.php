@@ -35,6 +35,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Phone</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -44,6 +45,7 @@
                         <tr>
                             <td>{{ $data->name ?? 'N/A'}}</td>
                             <td>{{ $data->email ?? 'N/A'}}</td>
+                            <td>{{ $data->phone ?? 'N/A'}}</td>
                             <td class="p-1">
                                 @if($data->status == 1)
                                 <span class="badge bg-success" data-bs-toggle="modal" data-bs-target="#modalId{{ $data->id }}">Approved</span>

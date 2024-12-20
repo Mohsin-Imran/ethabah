@@ -93,13 +93,13 @@
                     </a>
                     <ul class="sidebar-submenu" style="display: none;">
                         <li>
-                            <a href="{{ route('admin.investor.index') }}">
+                            <a href="#">
                                 <i class="fa fa-circle"></i>
                                 <span>Investors</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.company.index') }}">
+                            <a href="{{ route('admin.investor.index') }}">
                                 <i class="fa fa-circle"></i>
                                 <span>Profiles</span>
                             </a>
