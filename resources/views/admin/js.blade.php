@@ -170,3 +170,58 @@
         });
     });
 </script>
+
+
+<script>
+    function handleFilePreview(inputId, previewId) {
+        const input = document.getElementById(inputId);
+        const previewContainer = document.getElementById(previewId);
+
+        input.addEventListener("change", () => {
+            previewContainer.innerHTML = "";
+            const files = input.files;
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+
+                // Create file list item
+                const listItem = document.createElement("li");
+                listItem.className = "file-item";
+
+                const fileName = document.createElement("span");
+                fileName.className = "file-name";
+                fileName.textContent = file.name;
+
+                const deleteBtn = document.createElement("span");
+                deleteBtn.className = "delete-btn";
+                deleteBtn.textContent = "Delete";
+                deleteBtn.addEventListener("click", () => {
+                    listItem.remove();
+                    removeFile(input, i);
+                });
+
+                listItem.appendChild(fileName);
+                listItem.appendChild(deleteBtn);
+
+                previewContainer.appendChild(listItem);
+            }
+        });
+    }
+
+    function removeFile(input, index) {
+        const dataTransfer = new DataTransfer();
+        const files = input.files;
+
+        for (let i = 0; i < files.length; i++) {
+            if (i !== index) {
+                dataTransfer.items.add(files[i]);
+            }
+        }
+
+        input.files = dataTransfer.files;
+    }
+    handleFilePreview("register_certificate", "register_preview");
+    handleFilePreview("commercial_certificate", "commercial_preview");
+    handleFilePreview("licenses", "licenses_preview");
+
+</script>

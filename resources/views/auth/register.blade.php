@@ -21,23 +21,28 @@
         font-size: 16px;
         font-family: 'Times New Roman';
     }
+
     .file-list {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .file-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .file-name {
-            flex-grow: 1;
-        }
-        .delete-btn {
-            margin-left: 10px;
-            cursor: pointer;
-            color: red;
-        }
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .file-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .file-name {
+        flex-grow: 1;
+    }
+
+    .delete-btn {
+        margin-left: 10px;
+        cursor: pointer;
+        color: red;
+    }
+
 </style>
 
 <body>
@@ -126,27 +131,31 @@
                                             <label for="register_certificate">Company Registration Certificates</label>
                                             <input id="register_certificate" type="file" class="form-control @error('register_certificate') is-invalid @enderror" name="register_certificate[]" multiple required>
                                             @error('register_certificate')
-                                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                             @enderror
                                             <ul id="register_preview" class="file-list mt-3"></ul>
                                         </div>
 
-                                        <!-- Commercial Certificate -->
                                         <div class="form-outline mb-4">
                                             <label for="commercial_certificate">Commercial Registration Certificates</label>
                                             <input id="commercial_certificate" type="file" class="form-control @error('commercial_certificate') is-invalid @enderror" name="commercial_certificate[]" multiple required>
                                             @error('commercial_certificate')
-                                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                             @enderror
                                             <ul id="commercial_preview" class="file-list mt-3"></ul>
                                         </div>
 
-                                        <!-- Licenses -->
                                         <div class="form-outline mb-4">
                                             <label for="licenses">Other Licenses</label>
-                                            <input id="licenses" type="file" class="form-control @error('licenses') is-invalid @enderror" name="licenses[]" multiple>
+                                            <input id="licenses" type="file" class="form-control @error('licenses') is-invalid @enderror" name="licenses[]" multiple required>
                                             @error('licenses')
-                                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                             @enderror
                                             <ul id="licenses_preview" class="file-list mt-3"></ul>
                                         </div>
@@ -171,60 +180,6 @@
             </div>
         </div>
     </section>
-    <script>
-        // Function to handle file name preview
-        function handleFilePreview(inputId, previewId) {
-            const input = document.getElementById(inputId);
-            const previewContainer = document.getElementById(previewId);
-    
-            input.addEventListener("change", () => {
-                previewContainer.innerHTML = ""; // Clear previous previews
-                const files = input.files;
-    
-                for (let i = 0; i < files.length; i++) {
-                    const file = files[i];
-    
-                    // Create file list item
-                    const listItem = document.createElement("li");
-                    listItem.className = "file-item";
-    
-                    const fileName = document.createElement("span");
-                    fileName.className = "file-name";
-                    fileName.textContent = file.name;
-    
-                    const deleteBtn = document.createElement("span");
-                    deleteBtn.className = "delete-btn";
-                    deleteBtn.textContent = "Delete";
-                    deleteBtn.addEventListener("click", () => {
-                        listItem.remove();
-                        removeFile(input, i); // Adjust files array
-                    });
-    
-                    listItem.appendChild(fileName);
-                    listItem.appendChild(deleteBtn);
-    
-                    previewContainer.appendChild(listItem);
-                }
-            });
-        }
-    
-        // Remove file from input
-        function removeFile(input, index) {
-            const dataTransfer = new DataTransfer();
-            const files = input.files;
-    
-            for (let i = 0; i < files.length; i++) {
-                if (i !== index) {
-                    dataTransfer.items.add(files[i]);
-                }
-            }
-    
-            input.files = dataTransfer.files;
-        }
-    
-        handleFilePreview("register_certificate", "register_preview");
-        handleFilePreview("commercial_certificate", "commercial_preview");
-        handleFilePreview("licenses", "licenses_preview");
-    </script>
+   @include('admin.js')
 </body>
 </html>

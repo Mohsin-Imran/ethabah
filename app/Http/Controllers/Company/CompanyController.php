@@ -20,9 +20,9 @@ class CompanyController extends Controller
     $request->validate([
         'name' => 'required|string|max:255',
         'phone' => 'required',
-        'register_certificate.*' => 'required|file|mimes:jpg,png,pdf|max:2048',
-        'commercial_certificate.*' => 'required|file|mimes:jpg,png,pdf|max:2048',
-        'licenses.*' => 'file|mimes:jpg,png,pdf|max:2048',
+        'register_certificate.*' => 'required',
+        'commercial_certificate.*' => 'required',
+        'licenses.*' => 'file',
         'email' => 'required|email|unique:users,email',
         'password' => 'required|string|min:8',
         'register_num' => 'required|string',

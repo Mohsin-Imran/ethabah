@@ -35,106 +35,100 @@
                     <strong class="text-dark">Register Number</strong>
                     <span class="text-secondary">{{ $company->register_num ?? 'Not Available' }}</span>
                 </div>
-                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                <div class="mt-4 p-1 border-bottom">
                     <strong class="text-dark">Register Certificates</strong>
-                    <div class="d-flex flex-wrap mt-2" id="register-certificates">
+                    <div class="d-flex flex-row justify-content-end" style="margin: -20px;" id="register-certificates">
                         @php
-                            $registerCertificates = json_decode($company->register_certificate, true) ?? [];
+                        $registerCertificates = json_decode($company->register_certificate, true) ?? [];
                         @endphp
                         @foreach ($registerCertificates as $file)
                         @php
-                            $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+                        $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
                         @endphp
                         <span class="text-secondary me-2" data-file="{{ asset('register_certificate/' . $file) }}" style="margin-bottom: 10px;">
                             @if (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif', 'bmp']))
                             <a href="{{ asset('register_certificate/' . $file) }}" data-fancybox="gallery" data-caption="Register Certificate">
-                                <img src="{{ asset('register_certificate/' . $file) }}" width="50px" height="50px" class="mb-2 border" alt="Register Certificate" style="border: 2px solid #000; padding: 3px;">
+                                <img src="{{ asset('register_certificate/' . $file) }}" width="40px" height="40px" class="mb-2 border" alt="Register Certificate" style="border: 2px solid #000; padding: 3px;">
                             </a>
                             @elseif (strtolower($fileExtension) == 'pdf')
                             <a href="{{ asset('register_certificate/' . $file) }}" target="_blank" class="btn btn-info p-2 text-white" style="position: relative; top:0px;">
                                 <i class="fas fa-file-pdf" style="font-size: 24px;"></i>
                             </a>
                             @elseif (strtolower($fileExtension) == 'docx' || strtolower($fileExtension) == 'doc')
-                            <a href="{{ asset('register_certificate/' . $file) }}" target="_blank" class="btn btn-info p-2 text-white" style="position: relative; top:0px;">
+                            <a href="{{ asset('register_certificate/' . $file) }}" target="_blank" class="btn btn-success p-2 text-white" style="position: relative; top:0px;">
                                 <i class="fas fa-file-word" style="font-size: 24px;"></i>
                             </a>
                             @endif
-                            <br> <!-- Line break after each file -->
                         </span>
                         @endforeach
+                        <button class="btn-sm btn-primary h-25" onclick="downloadAll('register-certificates')"><i class="fa fa-download"></i></button>
                     </div>
-                    <!-- Download All Button (Optional) -->
-                    <div class="text-center">
-                        <button class="btn btn-primary p-2" onclick="downloadAll('register-certificates')"> <i class="fa fa-download"></i> Download </button>
-                    </div>
+                    <br>
                 </div>
-                
-                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+
+                <div class="mt-4 p-1 border-bottom">
                     <strong class="text-dark">Commercial Certificates</strong>
-                    <div class="d-flex flex-wrap mt-2" id="commercial-certificates">
+                    <div class="d-flex flex-row justify-content-end" style="margin: -20px;" id="commercial-certificates">
                         @php
-                            $commercialCertificates = json_decode($company->commercial_certificate, true) ?? [];
+                        $commercialCertificates = json_decode($company->commercial_certificate, true) ?? [];
                         @endphp
                         @foreach ($commercialCertificates as $file)
                         @php
-                            $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+                        $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
                         @endphp
                         <span class="text-secondary me-2" data-file="{{ asset('commercial_certificate/' . $file) }}" style="margin-bottom: 10px;">
                             @if (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif', 'bmp']))
                             <a href="{{ asset('commercial_certificate/' . $file) }}" data-fancybox="gallery" data-caption="Commercial Certificate">
-                                <img src="{{ asset('commercial_certificate/' . $file) }}" width="50px" height="50px" class="mb-2 border" alt="Commercial Certificate" style="border: 2px solid #000; padding: 3px;">
+                                <img src="{{ asset('commercial_certificate/' . $file) }}" width="40px" height="40px" class="mb-2 border" alt="Commercial Certificate" style="border: 2px solid #000; padding: 3px;">
                             </a>
                             @elseif (strtolower($fileExtension) == 'pdf')
                             <a href="{{ asset('commercial_certificate/' . $file) }}" target="_blank" class="btn btn-info p-2 text-white" style="position: relative; top:0px;">
                                 <i class="fas fa-file-pdf" style="font-size: 24px;"></i>
                             </a>
                             @elseif (strtolower($fileExtension) == 'docx' || strtolower($fileExtension) == 'doc')
-                            <a href="{{ asset('commercial_certificate/' . $file) }}" target="_blank" class="btn btn-info p-2 text-white" style="position: relative; top:0px;">
+                            <a href="{{ asset('commercial_certificate/' . $file) }}" target="_blank" class="btn btn-success p-2 text-white" style="position: relative; top:0px;">
                                 <i class="fas fa-file-word" style="font-size: 24px;"></i>
                             </a>
                             @endif
-                            <br> <!-- Line break after each file -->
+
                         </span>
                         @endforeach
+                        <button class="btn-sm btn-primary h-25" onclick="downloadAll('commercial-certificates')"> <i class="fa fa-download"></i></button>
                     </div>
-                    <div class="text-center mt-3">
-                        <button class="btn btn-primary p-2" onclick="downloadAll('commercial-certificates')"> <i class="fa fa-download"></i> Download </button>
-                    </div>
+                    <br>
                 </div>
-                
-                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+
+                <div class="mt-4 p-1 border-bottom">
                     <strong class="text-dark">Licenses</strong>
-                    <div class="d-flex flex-wrap mt-2" id="licenses">
+                    <div class="d-flex flex-row justify-content-end" style="margin: -20px;" id="licenses">
                         @php
-                            $licenses = json_decode($company->licenses, true) ?? [];
+                        $licenses = json_decode($company->licenses, true) ?? [];
                         @endphp
                         @foreach ($licenses as $file)
                         @php
-                            $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+                        $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
                         @endphp
                         <span class="text-secondary me-2" data-file="{{ asset('licenses/' . $file) }}" style="margin-bottom: 10px;">
                             @if (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif', 'bmp']))
                             <a href="{{ asset('licenses/' . $file) }}" data-fancybox="gallery" data-caption="License">
-                                <img src="{{ asset('licenses/' . $file) }}" width="50px" height="50px" class="mb-2 border" alt="License" style="border: 2px solid #000; padding: 3px;">
+                                <img src="{{ asset('licenses/' . $file) }}" width="40px" height="40px" class="mb-2 border" alt="License" style="border: 2px solid #000; padding: 3px;">
                             </a>
                             @elseif (strtolower($fileExtension) == 'pdf')
                             <a href="{{ asset('licenses/' . $file) }}" target="_blank" class="btn btn-info p-2 text-white" style="position: relative; top:0px;">
                                 <i class="fas fa-file-pdf" style="font-size: 24px;"></i>
                             </a>
                             @elseif (strtolower($fileExtension) == 'docx' || strtolower($fileExtension) == 'doc')
-                            <a href="{{ asset('licenses/' . $file) }}" target="_blank" class="btn btn-info p-2 text-white" style="position: relative; top:0px;">
+                            <a href="{{ asset('licenses/' . $file) }}" target="_blank" class="btn btn-success p-2 text-white" style="position: relative; top:0px;">
                                 <i class="fas fa-file-word" style="font-size: 24px;"></i>
                             </a>
                             @endif
-                            <br> <!-- Line break after each file -->
                         </span>
                         @endforeach
+                        <button class="btn-sm btn-primary h-25" onclick="downloadAll('licenses')"> <i class="fa fa-download"></i></button>
                     </div>
-                    <div class="text-center mt-3">
-                        <button class="btn btn-primary p-2" onclick="downloadAll('licenses')"> <i class="fa fa-download"></i> Download </button>
-                    </div>
+                    <br>
                 </div>
-                
+
             </div>
             <div class="card-footer text-center" style="background-color: #e0e0e0; padding: 15px; border-radius: 0 0 15px 15px;">
                 <small class="text-muted">Created on: {{ $company->created_at->format('d M, Y') ?? '' }}</small>
@@ -147,19 +141,19 @@
     function downloadFile(fileUrl) {
         var link = document.createElement('a');
         link.href = fileUrl;
-        link.download = fileUrl.split('/').pop(); 
+        link.download = fileUrl.split('/').pop();
         link.click();
     }
-    
+
     function downloadAll(sectionId) {
         var fileUrls = [];
-        document.querySelectorAll('#' + sectionId + ' span[data-file]').forEach(function (span) {
+        document.querySelectorAll('#' + sectionId + ' span[data-file]').forEach(function(span) {
             fileUrls.push(span.getAttribute('data-file'));
         });
-        fileUrls.forEach(function (url) {
+        fileUrls.forEach(function(url) {
             downloadFile(url);
         });
     }
-    
+
 </script>
 @endsection

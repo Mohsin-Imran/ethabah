@@ -3,7 +3,7 @@
         <div class="main-header-left d-lg-block" style="background-color: #214d45;">
             <div class="logo-wrapper">
                 <a href="index.html">
-                    {{-- <img class="img-fluid" style="height: 100px !important; position: relative;right: 0px;" src="{{ asset('logo.png') }}" alt="Personal Portfolio Images"> --}}
+                    <img class="img-fluid" style="height: 100px !important; position: relative;right: 0px;" src="{{ asset('logo.png') }}" alt="Personal Portfolio Images">
                 </a>
                 {{-- <a href="#" class="mt-3" style="font-size: 30px; color: #214d45; text-decoration: none;">
                  شمعات
@@ -96,6 +96,12 @@
                             <a href="{{ route('admin.investor.index') }}">
                                 <i class="fa fa-circle"></i>
                                 <span>Investors</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.company.index') }}">
+                                <i class="fa fa-circle"></i>
+                                <span>Profiles</span>
                             </a>
                         </li>
                     </ul>

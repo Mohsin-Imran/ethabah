@@ -18,8 +18,6 @@ use App\Http\Controllers\Company\CompanyController as CompanyCompanyController;
 use App\Http\Controllers\Customer\RequestBikeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use ZipArchive;
-use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,30 +37,6 @@ Route::get('register/company', [CompanyCompanyController::class, 'index'])->name
 Route::post('register/company', [CompanyCompanyController::class, 'register'])->name('company.register');
 
 
-Route::post('/download-zip', function (Request $request) {
-    $zip = new ZipArchive();
-    $zipFileName = 'files.zip';
-    $zipFilePath = storage_path('app/public/' . $zipFileName);
-
-    if ($zip->open($zipFilePath, ZipArchive::CREATE) === TRUE) {
-        // Loop through the file URLs sent by the frontend
-        foreach ($request->input('files') as $fileUrl) {
-            // Extract the file path from the asset URL
-            $filePath = public_path(str_replace(asset(''), '', $fileUrl));
-
-            if (file_exists($filePath)) {
-                // Add the file to the zip archive
-                $zip->addFile($filePath, basename($filePath));
-            }
-        }
-        $zip->close();
-
-        // Return the ZIP file as a response
-        return response()->download($zipFilePath)->deleteFileAfterSend(true);
-    } else {
-        return response()->json(['error' => 'Unable to create zip file'], 500);
-    }
-});
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
