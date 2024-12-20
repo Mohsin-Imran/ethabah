@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('phone');
             $table->string('email');
             $table->string('password');
-            $table->longText('register_certificate')->nullable();
-            $table->longText('commercial_certificate')->nullable();
-            $table->longText('licenses')->nullable();
+            $table->json('register_certificate')->nullable();
+            $table->json('commercial_certificate')->nullable();
+            $table->json('licenses')->nullable();
             $table->string('status')->default(0);
             $table->timestamps();
         });

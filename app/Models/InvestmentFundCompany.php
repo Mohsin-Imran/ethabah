@@ -10,14 +10,14 @@ class InvestmentFundCompany extends Model
     use HasFactory;
 
     protected $fillable = [
-        'investor_fund_id',
+        'investor_funds_id',
         'company_id',
     ];
 
     // Define the relationship with the InvestorFunds model
     public function investorFund()
     {
-        return $this->belongsTo(InvestorFunds::class, 'investor_fund_id');
+        return $this->belongsTo(InvestorFunds::class, 'investor_funds_id');
     }
 
     // Define the relationship with the Company model

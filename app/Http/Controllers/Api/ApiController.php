@@ -14,42 +14,45 @@ class ApiController extends Controller
     public function register(Request $request)
     {
         try {
-            // Validate the request data
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required',
-                'passport' => 'required', // File validation
-                'national_id' => 'required', // File validation
+                'passport' => 'required',
+                'national_id' => 'required',
+                'address' => 'required',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|min:8|confirmed',
                 'password_confirmation' => 'required|string|min:8',
             ]);
 
-            // Hash the password
             $hashedPassword = bcrypt($validatedData['password']);
 
-            // Create a new user instance
             $user = new User();
             $user->name = $validatedData['name'];
             $user->email = $validatedData['email'];
             $user->phone = $validatedData['phone'];
+            $user->address = $validatedData['address'];
             $user->password = $hashedPassword;
-            $user->role = 2; // Assuming role '2' is for investors
-
-            // Handle file uploads
-            if ($request->hasFile('passport') && $request->file('passport')->isValid()) {
-                $passportName = time() . '_passport.' . $request->passport->extension();
-                $request->passport->move(public_path('investor_register'), $passportName);
-                $user->passport = $passportName;
+            $user->role = 2;
+            $passportName = [];
+            if ($request->hasFile('passport')) {
+                foreach ($request->file('passport') as $file) {
+                    $fileName = time() . '_' . uniqid() . '.' . $file->extension();
+                    $file->move(public_path('investor_register'), name: $fileName);
+                    $passportName[] = $fileName;
+                }
+                $user->passport = json_encode($passportName);
+            }
+            $nationalID = [];
+            if ($request->hasFile('national_id')) {
+                foreach ($request->file('national_id') as $file) {
+                    $fileName = time() . '_' . uniqid() . '.' . $file->extension();
+                    $file->move(public_path('investor_register'), name: $fileName);
+                    $nationalID[] = $fileName;
+                }
+                $user->national_id = json_encode($nationalID);
             }
 
-            if ($request->hasFile('national_id') && $request->file('national_id')->isValid()) {
-                $nationalIdName = time() . '_national_id.' . $request->national_id->extension();
-                $request->national_id->move(public_path('investor_register'), $nationalIdName);
-                $user->national_id = $nationalIdName;
-            }
-
-            // Save the user
             $user->save();
 
             return response()->json([

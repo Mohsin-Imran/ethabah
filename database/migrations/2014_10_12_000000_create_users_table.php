@@ -18,9 +18,10 @@ return new class extends Migration
             $table->boolean('role')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone')->nullable();
+            $table->text('address')->nullable();
             $table->string('password');
-            $table->longText('passport')->nullable();
-            $table->longText('national_id')->nullable();
+            $table->json('passport')->nullable();
+            $table->json('national_id')->nullable();
             $table->string('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
