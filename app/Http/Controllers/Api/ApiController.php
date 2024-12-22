@@ -132,54 +132,55 @@ class ApiController extends Controller
     public function store(Request $request)
     {
         try {
+            // Validate incoming request data
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
-                'phone' => 'required',
-                // 'register_certificate' => 'required|file|mimes:jpg,jpeg,png,pdf',
-                // 'commercial_certificate' => 'required|file|mimes:jpg,jpeg,png,pdf',
-                // 'licenses' => 'required|file|mimes:jpg,jpeg,png,pdf',
+                'phone' => 'required|string',
+                'register_certificate' => 'required',
+                'register_certificate.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
+                'commercial_certificate' => 'required',
+                'commercial_certificate.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
+                'licenses' => 'nullable',
+                'licenses.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|min:8',
                 'register_num' => 'required|string',
             ]);
 
-            $hashedPassword = bcrypt($validatedData['password']);
+            // Hash the password
+            $hashedPassword = bcrypt($request->password);
 
+            // Initialize company object
+            $company = new Company();
+
+            // Handle file uploads using private method for each category
+            $company->register_certificate = $this->uploadFiles($request->file('register_certificate'), 'register_certificate');
+            $company->commercial_certificate = $this->uploadFiles($request->file('commercial_certificate'), 'commercial_certificate');
+            $company->licenses = $this->uploadFiles($request->file('licenses'), 'licenses');
+
+            // Save company information
+            $company->name = $validatedData['name'];
+            $company->phone = $validatedData['phone'];
+            $company->register_num = $validatedData['register_num'];
+            $company->email = $validatedData['email'];
+            $company->password = $hashedPassword;
+
+            // Save user information
             $user = new User();
             $user->name = $validatedData['name'];
             $user->email = $validatedData['email'];
             $user->password = $hashedPassword;
-            $user->role = 2;
+            $user->role = 2; // Adjust the role as needed
             $user->save();
 
-            $company = new Company();
-            if ($request->hasFile('register_certificate') && $request->file('register_certificate')->isValid()) {
-                $registerCertName = time() . '.' . $request->register_certificate->extension();
-                $request->register_certificate->move(public_path('register_certificate'), $registerCertName);
-                $company->register_certificate = $registerCertName;
-            }
-            if ($request->hasFile('commercial_certificate') && $request->file('commercial_certificate')->isValid()) {
-                $commercialCertName = time() . '.' . $request->commercial_certificate->extension();
-                $request->commercial_certificate->move(public_path('commercial_certificate'), $commercialCertName);
-                $company->commercial_certificate = $commercialCertName;
-            }
-            if ($request->hasFile('licenses') && $request->file('licenses')->isValid()) {
-                $licensesName = time() . '.' . $request->licenses->extension();
-                $request->licenses->move(public_path('licenses'), $licensesName);
-                $company->licenses = $licensesName;
-            }
-
+            // Associate user to the company
             $company->user_id = $user->id;
-            $company->name = $validatedData['name'];
-            $company->register_num = $validatedData['register_num'];
-            $company->phone = $validatedData['phone'];
-            $company->email = $validatedData['email'];
-            $company->password = $hashedPassword;
             $company->save();
 
+            // Return success response
             return response()->json([
                 'message' => 'Company registered successfully.',
-                'Company' => $company,
+                'company' => $company,
             ], 201);
 
         } catch (ValidationException $e) {
@@ -194,4 +195,29 @@ class ApiController extends Controller
             ], 500);
         }
     }
+
+/**
+ * Private function to handle multiple file uploads and store them in a specific folder.
+ */
+    private function uploadFiles($files, $folder)
+    {
+        $uploadedFiles = [];
+
+        // Check if files are present
+        if ($files) {
+            // Ensure files are treated as an array
+            $files = is_array($files) ? $files : [$files];
+
+            // Loop through each file and move them to the designated folder
+            foreach ($files as $file) {
+                $fileName = time() . '_' . uniqid() . '.' . $file->extension();
+                $file->move(public_path($folder), $fileName);
+                $uploadedFiles[] = $fileName; // Store the file name in the array
+            }
+        }
+
+        // Return the array of uploaded file names as a JSON string
+        return json_encode($uploadedFiles);
+    }
+
 }

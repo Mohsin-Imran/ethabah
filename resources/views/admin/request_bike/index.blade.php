@@ -98,16 +98,16 @@
                                 @endif
                             </td>
                             <td class="p-2">
-                                <a href="{{ route('admin.request.bike.declineRequest', $data->id) }}" class="btn-sm btn-primary m-1" title="Decline">
-                                    <i class="fa fa-times"></i>  
+                                <a href="{{ route('admin.investor.request.declineRequest', $data->id) }}" class="btn-sm btn-primary m-1" title="Decline">
+                                    <i class="fa fa-times"></i>
                                     Decline
                                 </a>
-                                <a href="{{ route('admin.request.bike.acceptRequest', $data->id) }}" class="btn-sm btn-success m-1" title="Accept">
+                                <a href="{{ route('admin.investor.request.acceptRequest', $data->id) }}" class="btn-sm btn-success m-1" title="Accept">
                                     <i class="fa fa-check"></i>
                                     Accept
                                 </a>
                                 <a href="{{ route('admin.request.bike.view', $data->id) }}" class="btn-sm btn-info text-white m-1" title="View">
-                                    <i class="fa fa-eye"></i> 
+                                    <i class="fa fa-eye"></i>
                                     View
                                 </a>
                             </td>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InvestorController;
 use App\Http\Controllers\Admin\InvestorFundsController;
+use App\Http\Controllers\Admin\InvestorRequestController;
 use App\Http\Controllers\Admin\RequestBikeController as AdminRequestBikeController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\VehicleFundsController;
@@ -112,6 +113,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     Route::controller(StatisticController::class)->prefix('statistic/')->name('statistic.')->group(function () {
         Route::get('index', 'index')->name('index');
+    });
+
+    Route::controller(InvestorRequestController::class)->prefix('investor/request/')->name('investor.request.')->group(function () {
+        Route::get('index', 'index')->name('index');
+        Route::get('view/{id}', 'view')->name('view');
+        Route::get('accept/{id}', 'acceptRequest')->name('acceptRequest');
+        Route::get('decline/{id}', 'declineRequest')->name('declineRequest');
     });
 });
 

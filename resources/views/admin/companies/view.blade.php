@@ -35,6 +35,7 @@
                     <strong class="text-dark">Register Number</strong>
                     <span class="text-secondary">{{ $company->register_num ?? 'Not Available' }}</span>
                 </div>
+
                 <div class="mt-4 p-1 border-bottom">
                     <strong class="text-dark">Register Certificates</strong>
                     <div class="d-flex flex-row justify-content-end" style="margin: -20px;" id="register-certificates">
@@ -154,6 +155,5 @@
             downloadFile(url);
         });
     }
-
 </script>
 @endsection

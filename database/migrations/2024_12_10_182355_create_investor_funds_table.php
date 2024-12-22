@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('profit');
             $table->string('amount');
+            $table->string('month')->nullable();
+            $table->string('year')->nullable();
             $table->string('profit_percentage');
             $table->longText('duration_of_investment');
             $table->timestamps();

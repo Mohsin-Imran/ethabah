@@ -47,6 +47,8 @@ class InvestorFundsController extends Controller
         $investorFund->profit = $request->profit;
         $investorFund->amount = $request->amount;
         $investorFund->profit_percentage = $request->profit_percentage;
+        $investorFund->month = $request->month;
+        $investorFund->year = $request->year;
         $investorFund->duration_of_investment = $request->duration_of_investment;
         $investorFund->save();
 
@@ -87,6 +89,8 @@ class InvestorFundsController extends Controller
         $investorFund->name = $request->name;
         $investorFund->profit = $request->profit;
         $investorFund->amount = $request->amount;
+        $investorFund->month = $request->month;
+        $investorFund->year = $request->year;
         $investorFund->profit_percentage = $request->profit_percentage;
         $investorFund->duration_of_investment = $request->duration_of_investment;
         $investorFund->save();

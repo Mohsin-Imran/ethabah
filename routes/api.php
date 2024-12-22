@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Api\InvestorRequestController;
+use App\Http\Controllers\Api\ProjectUpdateDocument;
 use App\Http\Controllers\Api\RequestController;
+use App\Models\InvestorRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +34,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/request/store', [RequestController::class, 'store']);
     Route::get('/request/get', [RequestController::class, 'index']);
     Route::get('/request/status/count', [RequestController::class, 'dataCount']);
-
+    Route::post('/investor/request/store', [InvestorRequestController::class, 'store']);
+    Route::post('/project/update/docu', [ProjectUpdateDocument::class, 'store']);
+    Route::get('/project/update/docu/get', [ProjectUpdateDocument::class, 'index']);
 });
 
 // Fallback route

@@ -93,15 +93,15 @@
                     </a>
                     <ul class="sidebar-submenu" style="display: none;">
                         <li>
-                            <a href="#">
-                                <i class="fa fa-circle"></i>
-                                <span>Investors</span>
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ route('admin.investor.index') }}">
                                 <i class="fa fa-circle"></i>
                                 <span>Profiles</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.investor.request.index') }}">
+                                <i class="fa fa-circle"></i>
+                                <span>Requests</span>
                             </a>
                         </li>
                     </ul>

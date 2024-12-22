@@ -37,7 +37,7 @@
                         </div>
                         <div class="dashboard-content">
                             <h5>Total Fund</h5>
-                            <p>Investors <span class="growth">5.2% ↑</span></p>
+                            <p>Investors <span class="growth">{{ $investorFunds ?? '' }}</span></p>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                                     <th style="font-size:14px !important;">Time</th>
                                     {{-- <th style="font-size:14px !important;">Total Funds</th> --}}
                                     <th style="font-size:14px !important;">Status</th>
-                                </tr>
+                                </tr>    
                             </thead>
                             <tbody>
                                 @foreach ($companies as $data)

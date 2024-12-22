@@ -37,7 +37,7 @@
                 </div>
                 <div class="mt-4 p-1 border-bottom">
                     <strong class="text-dark">Passport</strong>
-                    <div class="d-flex flex-row justify-content-end" style="margin: -20px;" id="commercial-certificates">
+                    <div class="d-flex flex-row justify-content-end" id="commercial-certificates">
                         @php
                         $passport = json_decode($investor->passport, true) ?? [];
                         @endphp
@@ -67,7 +67,7 @@
                 </div>
                 <div class="mt-4 p-1 border-bottom">
                     <strong class="text-dark">National ID</strong>
-                    <div class="d-flex flex-row justify-content-end" style="margin: -20px;" id="commercial-certificates">
+                    <div class="d-flex flex-row justify-content-end" id="commercial-certificates">
                         @php
                         $national_id = json_decode($investor->national_id, true) ?? [];
                         @endphp

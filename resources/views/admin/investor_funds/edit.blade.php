@@ -105,7 +105,24 @@
                             </span>
                             @enderror
                         </div>
-
+                        <div class="mb-3 mt-2 col-lg-12">
+                            <label for="month" class="form-label">Month <span style="color: red;">*</span></label>
+                            <input type="number" placeholder="Month" min="1" class="form-control @error('month') is-invalid @enderror" name="month" id="month" value="{{ old('month') }}"value="{{ old('month', $investorFund->month) }}">
+                            @error('month')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3 mt-2 col-lg-12">
+                            <label for="year" class="form-label">Year <span style="color: red;">*</span></label>
+                            <input type="number" placeholder="Year" min="1" class="form-control @error('year') is-invalid @enderror" name="year" id="year" value="{{ old('year') }}"value="{{ old('month', $investorFund->month) }}">
+                            @error('year')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
                         <div class="mb-3 mt-2 col-lg-12">
                             <label class="form-label">Profit will be paid <span style="color: red;">*</span></label>
                             <div>

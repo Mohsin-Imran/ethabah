@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('investment_fund_companies', function (Blueprint $table) {
+        Schema::create('project_updates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('investor_funds_id')->constrained('investor_funds')->cascadeOnDelete();
-            $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete();
+            $table->unsignedBigInteger('user_id');
+            $table->string('update_name');
+            $table->string('project_name');
+            $table->longText('document');
             $table->timestamps();
-
-
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('investment_fund_companies');
+        Schema::dropIfExists('project_updates');
     }
 };
