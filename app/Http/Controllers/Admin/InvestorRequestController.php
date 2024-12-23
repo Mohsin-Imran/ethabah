@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\InvestorRequest;
-use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 
 class InvestorRequestController extends Controller
 {
@@ -16,8 +14,14 @@ class InvestorRequestController extends Controller
     }
     public function view($id)
     {
-        $investorReq = InvestorRequest::find($id);
-        return view('admin.investor_request.view', data: get_defined_vars());
+        $investorReq = InvestorRequest::with('investmentFund.companies')->find(id: $id);
+        if (!$investorReq) {
+            return back()->with('error', 'Investor Request not found.');
+        }
+        $profitPercentage = $investorReq->investmentFund->profit_percentage ?? 0;
+        $calculatedProfit = ($investorReq->amount * $profitPercentage) / 100;
+
+        return view('admin.investor_request.view', compact('investorReq', 'profitPercentage', 'calculatedProfit'));
     }
 
     public function acceptRequest($id)

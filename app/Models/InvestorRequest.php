@@ -15,4 +15,8 @@ class InvestorRequest extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function investmentFund()
+    {
+        return $this->belongsTo(InvestorFunds::class,'investor_funds_id');
+    }
 }

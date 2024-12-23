@@ -5,17 +5,30 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AssignedCompany;
 use App\Models\Category;
-use App\Models\Company;
+use App\Models\InvestmentFundCompany;
 use App\Models\InvestorFunds;
+use App\Models\InvestorRequest;
+use App\Models\RequestBike;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InvestorFundsController extends Controller
 {
     public function index()
     {
-        $investorFunds = InvestorFunds::all();
-        return view('admin.investor_funds.index', get_defined_vars());
+        // $investorFunds = InvestorFunds::all();
+        // $investmentFundCounts = InvestmentFundCompany::select('investor_funds_id', \DB::raw('COUNT(*) as count'))
+        //     ->groupBy('investor_funds_id')
+        //     ->pluck('count', 'investor_funds_id');
+        $investorReqs = InvestorRequest::all();
+        $investorCounts = InvestmentFundCompany::select('investor_funds_id', \DB::raw('COUNT(*) as count'))
+            ->groupBy('investor_funds_id')
+            ->pluck('count', 'investor_funds_id');
+
+        $investorFunds = InvestorFunds::withCount(['investmentFundCompanies as investmentFundCount'])->get();
+
+        return view('admin.investor_funds.index', compact('investorFunds'));
     }
 
     public function create()
@@ -23,7 +36,12 @@ class InvestorFundsController extends Controller
         $investors = User::where('role', 0)->get();
         $assignedCompanies = AssignedCompany::with('company')->get();
         $categories = Category::all();
-        $companies = Company::all();
+
+        $companies = RequestBike::select('company_id', DB::raw('SUM(total_funds) as total_funds'))
+            ->with('company')
+            ->where('status', 1)
+            ->groupBy('company_id')
+            ->get();
         return view('admin.investor_funds.create', get_defined_vars());
     }
 
@@ -34,8 +52,6 @@ class InvestorFundsController extends Controller
             'company_id.*' => 'exists:companies,id',
             'category_id' => 'required|string',
             'name' => 'required|string',
-            'profit' => 'required|string',
-            'amount' => 'required|string',
             'profit_percentage' => 'required|string',
             'duration_of_investment' => 'required|string',
         ]);
@@ -47,8 +63,8 @@ class InvestorFundsController extends Controller
         $investorFund->profit = $request->profit;
         $investorFund->amount = $request->amount;
         $investorFund->profit_percentage = $request->profit_percentage;
+        $investorFund->total_funds = $request->input('total_funds');
         $investorFund->month = $request->month;
-        $investorFund->year = $request->year;
         $investorFund->duration_of_investment = $request->duration_of_investment;
         $investorFund->save();
 
@@ -64,10 +80,14 @@ class InvestorFundsController extends Controller
     }
     public function edit($id)
     {
-        $investorFund = InvestorFunds::findOrFail($id); // Ensures the record exists
+        $investorFund = InvestorFunds::findOrFail($id);
         $investors = User::where('role', 0)->get();
         $categories = Category::all();
-        $companies = Company::all();
+        $companies = RequestBike::select('company_id', DB::raw('SUM(total_funds) as total_funds'))
+            ->with('company') // Ensure the company relationship is eager-loaded
+            ->where('status', 1)
+            ->groupBy('company_id')
+            ->get();
         return view('admin.investor_funds.edit', compact('investorFund', 'investors', 'categories', 'companies'));
     }
 
@@ -78,20 +98,19 @@ class InvestorFundsController extends Controller
             'company_id.*' => 'exists:companies,id',
             'category_id' => 'required|string',
             'name' => 'required|string',
-            'profit' => 'required|string',
-            'amount' => 'required|string',
             'profit_percentage' => 'required|string',
             'duration_of_investment' => 'required|string',
         ]);
 
         $investorFund = InvestorFunds::findOrFail($id);
+        $investorFund->user_id = auth()->user()->id;
         $investorFund->category_id = $request->category_id;
         $investorFund->name = $request->name;
         $investorFund->profit = $request->profit;
         $investorFund->amount = $request->amount;
-        $investorFund->month = $request->month;
-        $investorFund->year = $request->year;
         $investorFund->profit_percentage = $request->profit_percentage;
+        $investorFund->total_funds = $request->input('total_funds');
+        $investorFund->month = $request->month;
         $investorFund->duration_of_investment = $request->duration_of_investment;
         $investorFund->save();
         $investorFund->companies()->sync($request->company_id);

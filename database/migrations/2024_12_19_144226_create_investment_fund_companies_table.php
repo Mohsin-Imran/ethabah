@@ -16,8 +16,6 @@ return new class extends Migration
             $table->foreignId('investor_funds_id')->constrained('investor_funds')->cascadeOnDelete();
             $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete();
             $table->timestamps();
-
-
         });
     }
 

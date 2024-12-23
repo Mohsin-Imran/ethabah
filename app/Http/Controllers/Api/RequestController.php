@@ -36,8 +36,7 @@ class RequestController extends Controller
                 'purpose_of_funding' => 'required|string|max:255',
                 'total_funds' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
-                'request_document' => 'required',
-                'request_document.*' => 'file|mimes:jpg,jpeg,png,pdf|max:2048',
+                // 'request_document' => 'required',
             ]);
 
             $requestData = new RequestBike;
@@ -57,12 +56,15 @@ class RequestController extends Controller
                 }
             }
             $requestData->user_id = auth()->user()->id;
+            $requestData->company_id = auth()->user()->company_id;
             $requestData->name = $validatedData['name'];
             $requestData->category = $validatedData['category'];
             $requestData->purpose_of_funding = $validatedData['purpose_of_funding'];
             $requestData->total_funds = $validatedData['total_funds'];
             $requestData->description = $validatedData['description'];
+            $requestData->request_document = $uploadedFiles ? json_encode($uploadedFiles) : null; // Save file info
             $requestData->save();
+
             return response()->json([
                 'message' => 'Request Bike data saved successfully.',
                 'data' => $requestData,

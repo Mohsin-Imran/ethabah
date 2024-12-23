@@ -32,7 +32,7 @@
                     <div class="d-flex flex-wrap">
                         @if($investorFund->companies->isNotEmpty())
                         @foreach ($investorFund->companies as $company)
-                        <span class="text-secondary badge bg-primary me-2 mb-2">
+                        <span class="text-secondary badge bg-primary text-white me-2 mb-2">
                             {{ $company->name ?? 'Not Available' }}
                         </span>
                         @endforeach
@@ -43,10 +43,9 @@
                         @endif
                     </div>
                 </div>
-
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Amount</strong>
-                    <span class="text-secondary">{{ $investorFund->amount ?? 'Not Available' }}%</span>
+                    <strong class="text-dark">Total Funds</strong>
+                    <span class="text-secondary">{{ $investorFund->total_funds ?? 'Not Available' }}.00</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">Profit Percentage</strong>

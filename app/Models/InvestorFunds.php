@@ -27,5 +27,9 @@ class InvestorFunds extends Model
     {
         return $this->belongsToMany(Company::class, 'investment_fund_companies');
     }
+    public function investmentFundCompanies()
+    {
+        return $this->hasMany(InvestmentFundCompany::class, 'investor_funds_id', 'id');
+    }
 
 }

@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('investor_requests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('investor_funds_id');
             $table->decimal('amount', 15, 2);
-            $table->integer('time_of_investment'); // e.g., months/years
-            $table->string('investment_fund');
+            $table->integer('time_of_investment'); 
+            // $table->string('investment_fund');
             $table->string('start_of_period');
             $table->string('end_of_period');
             $table->string('status')->default(0);

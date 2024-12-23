@@ -62,12 +62,14 @@
 
                         <div class="mb-3 mt-2 col-lg-12">
                             <label for="company" class="form-label">Company <span style="color: red;">*</span></label>
-                            <select name="company_id[]" id="select3" multiple class="form-control @error('company_id') is-invalid @enderror">
-                                <option value="" disabled>Select Company</option>
-                                @foreach ($companies as $company)
-                                    <option value="{{ $company->id }}" {{ in_array($company->id, old('company_id', [])) ? 'selected' : '' }}>
-                                        {{ $company->name }}
-                                    </option>
+                            <select name="company_id[]" id="select3" multiple class="form-control custom-select @error('company_id') is-invalid @enderror">
+                                @foreach ($companies as $requestBike)
+                                @if ($requestBike->company)
+                                <!-- Ensure the relationship exists -->
+                                <option value="{{ $requestBike->company->id }}" data-total-funds="{{ $requestBike->total_funds }}" {{ in_array($requestBike->company->id, old('company_id', [])) ? 'selected' : '' }}>
+                                    {{ $requestBike->company->name }}
+                                </option>
+                                @endif
                                 @endforeach
                             </select>
                             @error('company_id')
@@ -77,9 +79,15 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3 mt-2 col-lg-12">
-                            <label for="amount" class="form-label">Amount <span style="color: red;">*</span></label>
-                            <input type="number" placeholder="Amount"  min="10" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount" value="{{ old('amount') }}">
+
+                        <div class="mb-3 mt-2 col-lg-6">
+                            <label for="amount" class="form-label">Total Funds</label>
+                            <input type="number" placeholder="Total Funds" min="1" class="form-control" name="total_funds" id="total_funds" readonly>
+                        </div>
+
+                        <div class="mb-3 mt-2 col-lg-6">
+                            <label for="amount" class="form-label">Amount</label>
+                            <input type="number" placeholder="Amount" min="1" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount" value="{{ old('amount') }}">
                             @error('amount')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -89,7 +97,7 @@
 
                         <div class="mb-3 mt-2 col-lg-12">
                             <label for="profit_percentage" class="form-label">Profit Percentage <span style="color: red;">*</span></label>
-                            <input type="number" placeholder="Profit Percentage" min="10" class="form-control @error('profit_percentage') is-invalid @enderror" name="profit_percentage" id="profit_percentage" value="{{ old('profit_percentage') }}">
+                            <input type="number" placeholder="Profit Percentage" min="1" class="form-control @error('profit_percentage') is-invalid @enderror" name="profit_percentage" id="profit_percentage" value="{{ old('profit_percentage') }}">
                             @error('profit_percentage')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -97,33 +105,27 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3 mt-2 col-lg-12">
+                        <div class="mb-3 mt-1 col-lg-6">
                             <label for="duration_of_investment" class="form-label">Duration Of Investment <span style="color: red;">*</span></label>
-                            <input type="number" placeholder="Duration Of Investment" class="form-control @error('duration_of_investment') is-invalid @enderror" name="duration_of_investment" id="duration_of_investment" value="{{ old('duration_of_investment') }}">
+                            <select name="duration_of_investment" id="duration_of_investment" class="form-control @error('duration_of_investment') is-invalid @enderror" required>
+                                <option value="">Duration Of Investment</option>
+                                <option value="months">Months</option>
+                            </select>
                             @error('duration_of_investment')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
                         </div>
-                        <div class="mb-3 mt-2 col-lg-12">
-                            <label for="month" class="form-label">Month <span style="color: red;">*</span></label>
-                            <input type="number" placeholder="Month" min="1" class="form-control @error('month') is-invalid @enderror" name="month" id="month" value="{{ old('month') }}">
+                        <div class="col-lg-6" style="margin-top: 33px;">
+                            <input type="number" placeholder="Number" min="1" class="form-control @error('month') is-invalid @enderror" name="month" id="month" value="{{ old('month') }}">
                             @error('month')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
                         </div>
-                        <div class="mb-3 mt-2 col-lg-12">
-                            <label for="year" class="form-label">Year <span style="color: red;">*</span></label>
-                            <input type="number" placeholder="Year" min="1" class="form-control @error('year') is-invalid @enderror" name="year" id="year" value="{{ old('year') }}">
-                            @error('year')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
+
                         <div class="mb-3 mt-2 col-lg-12">
                             <label class="form-label">Profit will be paid <span style="color: red;">*</span></label>
                             <div>

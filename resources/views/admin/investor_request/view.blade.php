@@ -24,13 +24,38 @@
                     <span class="text-secondary">{{ $investorReq->user->name ?? 'Not Available' }}</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <strong class="text-dark">Investment Fund Name</strong>
+                    <span class="text-secondary">{{ $investorReq->investmentFund->name ?? 'Not Available' }} <a href="{{ route('admin.investor.funds.view',$investorReq->investor_funds_id) }}" class="btn-sm btn-primary">View</a> </span>
+                </div>
+                {{-- <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <strong class="text-dark">Company Name</strong>
+                    <div class="d-flex flex-wrap">
+                        @if($investorReq->investmentFund->companies->isNotEmpty())
+                            @foreach ($investorReq->investmentFund->companies as $company)
+                                <span class="text-secondary badge bg-primary text-white me-2 mb-2">
+                                    {{ $company->name ?? 'Not Available' }}
+                                </span>
+                            @endforeach
+                        @else
+                            <span class="text-secondary badge bg-warning">
+                                Not Available
+                            </span>
+                        @endif
+                    </div>
+                </div> --}}
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">Amount</strong>
                     <span class="text-secondary">{{ $investorReq->amount ?? 'Not Available' }}</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Investment Fund Name</strong>
-                    <span class="text-secondary">{{ $investorReq->investment_fund ?? 'Not Available' }}</span>
+                    <strong class="text-dark">Profit Percentage</strong>
+                    <span class="text-secondary">{{ $profitPercentage ?? 'Not Available' }}%</span>
                 </div>
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <strong class="text-dark">Total Profit Amount</strong>
+                    <span class="text-secondary">{{ $calculatedProfit ?? 'Not Available' }}</span>
+                </div>
+
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">Time Of Investment</strong>
                     <span class="text-secondary">{{ $investorReq->time_of_investment ?? 'Not Available' }}</span>

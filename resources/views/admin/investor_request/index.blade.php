@@ -37,7 +37,7 @@
                             <th>Amount</th>
                             <th>Time Of Investment</th>
                             <th>Investment Fund</th>
-                            <th>Status</th>
+                            {{-- <th>Status</th> --}}
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -48,22 +48,22 @@
                             <td>{{ $data->amount ?? 'N/A'}}</td>
                             <td>{{ $data->time_of_investment ?? 'N/A'}}</td>
                             <td>{{ $data->investment_fund ?? 'N/A'}}</td>
-                            <td class="p-1">
+                            {{-- <td class="p-1">
                                 @if($data->status == 1)
                                 <span class="badge bg-success">Accept</span>
                                 @else
                                 <span class="badge bg-danger">Decline</span>
                                 @endif
-                            </td>
+                            </td> --}}
                             <td class="p-2">
-                                <a href="{{ route('admin.investor.request.declineRequest', $data->id) }}" class="btn-sm btn-primary m-1" title="Decline">
-                                    <i class="fa fa-times"></i>
+                                {{-- <a href="{{ route('admin.investor.request.declineRequest', $data->id) }}" class="btn-sm btn-primary m-1" title="Decline"> --}}
+                                    {{-- <i class="fa fa-times"></i>
                                     Decline
                                 </a>
                                 <a href="{{ route('admin.investor.request.acceptRequest', $data->id) }}" class="btn-sm btn-success m-1" title="Accept">
                                     <i class="fa fa-check"></i>
                                     Accept
-                                </a>
+                                </a> --}}
                                 <a href="{{ route('admin.investor.request.view', $data->id) }}" class="btn-sm btn-info text-white m-1" title="View">
                                     <i class="fa fa-eye"></i>
                                     View

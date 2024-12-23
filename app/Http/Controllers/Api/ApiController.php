@@ -132,7 +132,6 @@ class ApiController extends Controller
     public function store(Request $request)
     {
         try {
-            // Validate incoming request data
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required|string',
@@ -147,37 +146,30 @@ class ApiController extends Controller
                 'register_num' => 'required|string',
             ]);
 
-            // Hash the password
             $hashedPassword = bcrypt($request->password);
-
-            // Initialize company object
             $company = new Company();
-
-            // Handle file uploads using private method for each category
             $company->register_certificate = $this->uploadFiles($request->file('register_certificate'), 'register_certificate');
             $company->commercial_certificate = $this->uploadFiles($request->file('commercial_certificate'), 'commercial_certificate');
             $company->licenses = $this->uploadFiles($request->file('licenses'), 'licenses');
 
-            // Save company information
             $company->name = $validatedData['name'];
             $company->phone = $validatedData['phone'];
             $company->register_num = $validatedData['register_num'];
             $company->email = $validatedData['email'];
             $company->password = $hashedPassword;
+            $company->save();
 
-            // Save user information
             $user = new User();
             $user->name = $validatedData['name'];
             $user->email = $validatedData['email'];
             $user->password = $hashedPassword;
-            $user->role = 2; // Adjust the role as needed
+            $user->company_id = $company->id;
+            $user->role = 2;
             $user->save();
 
-            // Associate user to the company
             $company->user_id = $user->id;
             $company->save();
 
-            // Return success response
             return response()->json([
                 'message' => 'Company registered successfully.',
                 'company' => $company,
@@ -196,27 +188,17 @@ class ApiController extends Controller
         }
     }
 
-/**
- * Private function to handle multiple file uploads and store them in a specific folder.
- */
     private function uploadFiles($files, $folder)
     {
         $uploadedFiles = [];
-
-        // Check if files are present
         if ($files) {
-            // Ensure files are treated as an array
             $files = is_array($files) ? $files : [$files];
-
-            // Loop through each file and move them to the designated folder
             foreach ($files as $file) {
                 $fileName = time() . '_' . uniqid() . '.' . $file->extension();
                 $file->move(public_path($folder), $fileName);
-                $uploadedFiles[] = $fileName; // Store the file name in the array
+                $uploadedFiles[] = $fileName;
             }
         }
-
-        // Return the array of uploaded file names as a JSON string
         return json_encode($uploadedFiles);
     }
 
