@@ -1,5 +1,9 @@
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script>
@@ -13,14 +17,14 @@
 
     // Add checkboxes to dropdown options
     function formatOption(option) {
-    if (!option.id) {
-        return option.text;
+        if (!option.id) {
+            return option.text;
+        }
+        var $option = $(
+            '<span><input type="checkbox" style="margin-right: 8px;">' + option.text + '</span>'
+        );
+        return $option;
     }
-    var $option = $( 
-        '<span><input type="checkbox" style="margin-right: 8px;">' + option.text + '</span>'
-    );
-    return $option;
-}
 
     // Manage selection when checkboxes are clicked
     $(document).on('click', '.select2-results__option', function (e) {
@@ -41,22 +45,14 @@
         }
         select.val(val).trigger('change');
         e.stopPropagation();
-        
         let totalFunds = 0;
-        let amount = 0;
-        
-        val.forEach(function (id) {
-            const option = select.find(`option[value="${id}"]`);
-            totalFunds += parseFloat(option.data('total-funds')) || 0;
-            amount += parseFloat(option.data('total-funds')) || 0;
-        });
-
-        $('#total_funds').val(totalFunds);
-        $('#amount').val(amount);  // This ensures that 'Amount' is updated with the total funds value
+    val.forEach(function (id) {
+        const option = select.find(`option[value="${id}"]`);
+        totalFunds += parseFloat(option.data('total-funds')) || 0;
     });
 
-
-        
+    $('#total_funds').val(totalFunds);
+    });
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

@@ -87,12 +87,7 @@
 
                         <div class="mb-3 mt-2 col-lg-6">
                             <label for="amount" class="form-label">Amount</label>
-                            <input type="number" placeholder="Amount" min="1" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount" value="{{ old('amount') }}">
-                            @error('amount')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                            <input type="number" placeholder="Amount" min="1" value="total_funds value auto pouplate user select company" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount" value="{{ old('amount') }}">
                         </div>
 
                         <div class="mb-3 mt-2 col-lg-12">

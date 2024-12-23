@@ -9,16 +9,15 @@ use App\Http\Controllers\Admin\InvestorController;
 use App\Http\Controllers\Admin\InvestorFundsController;
 use App\Http\Controllers\Admin\InvestorRequestController;
 use App\Http\Controllers\Admin\RequestBikeController as AdminRequestBikeController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\VehicleFundsController;
+use App\Http\Controllers\Company\CompanyController as CompanyCompanyController;
 use App\Http\Controllers\Company\DashboardController as CompanyDashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Customer\BikeController as CustomerBikeController;
-use App\Http\Controllers\Customer\DashboardController as CustomerDashboardController;
-use App\Http\Controllers\Company\CompanyController as CompanyCompanyController;
-use App\Http\Controllers\Customer\RequestBikeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -36,8 +35,6 @@ Route::get('/', function () {
 
 Route::get('register/company', [CompanyCompanyController::class, 'index'])->name('company.register');
 Route::post('register/company', [CompanyCompanyController::class, 'register'])->name('company.register');
-
-
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -91,9 +88,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('edit/{id}', 'edit')->name('edit');
         Route::post('update/{id}', 'update')->name('update');
         Route::get('destroy/{id}', 'destroy')->name('destroy');
-        Route::get('getCompaniesByCategory',  'getCompaniesByCategory')->name('getCompaniesByCategory');
+        Route::get('getCompaniesByCategory', 'getCompaniesByCategory')->name('getCompaniesByCategory');
     });
-
 
     Route::controller(AssignedCompanyController::class)->prefix('assigned/company')->name('assigned.company.')->group(function () {
         Route::get('index', 'index')->name('index');
@@ -121,9 +117,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::get('accept/{id}', 'acceptRequest')->name('acceptRequest');
         Route::get('decline/{id}', 'declineRequest')->name('declineRequest');
     });
+
+    Route::controller(SettingController::class)->prefix('setting/')->name('setting.')->group(function () {
+        Route::get('edit', 'edit')->name('edit');
+        Route::post('update', 'update')->name('update');
+    });
 });
-
-
 
 Route::middleware(['auth', 'company'])->prefix('company')->name('company.')->group(function () {
     Route::get('dashboard', [CompanyDashboardController::class, 'index'])->name('company.dashboard');

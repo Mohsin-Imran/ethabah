@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('request_bikes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('company_id')->nullable();
             $table->string('name');
             $table->string('category');
             $table->string('purpose_of_funding');

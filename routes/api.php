@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Api\InvestorFundsController;
 use App\Http\Controllers\Api\InvestorRequestController;
 use App\Http\Controllers\Api\ProjectUpdateDocument;
 use App\Http\Controllers\Api\RequestController;
@@ -37,6 +38,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/investor/request/store', [InvestorRequestController::class, 'store']);
     Route::post('/project/update/docu', [ProjectUpdateDocument::class, 'store']);
     Route::get('/project/update/docu/get', [ProjectUpdateDocument::class, 'index']);
+    Route::get('/investment/funds/get', [InvestorFundsController::class, 'index']);
+    Route::get('/investment/funds/name/get', [InvestorFundsController::class, 'investmentFundsNames']);
 });
 
 // Fallback route

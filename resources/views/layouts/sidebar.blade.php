@@ -2,9 +2,9 @@
     <div class="page-sidebar ">
         <div class="main-header-left d-lg-block" style="background-color: #214d45;">
             <div class="logo-wrapper">
-                <a href="index.html">
+                {{-- <a href="index.html">
                     <img class="img-fluid" style="height: 100px !important; position: relative;right: 0px;" src="{{ asset('logo.png') }}" alt="Personal Portfolio Images">
-                </a>
+                </a> --}}
                 {{-- <a href="#" class="mt-3" style="font-size: 30px; color: #214d45; text-decoration: none;">
                  شمعات
              </a> --}}
@@ -74,15 +74,15 @@
                         </li>
                     </ul>
                 </li>
-                {{-- <li>
+                <li>
                     <a class="sidebar-header" href="{{ route('admin.assigned.company.index') }}" style="{{ request()->routeIs('admin.assigned.company.index') ? 'background-color: white; color: #214d45;' : '' }}">
-                <!-- New SVG (Home Icon) -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                    <path d="M3 12l2-2V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6l2 2 7-7-9-9-9 9 7 7z"></path>
-                </svg>
-                <span>Investor Funds Companies</span>
-                </a>
-                </li> --}}
+                        <!-- New SVG (Home Icon) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                            <path d="M3 12l2-2V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6l2 2 7-7-9-9-9 9 7 7z"></path>
+                        </svg>
+                        <span>Investor Funds Companies</span>
+                    </a>
+                </li>
                 <li class="">
                     <a class="sidebar-header" href="{{ route('admin.investor.index') }}" style="{{ request()->routeIs('admin.investor.index') ? 'background-color: white; color: #214d45;' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -134,9 +134,8 @@
                     </a>
                 </li>
 
-
                 <li>
-                    <a class="sidebar-header" href="#">
+                    <a class="sidebar-header" href="{{ route('admin.setting.edit') }}" style="{{ request()->routeIs('admin.setting.edit') ? 'background-color: white; color: #214d45;' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                             <circle cx="12" cy="12" r="3"></circle>
                             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H10a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V10a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
