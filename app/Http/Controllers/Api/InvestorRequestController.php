@@ -16,7 +16,6 @@ class InvestorRequestController extends Controller
             $validatedData = $request->validate([
                 'amount' => 'required|numeric',
                 'time_of_investment' => 'required',
-                'investment_fund' => 'required|string',
                 'end_of_period' => 'required',
                 'investor_funds_id' => 'required',
                 'start_of_period' => 'required',
@@ -29,7 +28,6 @@ class InvestorRequestController extends Controller
             $investment->amount = $validatedData['amount'];
             $investment->end_of_period = $validatedData['end_of_period'];
             $investment->time_of_investment = $validatedData['time_of_investment'];
-            $investment->investment_fund = $validatedData['investment_fund'];
             $investment->start_of_period = $validatedData['start_of_period'];
             $investment->save();
 

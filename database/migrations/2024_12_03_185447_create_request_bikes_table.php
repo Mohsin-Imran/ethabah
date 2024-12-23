@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('purpose_of_funding');
             $table->string('total_funds');
             $table->string('description');
-            $table->json('request_document');
+            $table->json('request_document')->nullable();
             $table->string('status')->default(0);
             $table->timestamps();
         });
