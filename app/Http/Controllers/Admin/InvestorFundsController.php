@@ -17,19 +17,19 @@ class InvestorFundsController extends Controller
 {
     public function index()
     {
-        // $investorFunds = InvestorFunds::all();
-        // $investmentFundCounts = InvestmentFundCompany::select('investor_funds_id', \DB::raw('COUNT(*) as count'))
-        //     ->groupBy('investor_funds_id')
-        //     ->pluck('count', 'investor_funds_id');
-        $investorReqs = InvestorRequest::all();
-        $investorCounts = InvestmentFundCompany::select('investor_funds_id', \DB::raw('COUNT(*) as count'))
+        $investorCounts = InvestorRequest::select('investor_funds_id', \DB::raw('COUNT(*) as count'))
             ->groupBy('investor_funds_id')
             ->pluck('count', 'investor_funds_id');
-
         $investorFunds = InvestorFunds::withCount(['investmentFundCompanies as investmentFundCount'])->get();
+
+        // Attach investor counts to each fund
+        foreach ($investorFunds as $fund) {
+            $fund->investorCounts = $investorCounts[$fund->id] ?? 0; // Default to 0 if no investors
+        }
 
         return view('admin.investor_funds.index', compact('investorFunds'));
     }
+
 
     public function create()
     {
@@ -76,7 +76,8 @@ class InvestorFundsController extends Controller
     public function view($id)
     {
         $investorFund = InvestorFunds::with('companies')->findOrFail($id);
-        return view('admin.investor_funds.view', compact('investorFund'));
+        $amountSum = InvestorRequest::where('investor_funds_id',$id)->sum('amount');
+        return view('admin.investor_funds.view', compact('investorFund','amountSum'));
     }
     public function edit($id)
     {

@@ -7,34 +7,40 @@ use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class ProfileController extends Controller
 {
 
-    public function index()
+    public function view()
     {
-        return view('company.register');
+        $id = auth()->user()->id;
+        $profile = User::with('company')->find(id: $id);
+        return view('company.profile.view', compact('profile'));
     }
-
-    public function register(Request $request)
+    public function edit()
+    {
+        $id = auth()->user()->id;
+        $profile = User::with('company')->find(id: $id);
+        // dd($profile);
+        return view('company.profile.edit', compact('profile'));
+    }
+    public function update(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required',
-            'register_certificate.*' => 'required',
-            'commercial_certificate.*' => 'required',
-            'licenses.*' => 'file',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
+            'register_certificate.*' => 'nullable|file',
+            'commercial_certificate.*' => 'nullable|file',
+            'licenses.*' => 'nullable|file',
+            'email' => 'required|email|unique:users,email,' . auth()->user()->id,
             'register_num' => 'required|string',
         ]);
 
-        $hashedPassword = bcrypt($request->password);
+        $user = auth()->user();
+        $company = Company::where('user_id', $user->id)->firstOrFail();
 
-        $company = new Company();
-
-        // Save Multiple Register Certificates
-        $registerCertificates = [];
+        // Update Multiple Register Certificates (if new files are provided)
         if ($request->hasFile('register_certificate')) {
+            $registerCertificates = [];
             foreach ($request->file('register_certificate') as $file) {
                 $fileName = time() . '_' . uniqid() . '.' . $file->extension();
                 $file->move(public_path('register_certificate'), $fileName);
@@ -43,9 +49,9 @@ class CompanyController extends Controller
             $company->register_certificate = json_encode($registerCertificates);
         }
 
-        // Save Multiple Commercial Certificates
-        $commercialCertificates = [];
+        // Update Multiple Commercial Certificates (if new files are provided)
         if ($request->hasFile('commercial_certificate')) {
+            $commercialCertificates = [];
             foreach ($request->file('commercial_certificate') as $file) {
                 $fileName = time() . '_' . uniqid() . '.' . $file->extension();
                 $file->move(public_path('commercial_certificate'), $fileName);
@@ -54,9 +60,9 @@ class CompanyController extends Controller
             $company->commercial_certificate = json_encode($commercialCertificates);
         }
 
-        // Save Multiple Licenses
-        $licenses = [];
+        // Update Multiple Licenses (if new files are provided)
         if ($request->hasFile('licenses')) {
+            $licenses = [];
             foreach ($request->file('licenses') as $file) {
                 $fileName = time() . '_' . uniqid() . '.' . $file->extension();
                 $file->move(public_path('licenses'), $fileName);
@@ -65,24 +71,18 @@ class CompanyController extends Controller
             $company->licenses = json_encode($licenses);
         }
 
+        // Update company and user details
         $company->name = $request->name;
         $company->register_num = $request->register_num;
         $company->phone = $request->phone;
         $company->email = $request->email;
-        $company->password = $hashedPassword;
-        $company->save(); // Save company to generate its ID
+        $company->save();
 
-        $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $hashedPassword;
-        $user->role = 2;
-        $user->company_id = $company->id;
         $user->save();
-        $company->user_id = $user->id;
-        $company->save();
-        auth()->login($user);
-        return redirect()->route('company.company.dashboard')->with('message', 'Data updated successfully');
+
+        return redirect()->back()->with('message', 'Data updated successfully');
     }
 
 }

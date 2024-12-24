@@ -48,7 +48,7 @@
                         </div>
                         <div class="d-flex flex-row justify-content-between">
                             <p class="text-white">Number Of Investors</p>
-                            <p class="text-white">{{ $data->number_of_investors ?? 'Not Available' }}</p>
+                            <p class="text-white">{{ $data->investorCounts ?? 'Not Available' }}</p>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
                             <p class="text-white">Profit</p>

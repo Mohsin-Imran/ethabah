@@ -48,6 +48,25 @@
                     <span class="text-secondary">{{ $investorFund->total_funds ?? 'Not Available' }}.00</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <strong class="text-dark">Total Received Funds</strong>
+                    <span class="text-secondary">{{ $amountSum ?? 'Not Available' }}</span>
+                </div>
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <strong class="text-dark">Status</strong>
+                    <span class="text-secondary">
+                        @if(isset($investorFund->total_funds) && isset($amountSum))
+                        @if($amountSum >= $investorFund->total_funds)
+                        <span class="text-secondary badge bg-info text-white">Start</span>
+                        @else
+                        <span class="text-secondary badge bg-warning text-white">Waiting</span>
+                        @endif
+                        @else
+                        Not Available
+                        @endif
+                    </span>
+                </div>
+
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">Profit Percentage</strong>
                     <span class="text-secondary">{{ $investorFund->profit_percentage ?? 'Not Available' }}%</span>
                 </div>

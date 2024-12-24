@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\VehicleFundsController;
 use App\Http\Controllers\Company\CompanyController as CompanyCompanyController;
 use App\Http\Controllers\Company\DashboardController as CompanyDashboardController;
+use App\Http\Controllers\Company\ProfileController;
+use App\Http\Controllers\Company\RequestController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -130,4 +132,17 @@ Route::middleware(['auth', 'company'])->prefix('company')->name('company.')->gro
     // Route::controller(CompanyCompanyController::class)->group(function () {
     //     Route::post('register', 'register')->name('register');
     // });
+
+    Route::controller(ProfileController::class)->prefix('profile/')->name('profile.')->group(function () {
+        Route::get('view', 'view')->name('view');
+        Route::get('edit', 'edit')->name('edit');
+        Route::post('update', 'update')->name('update');
+    });
+
+    Route::controller(RequestController::class)->prefix('request/')->name('request.')->group(function () {
+        Route::get('index', 'index')->name('index');
+        Route::get('view/{id}', 'view')->name('view');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+    });
 });

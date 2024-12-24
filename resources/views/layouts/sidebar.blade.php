@@ -74,15 +74,15 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                {{-- <li>
                     <a class="sidebar-header" href="{{ route('admin.assigned.company.index') }}" style="{{ request()->routeIs('admin.assigned.company.index') ? 'background-color: white; color: #214d45;' : '' }}">
-                        <!-- New SVG (Home Icon) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                            <path d="M3 12l2-2V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6l2 2 7-7-9-9-9 9 7 7z"></path>
-                        </svg>
-                        <span>Investor Funds Companies</span>
-                    </a>
-                </li>
+                <!-- New SVG (Home Icon) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                    <path d="M3 12l2-2V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6l2 2 7-7-9-9-9 9 7 7z"></path>
+                </svg>
+                <span>Investor Funds Companies</span>
+                </a>
+                </li> --}}
                 <li class="">
                     <a class="sidebar-header" href="{{ route('admin.investor.index') }}" style="{{ request()->routeIs('admin.investor.index') ? 'background-color: white; color: #214d45;' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -165,6 +165,26 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+                <li>
+                    <a class="sidebar-header" href="{{ route('company.profile.view') }}" style="{{ request()->routeIs('company.profile.view') ? 'background-color: white; color: #214d45;' : '' }}">
+                        <!-- Updated SVG for Profile -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"></path>
+                            <path d="M12 14c-3.31 0-6 1.69-6 3v1h12v-1c0-1.31-2.69-3-6-3z"></path>
+                        </svg>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="sidebar-header" href="{{ route('company.request.index') }}" style="{{ request()->routeIs('company.request.index') ? 'background-color: white; color: #214d45;' : '' }}">
+                        <!-- Updated SVG for Request -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <span>Request</span>
+                    </a>
+                </li>
+
                 <li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf

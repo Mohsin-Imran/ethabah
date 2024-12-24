@@ -28,7 +28,7 @@ class InvestorFundsController extends Controller
     public function investmentFundsNames()
     {
         try {
-            $investmentFunds = InvestorFunds::select('name')->get();
+            $investmentFunds = InvestorFunds::select('name','id')->get();
             return response()->json([
                 'success' => true,
                 'message' => 'Investment Funds Names retrieved successfully.',
