@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\InvestmentFundCompany;
 use App\Models\InvestorRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -38,7 +37,6 @@ class InvestorRequestController extends Controller
             //     $investmentFundCompany->update();
             // }
 
-
             return response()->json([
                 'message' => 'Investment created successfully.', 'investment' => $investment], 201);
 
@@ -55,4 +53,46 @@ class InvestorRequestController extends Controller
             ], 500);
         }
     }
+
+    public function getInvestorData()
+    {
+        try {
+            // Fetching data with necessary relationships
+            $data = InvestorRequest::with('investmentFund.investmentFundCompanies.company')
+                ->get()
+                ->map(function ($investorRequest) {
+                    return [
+                        'id' => $investorRequest->id,
+                        'company_names' => $investorRequest->investmentFund
+                            ->investmentFundCompanies
+                            ->pluck('company.name'), // Extract only the company names
+                        'other_data' => $investorRequest->only([ // Corrected 'onle' to 'only'
+                            'id',
+                            'user_id',
+                            'investor_funds_id',
+                            'amount',
+                            'time_of_investment',
+                            'start_of_period',
+                            'end_of_period',
+                            'status',
+                            'created_at',
+                            'updated_at',
+                        ]),
+                    ];
+                });
+
+            return response()->json([
+                'success' => true,
+                'message' => 'All Investor Requests retrieved successfully.',
+                'data' => $data,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching Investor Requests.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
 }

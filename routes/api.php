@@ -37,9 +37,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/request/status/count', [RequestController::class, 'dataCount']);
     Route::post('/investor/request/store', [InvestorRequestController::class, 'store']);
     Route::post('/project/update/docu', [ProjectUpdateDocument::class, 'store']);
+    Route::get('/project/investor/docu/get', [ProjectUpdateDocument::class, 'getInvestorDoc']);
     Route::get('/project/update/docu/get', [ProjectUpdateDocument::class, 'index']);
     Route::get('/investment/funds/get', [InvestorFundsController::class, 'index']);
     Route::get('/investment/funds/name/get', [InvestorFundsController::class, 'investmentFundsNames']);
+    Route::get('/investor/request/data/get', [InvestorRequestController::class, 'getInvestorData']);
 });
 
 // Fallback route

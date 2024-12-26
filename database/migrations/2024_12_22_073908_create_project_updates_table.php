@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('project_updates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('company_id');
             $table->string('update_name');
             $table->string('project_name');
             $table->longText('document');

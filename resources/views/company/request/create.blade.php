@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="mb-3 mt-2 col-lg-6">
-                            <label for="request_document" class="form-label">Request Document <span style="color: red;">*</span></label>
+                            <label for="request_document" class="form-label">Request Document</span></label>
                             <input id="request_document" type="file" class="form-control @error('request_document') is-invalid @enderror" name="request_document[]" multiple>
                             @error('request_document')
                             <span class="invalid-feedback" role="alert">
@@ -91,7 +91,7 @@
                         </div>
 
                         <div class="mb-3 mt-2 col-lg-6">
-                            <label for="description" class="form-label">Description <span style="color: red;">*</span></label>
+                            <label for="description" class="form-label">Description</label>
                            <textarea name="description" id="" placeholder="Description" class="form-control"></textarea>
                         </div>
                     </div>

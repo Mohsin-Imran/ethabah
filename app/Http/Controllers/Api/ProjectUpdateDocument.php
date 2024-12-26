@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\InvestorRequest;
 use App\Models\ProjectUpdate;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -13,17 +14,17 @@ class ProjectUpdateDocument extends Controller
     public function index()
     {
         try {
-            $projectDocuments = ProjectUpdate::where('user_id',auth()->user()->id)->get();
+            $projectDocuments = ProjectUpdate::where('user_id', auth()->user()->id)->get();
             return response()->json([
                 'success' => true,
                 'message' => 'projectDocuments retrieved successfully.',
-                'data' => $projectDocuments
+                'data' => $projectDocuments,
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while fetching categories.',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -43,6 +44,7 @@ class ProjectUpdateDocument extends Controller
                 $project->document = $documentName;
             }
             $project->user_id = auth()->user()->id;
+            $project->company_id = auth()->user()->company_id;
             $project->update_name = $validatedData['update_name'];
             $project->project_name = $validatedData['project_name'];
             $project->save();
@@ -60,6 +62,35 @@ class ProjectUpdateDocument extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'An unexpected error occurred.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getInvestorDoc()
+    {
+        try {
+            // Fetching data with necessary relationships
+            $data = InvestorRequest::with('investmentFund.investmentFundCompanies.company')
+                ->get()
+                ->flatMap(function ($investorRequest) {
+                    return $investorRequest->investmentFund
+                        ->investmentFundCompanies
+                        ->pluck('company.id');
+                })
+                ->toArray(); // Flatten and convert to array
+
+            $projectDocuments = ProjectUpdate::whereIn('company_id', $data)->get();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'All Investor Requests retrieved successfully.',
+                'data' => $projectDocuments,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching Investor Requests.',
                 'error' => $e->getMessage(),
             ], 500);
         }
