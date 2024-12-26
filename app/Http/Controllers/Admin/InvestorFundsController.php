@@ -75,9 +75,10 @@ class InvestorFundsController extends Controller
 
     public function view($id)
     {
-        $investorFund = InvestorFunds::with('companies')->findOrFail($id);
+        $investorFund = InvestorFunds::with('investmentFundCompanies')->findOrFail($id);
         $amountSum = InvestorRequest::where('investor_funds_id',$id)->sum('amount');
-        return view('admin.investor_funds.view', compact('investorFund','amountSum'));
+        $investorRequest = InvestorRequest::with('user')->where('investor_funds_id',$id)->get();
+        return view('admin.investor_funds.view', compact('investorFund','amountSum','investorRequest'));
     }
     public function edit($id)
     {

@@ -23,50 +23,50 @@
     </div>
 </div> --}}
 
-<div class="container-fluid">
+<div class="container-fluid" dir="rtl" lang="ar">
     <div class="row">
         <div class="card p-2">
             <div class="card-header p-2 bg-primary">
-                <h3 class="mb-0 text-white">Investors Request</h3>
+                <h3 class="mb-0 text-white">طلبات المستثمرين</h3>
             </div>
             <div class="table-responsive mt-4">
                 <table id="example" class="tabel table-bordered  table-hover  table-striped">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Amount</th>
-                            <th>Time Of Investment</th>
-                            <th>Investment Fund</th>
-                            {{-- <th>Status</th> --}}
-                            <th>Action</th>
+                            <th>الاسم</th>
+                            <th>المبلغ</th>
+                            <th>وقت الاستثمار</th>
+                            <th>صندوق الاستثمار</th>
+                            {{-- <th>الحالة</th> --}}
+                            <th>الإجراءات</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($investorReqs as $data)
                         <tr>
-                            <td>{{ $data->user->name ?? 'N/A'}}</td>
-                            <td>{{ $data->amount ?? 'N/A'}}</td>
-                            <td>{{ $data->time_of_investment ?? 'N/A'}}</td>
-                            <td>{{ $data->investment_fund ?? 'N/A'}}</td>
+                            <td>{{ $data->user->name ?? 'غير متوفر'}}</td>
+                            <td>{{ $data->amount ?? 'غير متوفر'}}</td>
+                            <td>{{ $data->time_of_investment ?? 'غير متوفر'}}</td>
+                            <td>{{ $data->investment_fund ?? 'غير متوفر'}}</td>
                             {{-- <td class="p-1">
                                 @if($data->status == 1)
-                                <span class="badge bg-success">Accept</span>
+                                <span class="badge bg-success">مقبول</span>
                                 @else
-                                <span class="badge bg-danger">Decline</span>
+                                <span class="badge bg-danger">مرفوض</span>
                                 @endif
                             </td> --}}
                             <td class="p-2">
-                                {{-- <a href="{{ route('admin.investor.request.declineRequest', $data->id) }}" class="btn-sm btn-primary m-1" title="Decline"> --}}
+                                {{-- <a href="{{ route('admin.investor.request.declineRequest', $data->id) }}" class="btn-sm btn-primary m-1" title="رفض"> --}}
                                     {{-- <i class="fa fa-times"></i>
-                                    Decline
+                                    رفض
                                 </a>
-                                <a href="{{ route('admin.investor.request.acceptRequest', $data->id) }}" class="btn-sm btn-success m-1" title="Accept">
+                                <a href="{{ route('admin.investor.request.acceptRequest', $data->id) }}" class="btn-sm btn-success m-1" title="قبول">
                                     <i class="fa fa-check"></i>
-                                    Accept
+                                    قبول
                                 </a> --}}
-                                <a href="{{ route('admin.investor.request.view', $data->id) }}" class="btn-sm btn-info text-white m-1" title="View">
+                                <a href="{{ route('admin.investor.request.view', $data->id) }}" class="btn-sm btn-info text-white m-1" title="عرض">
                                     <i class="fa fa-eye"></i>
-                                    View
+                                    عرض
                                 </a>
                             </td>
                             {{-- <td class="p-1">
@@ -76,19 +76,19 @@
                             </td> --}}
                         </tr>
 
-                        <!-- Modal -->
+                        <!-- مودال -->
                         <div class="modal fade" id="modalIdDelete{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content p-2">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="modalTitleId">
-                                            Delete Investor
+                                            حذف المستثمر
                                         </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-user mt-3">
-                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                                        <a class="btn btn-primary btn-sm" href="{{ route('admin.investor.destroy', ['id' => $data->id]) }}">Delete</a>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">إغلاق</button>
+                                        <a class="btn btn-primary btn-sm" href="{{ route('admin.investor.destroy', ['id' => $data->id]) }}">حذف</a>
                                     </div>
                                 </div>
                             </div>
@@ -103,4 +103,5 @@
         </div>
     </div>
 </div>
+
 @endsection

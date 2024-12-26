@@ -16,29 +16,28 @@
     <div class="row justify-content-center">
         <div class="card p-4 shadow-sm border-0" style="background: #f4f4f4;">
             <div class="card-header p-2 bg-primary text-white arabic-text">
-                <h3 class="mb-0 text-white">Company Profile</h3>
+                <h3 class="mb-0 text-white">ملف الشركة</h3>
             </div>
             <div class="card-body bg-white" style="border-radius: 0 0 15px 15px;">
                 <div class="d-flex flex-row justify-content-between mt-1 p-1 border-bottom">
-                    <strong class="text-dark">Name</strong>
-                    <span class="text-secondary">{{ $company->user->name ?? 'Not Available' }}</span>
+                    <span class="text-secondary">{{ $company->user->name ?? 'غير متوفر' }}</span>
+                    <strong class="text-dark">الاسم</strong>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Email</strong>
-                    <span class="text-secondary">{{ $company->user->email ?? 'Not Available' }}</span>
+                    <span class="text-secondary">{{ $company->user->email ?? 'غير متوفر' }}</span>
+                    <strong class="text-dark">البريد الإلكتروني</strong>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Phone</strong>
-                    <span class="text-secondary">{{ $company->phone ?? 'Not Available' }}</span>
+                    <span class="text-secondary">{{ $company->phone ?? 'غير متوفر' }}</span>
+                    <strong class="text-dark">رقم الهاتف</strong>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Register Number</strong>
-                    <span class="text-secondary">{{ $company->register_num ?? 'Not Available' }}</span>
+                    <span class="text-secondary">{{ $company->register_num ?? 'غير متوفر' }}</span>
+                    <strong class="text-dark">رقم التسجيل</strong>
                 </div>
 
                 <div class="mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Register Certificates</strong>
-                    <div class="d-flex flex-row justify-content-end" style="margin: -20px;" id="register-certificates">
+                    <div class="d-flex flex-row justify-content-start" id="register-certificates">
                         @php
                         $registerCertificates = json_decode($company->register_certificate, true) ?? [];
                         @endphp
@@ -64,12 +63,11 @@
                         @endforeach
                         <button class="btn-sm btn-primary h-25" onclick="downloadAll('register-certificates')"><i class="fa fa-download"></i></button>
                     </div>
-                    <br>
+                    <strong style="float: right; position: relative; top: -40px;">Register Certificates</strong>
                 </div>
 
                 <div class="mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Commercial Certificates</strong>
-                    <div class="d-flex flex-row justify-content-end" style="margin: -20px;" id="commercial-certificates">
+                    <div class="d-flex flex-row justify-content-start" id="commercial-certificates">
                         @php
                         $commercialCertificates = json_decode($company->commercial_certificate, true) ?? [];
                         @endphp
@@ -96,12 +94,11 @@
                         @endforeach
                         <button class="btn-sm btn-primary h-25" onclick="downloadAll('commercial-certificates')"> <i class="fa fa-download"></i></button>
                     </div>
-                    <br>
+                    <strong class="text-dark" style="float: right; position: relative; top: -40px;">Commercial Certificates</strong>
                 </div>
 
                 <div class="mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Licenses</strong>
-                    <div class="d-flex flex-row justify-content-end" style="margin: -20px;" id="licenses">
+                    <div class="d-flex flex-row justify-content-start" id="licenses">
                         @php
                         $licenses = json_decode($company->licenses, true) ?? [];
                         @endphp
@@ -127,7 +124,7 @@
                         @endforeach
                         <button class="btn-sm btn-primary h-25" onclick="downloadAll('licenses')"> <i class="fa fa-download"></i></button>
                     </div>
-                    <br>
+                    <strong class="text-dark" style="float: right; position: relative; top: -40px;">Licenses</strong>
                 </div>
 
             </div>

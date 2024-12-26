@@ -21,9 +21,19 @@ class Company extends Model
         'user_id',
     ];
 
+    public function requestBikes()
+    {
+        return $this->hasMany(RequestBike::class, 'company_id', 'id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function requestBike()
+    {
+        return $this->belongsTo(RequestBike::class);
     }
 
     public function assignedCompanies()

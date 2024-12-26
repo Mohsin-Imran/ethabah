@@ -4,7 +4,6 @@
 @include('layouts.header')
 @endsection
 
-
 @section('sidebar')
 @include('layouts.sidebar')
 @endsection
@@ -15,51 +14,51 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-header-left">
-                    <h3 id="investment-title">Dashboard</h>
+                    <h3 id="investment-title">لوحة القيادة</h3>
                 </div>
             </div>
             <div class="row gy-3">
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa fa-chart-line"></i> <!-- Updated to "chart-line" icon for Revenue -->
+                            <i class="fa fa-chart-line"></i> <!-- تم تحديثه إلى أيقونة "chart-line" للإيرادات -->
                         </div>
                         <div class="dashboard-content">
                             <h5>78.423K</h5>
-                            <p>Total Revenue <span class="growth">15.2% ↑</span></p>
+                            <p>إجمالي الإيرادات <span class="growth">15.2% ↑</span></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa fa-hand-holding-usd"></i> <!-- Updated to "hand-holding-usd" icon for Fund -->
+                            <i class="fa fa-hand-holding-usd"></i> <!-- تم تحديثه إلى أيقونة "hand-holding-usd" للصندوق -->
                         </div>
                         <div class="dashboard-content">
-                            <h5>Total Fund</h5>
-                            <p>Investors <span class="growth">{{ $investorFunds ?? '' }}</span></p>
+                            <h5>إجمالي الصندوق</h5>
+                            <p>المستثمرين <span class="growth">{{ $investorFunds ?? '' }}</span></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa fa-users"></i> <!-- Updated to "users" icon for Companies -->
+                            <i class="fa fa-users"></i> <!-- تم تحديثه إلى أيقونة "users" للشركات -->
                         </div>
                         <div class="dashboard-content">
-                            <h5>Companies</h5>
-                            <p>New Request <span class="growth">5 more ↑</span></p>
+                            <h5>الشركات</h5>
+                            <p>طلب جديد <span class="growth">5 أكثر ↑</span></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa fa-people-carry"></i> <!-- Updated to "people-carry" icon for Investors -->
+                            <i class="fa fa-people-carry"></i> <!-- تم تحديثه إلى أيقونة "people-carry" للمستثمرين -->
                         </div>
                         <div class="dashboard-content">
-                            <h5>Investors</h5>
-                            <p>New Investors <span class="growth">10 more ↑</span></p>
+                            <h5>المستثمرين</h5>
+                            <p>مستثمرون جدد <span class="growth">10 أكثر ↑</span></p>
                         </div>
                     </div>
                 </div>
@@ -68,19 +67,19 @@
         </div>
 
         <div class="row align-items-stretch">
-            <!-- Left Card -->
+            <!-- البطاقة اليسرى -->
             <div class="col-lg-8 mt-5">
                 <div class="card h-100 p-2">
                     <div class="table-responsive mt-4">
                         <table id="example" class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
-                                    {{-- <th style="font-size:14px !important; text-align: end; padding: 5px;">Name</th> --}}
-                                    <th style="font-size:14px !important;">Name</th>
-                                    <th style="font-size:14px !important;">Time</th>
-                                    {{-- <th style="font-size:14px !important;">Total Funds</th> --}}
-                                    <th style="font-size:14px !important;">Status</th>
-                                </tr>    
+                                    {{-- <th style="font-size:14px !important; text-align: end; padding: 5px;">الاسم</th> --}}
+                                    <th style="font-size:14px !important;">الاسم</th>
+                                    <th style="font-size:14px !important;">الوقت</th>
+                                    {{-- <th style="font-size:14px !important;">إجمالي الصناديق</th> --}}
+                                    <th style="font-size:14px !important;">الحالة</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach ($companies as $data)
@@ -90,20 +89,20 @@
                                     {{-- <td>{{ $data->total_funds ?? 'N/A'}}</td> --}}
                                     <td class="p-1">
                                         @if($data->status == 1)
-                                        <span class="badge bg-success" data-bs-toggle="modal" data-bs-target="#modalId{{ $data->id }}">Approved</span>
+                                        <span class="badge bg-success" data-bs-toggle="modal" data-bs-target="#modalId{{ $data->id }}">موافق عليه</span>
                                         @else
-                                        <span class="badge bg-warning" data-bs-toggle="modal" data-bs-target="#modalId{{ $data->id }}">Pending</span>
+                                        <span class="badge bg-warning" data-bs-toggle="modal" data-bs-target="#modalId{{ $data->id }}">قيد الانتظار</span>
                                         @endif
                                     </td>
                                 </tr>
 
-                                <!-- Modal -->
+                                <!-- مودال -->
                                 <div class="modal fade" id="modalId{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content p-2">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="modalTitleId">
-                                                    Update Company Status
+                                                    تحديث حالة الشركة
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
@@ -111,14 +110,14 @@
                                                 <form action="{{ route('admin.company.status', $data->id) }}" method="POST">
                                                     @csrf
                                                     <div class="mb-3">
-                                                        <label for="status{{ $data->id }}" class="form-label">Company Status</label>
+                                                        <label for="status{{ $data->id }}" class="form-label">حالة الشركة</label>
                                                         <select name="status" id="status{{ $data->id }}" class="form-control">
-                                                            <option value="" disabled selected>Company Status</option>
-                                                            <option value="1" {{ $data->status == 1 ? 'selected' : '' }}>Approved</option>
-                                                            <option value="0" {{ $data->status == 0 ? 'selected' : '' }}>Pending</option>
+                                                            <option value="" disabled selected>حالة الشركة</option>
+                                                            <option value="1" {{ $data->status == 1 ? 'selected' : '' }}>موافق عليه</option>
+                                                            <option value="0" {{ $data->status == 0 ? 'selected' : '' }}>قيد الانتظار</option>
                                                         </select>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                    <button type="submit" class="btn btn-primary">حفظ</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -130,20 +129,20 @@
                     </div>
                 </div>
             </div>
-            <!-- Right Card -->
+            <!-- البطاقة اليمنى -->
             {{-- <div class="row justify-content-center"> --}}
-            <!-- Card Container -->
+            <!-- حاوية البطاقة -->
             <div class="col-lg-4 col-md-6 col-sm-12 mt-5">
                 <div class="card shadow-sm">
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0">Recent Investment</h5>
+                            <h5 class="card-title mb-0">الاستثمار الأخير</h5>
                             <button class="btn btn-light btn-sm">
                                 <i class="fa fa-ellipsis-v"></i>
                             </button>
                         </div>
                         <hr>
-                        <!-- Investment List -->
+                        <!-- قائمة الاستثمارات -->
                         <ul class="list-group list-group-flush">
                             @foreach ($investors as $investor)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -157,10 +156,9 @@
                                 <span class="text-success">USD $820.00</span>
                             </li>
                             @endforeach
-
                         </ul>
                         <div class="text-center mt-3">
-                            <a href="{{ route('admin.investor.index') }}" class="text-primary text-decoration-none">See All</a>
+                            <a href="{{ route('admin.investor.index') }}" class="text-primary text-decoration-none">عرض الكل</a>
                         </div>
                     </div>
                 </div>
