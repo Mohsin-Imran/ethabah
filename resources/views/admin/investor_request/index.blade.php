@@ -35,7 +35,9 @@
                         <tr>
                             <th>الاسم</th>
                             <th>المبلغ</th>
-                            <th>وقت الاستثمار</th>
+                            <th>  بداية الفترة </th>
+                            <th>   نهاية الفترة </th>
+                            {{-- <th>وقت الاستثمار</th> --}}
                             <th>صندوق الاستثمار</th>
                             {{-- <th>الحالة</th> --}}
                             <th>الإجراءات</th>
@@ -46,7 +48,11 @@
                         <tr>
                             <td>{{ $data->user->name ?? 'غير متوفر'}}</td>
                             <td>{{ $data->amount ?? 'غير متوفر'}}</td>
-                            <td>{{ $data->time_of_investment ?? 'غير متوفر'}}</td>
+                            <td>{{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('d M,Y') : 'غير متوفر' }}
+                            </td>
+                            <td>{{ $data->end_of_period ? \Carbon\Carbon::parse($data->end_of_period)->format('d M,Y') : 'غير متوفر' }}
+                            </td>
+                            {{-- <td>{{ $data->time_of_investment ?? 'غير متوفر'}}</td> --}}
                             <td>{{ $data->investment_fund ?? 'غير متوفر'}}</td>
                             {{-- <td class="p-1">
                                 @if($data->status == 1)

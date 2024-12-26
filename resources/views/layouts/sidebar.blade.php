@@ -17,7 +17,7 @@
                 @if(auth()->check() && auth()->user()->profile_img)
                 <img class="img-fluid" style="height: 50px !important; position: relative;right: 0px;" src="{{ asset('images/' . auth()->user()->profile_img) }}" alt="Personal Portfolio Images">
                 @else
-                <img class="img-fluid" style="height: 50px !important; position: relative;right: 0px;" src="https://bup.edu.bd/public/upload/user-dummy.jpeg" alt="Personal Portfolio Images">
+                <img class="img-fluid" style="height: 50px !important; position: relative;right: 0px;" src="https://pinnacle.works/wp-content/uploads/2022/06/dummy-image.jpg" alt="Personal Portfolio Images">
                 @endif
                 <div>
                     <h6 class="text-white" style="font-size: 10px;">{{ auth()->user()->name ?? 'N/A' }}</h6>
@@ -66,12 +66,12 @@
                                 <span>الطلبات</span>
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('admin.statistic.index') }}">
                                 <i class="fa fa-circle"></i>
                                 <span>إحصائية</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <li class="">

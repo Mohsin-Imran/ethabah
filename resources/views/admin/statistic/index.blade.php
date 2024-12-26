@@ -112,7 +112,7 @@
                                         <small class="text-muted">{{ $investor->created_at ? $investor->created_at->format('M d, Y') : '' }}</small>
                                     </div>
                                 </div>
-                                <span class="text-success">USD $820.00</span>
+                                <span class="text-success">SAR 820.00</span>
                             </li>
                             @endforeach
                         </ul>
@@ -128,3 +128,4 @@
 
 @include('admin.js')
 @endsection
+

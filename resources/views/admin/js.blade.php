@@ -73,7 +73,7 @@
                 y: {
                     title: {
                         display: true,
-                        text: 'Investment (in $)',
+                        text: 'Investment (in SAR)',
                     },
                     ticks: {
                         callback: function(value) {

@@ -40,11 +40,6 @@
                     <strong class="text-dark">إجمالي مبلغ الربح</strong>
                     <span class="text-secondary">{{ $calculatedProfit ?? 'غير متوفر' }}</span>
                 </div>
-
-                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">وقت الاستثمار</strong>
-                    <span class="text-secondary">{{ $investorReq->time_of_investment ?? 'غير متوفر' }}</span>
-                </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">بداية الفترة</strong>
                     <span class="text-secondary">

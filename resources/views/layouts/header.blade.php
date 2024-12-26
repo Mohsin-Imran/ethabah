@@ -46,7 +46,7 @@
                         }
 
                     </style>
-{{-- 
+{{--
                     <div id="google_translate_element" style="display: none;"></div>
 
                     <script type="text/javascript">
@@ -66,7 +66,7 @@
                         @if(auth()->check() && auth()->user()->profile_img)
                         <img class="profile-img" src="{{ asset('images/' . auth()->user()->profile_img) }}" height="50px" width="50px" alt="header-user">
                         @else
-                        <img class="align-self-center pull-right blur-up lazyloaded" height="50px" width="50px" src="https://bup.edu.bd/public/upload/user-dummy.jpeg" alt="header-user">
+                        <img class="align-self-center pull-right blur-up lazyloaded" height="50px" width="50px" src="https://pinnacle.works/wp-content/uploads/2022/06/dummy-image.jpg" alt="header-user">
                         @endif
                         <div class="dotted-animation">
                             <span class="animate-circle"></span>
