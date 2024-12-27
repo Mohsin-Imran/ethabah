@@ -66,12 +66,12 @@
                                 <span>الطلبات</span>
                             </a>
                         </li>
-                        {{-- <li>
+                        <li>
                             <a href="{{ route('admin.statistic.index') }}">
                                 <i class="fa fa-circle"></i>
                                 <span>إحصائية</span>
                             </a>
-                        </li> --}}
+                        </li>
                     </ul>
                 </li>
                 <li class="">

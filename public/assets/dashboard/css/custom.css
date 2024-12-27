@@ -92,3 +92,6 @@
         color: green;
         font-size: 12px;
     }
+    .nav-tabs{
+        border-bottom: 0px;
+    }

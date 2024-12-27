@@ -33,7 +33,7 @@ class ProjectUpdateDocument extends Controller
         try {
             $validatedData = $request->validate([
                 'document' => 'required|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:5048',
-                'project_name' => 'required',
+                'project_id' => 'required',
                 'update_name' => 'required',
             ]);
 
@@ -46,7 +46,7 @@ class ProjectUpdateDocument extends Controller
             $project->user_id = auth()->user()->id;
             $project->company_id = auth()->user()->company_id;
             $project->update_name = $validatedData['update_name'];
-            $project->project_name = $validatedData['project_name'];
+            $project->project_id = $validatedData['project_id'];
             $project->save();
             return response()->json([
                 'message' => 'Project created successfully.',

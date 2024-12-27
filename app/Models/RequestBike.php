@@ -37,4 +37,9 @@ class RequestBike extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function projectUpdate()
+    {
+        return $this->hasMany(ProjectUpdate::class,'project_id' ,'id');
+    }
 }

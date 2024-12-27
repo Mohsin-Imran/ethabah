@@ -144,5 +144,6 @@ Route::middleware(['auth', 'company'])->prefix('company')->name('company.')->gro
         Route::get('view/{id}', 'view')->name('view');
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
+        Route::post('updateDocument', 'updateDocument')->name('updateDocument');
     });
 });

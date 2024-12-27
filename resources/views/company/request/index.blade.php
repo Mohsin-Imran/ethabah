@@ -106,7 +106,110 @@
                                     <i class="fa fa-eye"></i>
                                     View
                                 </a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#modalId{{ $data->id }}" class="fa fa-file btn-sm btn-red ml-3" style="font-size: 15px; background-color: #214D45; color: white;"></a>
                             </td>
+                            <div class="modal fade" id="modalId{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content p-2">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalTitleId">
+                                                Project Document
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Tab Bar -->
+                                            <ul class="nav nav-tabs" id="tabBar{{ $data->id }}" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active btn-sm btn-success" id="form-tab-{{ $data->id }}" data-bs-toggle="tab" data-bs-target="#form-{{ $data->id }}" type="button" role="tab" aria-controls="form-{{ $data->id }}" aria-selected="true">
+                                                        Add
+                                                    </button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link btn-sm btn-success" style="position: relative;left:10px;" id="table-tab-{{ $data->id }}" data-bs-toggle="tab" data-bs-target="#table-{{ $data->id }}" type="button" role="tab" aria-controls="table-{{ $data->id }}" aria-selected="false">
+                                                        View
+                                                    </button>
+                                                </li>
+                                            </ul>
+
+                                            <!-- Tab Content -->
+                                            <div class="tab-content" id="tabContent{{ $data->id }}">
+                                                <!-- Form Tab -->
+                                                <div class="tab-pane fade show active" id="form-{{ $data->id }}" role="tabpanel" aria-labelledby="form-tab-{{ $data->id }}">
+                                                    <form class="mt-3" action="{{ route('company.request.updateDocument') }}" enctype="multipart/form-data" method="post">
+                                                        @csrf
+                                                        <label for="">Update Name</label>
+                                                        <input type="text" class="form-control @error('update_name') is-invalid @enderror" name="update_name" placeholder="Update Name" id="">
+                                                        @error('update_name')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                        <br>
+                                                        <input type="hidden" name="project_id" value="{{ $data->id }}" id="">
+                                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}" id="">
+                                                        <input type="hidden" name="company_id" value="{{ auth()->user()->company_id }}" id="">
+                                                        <label for="">Project Name</label>
+                                                        <input type="text" class="form-control" value="{{ $data->name }}" readonly id="">
+                                                        <br>
+                                                        <label for="">Update Document</label>
+                                                        <input type="file" class="form-control" name="document[]" multiple>
+                                                        <br>
+                                                        <button type="button" class="btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn-sm btn-primary">Add</button>
+                                                    </form>
+                                                </div>
+                                                <div class="tab-pane fade" id="table-{{ $data->id }}" role="tabpanel" aria-labelledby="table-tab-{{ $data->id }}">
+                                                    <div class="row mt-3">
+                                                        <div class="col-lg-6 p-2" style="border: 1px solid;">
+                                                            Update Name
+                                                        </div>
+                                                        <div class="col-lg-6 p-2" style="border: 1px solid;">
+                                                            Update Document
+                                                        </div>
+                                                        @forelse ($data->projectUpdate as $projectData)
+                                                        <div class="col-lg-6 p-2" style="border: 1px solid;">
+                                                            {{ $projectData->update_name ?? 'No update name provided' }}
+                                                        </div>
+                                                        <div class="col-lg-6 p-2" style="border: 1px solid;">
+                                                            @php
+                                                            $document = json_decode($projectData->document, true) ?? [];
+                                                            @endphp
+                                                            @forelse ($document as $file)
+                                                            @php
+                                                            $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+                                                            @endphp
+                                                            <span class="text-secondary me-2" data-file="{{ asset('document/' . $file) }}" style="margin-bottom: 10px;">
+                                                                @if (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif', 'bmp']))
+                                                                <a href="{{ asset('document/' . $file) }}" data-fancybox="gallery" data-caption="License">
+                                                                    <img src="{{ asset('document/' . $file) }}" width="40px" height="40px" class="mb-2 border" alt="License" style="border: 2px solid #000; padding: 3px;">
+                                                                </a>
+                                                                @elseif (strtolower($fileExtension) == 'pdf')
+                                                                <a href="{{ asset('document/' . $file) }}" target="_blank" class="btn btn-info p-2 text-white" style="position: relative; top:0px;">
+                                                                    <i class="fas fa-file-pdf" style="font-size: 24px;"></i>
+                                                                </a>
+                                                                @elseif (strtolower($fileExtension) == 'docx' || strtolower($fileExtension) == 'doc')
+                                                                <a href="{{ asset('document/' . $file) }}" target="_blank" class="btn btn-success p-2 text-white" style="position: relative; top:0px;">
+                                                                    <i class="fas fa-file-word" style="font-size: 24px;"></i>
+                                                                </a>
+                                                                @endif
+                                                            </span>
+                                                            @empty
+                                                            <span>No documents available</span>
+                                                            @endforelse
+                                                        </div>
+                                                        @empty
+                                                        <div class="col-12">
+                                                            <p>No project updates available.</p>
+                                                        </div>
+                                                        @endforelse
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </tr>
                         @endforeach
                     </tbody>
@@ -115,6 +218,4 @@
         </div>
     </div>
 </div>
-
-
 @endsection

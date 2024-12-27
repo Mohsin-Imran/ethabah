@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\ProjectUpdate;
 use App\Models\RequestBike;
 use Illuminate\Http\Request;
 
@@ -11,13 +12,13 @@ class RequestController extends Controller
 {
     public function index()
     {
-        $requestesData = RequestBike::where('user_id',auth()->user()->id)->get();
+        $requestesData = RequestBike::where('user_id', auth()->user()->id)->get();
         return view('company.request.index', get_defined_vars());
     }
 
     public function view($id)
     {
-        $requestData = RequestBike::find($id);
+        $requestData = RequestBike::with('projectUpdate')->find($id);
         return view('company.request.view', data: get_defined_vars());
     }
     public function create()
@@ -67,6 +68,39 @@ class RequestController extends Controller
 
         return redirect()->back()->with('message', 'Request Add successfully');
 
+    }
+
+    public function updateDocument(Request $request)
+    {
+        $validatedData = $request->validate([
+            'project_id' => 'required|string|max:255',
+            'update_name' => 'required|string|max:255',
+            'document' => 'nullable|array',
+            'document.*' => 'file|mimes:pdf,doc,docx,jpeg,png|max:2048',
+        ]);
+
+        $projectData = new ProjectUpdate();
+        $uploadedFiles = [];
+
+        if ($request->hasFile('document')) {
+            foreach ($request->file('document') as $file) {
+                $fileName = time() . '_' . uniqid() . '.' . $file->extension();
+                $file->move(public_path('document'), $fileName);
+                $uploadedFiles[] = $fileName;
+            }
+        }
+
+        $projectData->user_id = $request->user_id;
+        $projectData->company_id = $request->company_id;
+        $projectData->project_id = $validatedData['project_id'];
+        $projectData->update_name = $validatedData['update_name'];
+        $projectData->document = !empty($uploadedFiles) ? json_encode($uploadedFiles) : null;
+
+        if ($projectData->save()) {
+            return redirect()->back()->with('message', 'Request added successfully');
+        } else {
+            return redirect()->back()->with('error', 'Failed to save data');
+        }
     }
 
 }

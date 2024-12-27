@@ -53,7 +53,7 @@
                 </div>
                 <div class="mt-4 p-1 border-bottom">
                     <strong class="text-dark">Document</strong>
-                    <div class="d-flex flex-row justify-content-end" style="margin: -20px;" id="licenses">
+                    <div class="d-flex flex-row justify-content-end" id="licenses">
                         @php
                         $request_document = json_decode($requestData->request_document, true) ?? [];
                         @endphp

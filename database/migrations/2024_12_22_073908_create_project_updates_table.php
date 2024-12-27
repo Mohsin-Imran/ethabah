@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('company_id');
+            $table->string('project_id');
             $table->string('update_name');
-            $table->string('project_name');
             $table->longText('document');
             $table->timestamps();
         });
