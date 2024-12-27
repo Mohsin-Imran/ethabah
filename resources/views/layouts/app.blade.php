@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    {{-- <meta http-equiv="x-ua-compatible" content="ie=edge"> --}}
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Investor</title>
     <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -45,7 +45,7 @@
                         <span>الفئة</span>
                     </a>
                 </li>
-                <li class="">
+                <li>
                     <a class="sidebar-header" href="{{ route('admin.company.index') }}" style="{{ request()->routeIs('admin.company.index') ? 'background-color: white; color: #214d45;' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                             <path d="M3 21V3h18v18H3zm2-2h14V5H5v14zm2-10h10v6H7V9z"></path>
@@ -74,7 +74,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="">
+                <li>
                     <a class="sidebar-header" href="{{ route('admin.investor.index') }}" style="{{ request()->routeIs('admin.investor.index') ? 'background-color: white; color: #214d45;' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="main-grid-item-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path>
@@ -153,7 +153,7 @@
                             <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                             <line x1="12" y1="22.08" x2="12" y2="12"></line>
                         </svg>
-                        <span>Dashboard</span>
+                        <span>لوحة القيادة</span>
                     </a>
                 </li>
                 <li>
@@ -163,7 +163,7 @@
                             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"></path>
                             <path d="M12 14c-3.31 0-6 1.69-6 3v1h12v-1c0-1.31-2.69-3-6-3z"></path>
                         </svg>
-                        <span>Profile</span>
+                        <span>الملفات</span>
                     </a>
                 </li>
                 <li>
@@ -172,7 +172,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
                             <path d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
-                        <span>Request</span>
+                        <span>الملفات الشخصية</span>
                     </a>
                 </li>
 
@@ -182,7 +182,7 @@
                     </form>
                     <a class="sidebar-header" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i data-feather="log-out"></i>
-                        <span>Logout</span>
+                        <span>تسجيل خروج</span>
                     </a>
                 </li>
             </ul>
@@ -195,7 +195,7 @@
                             <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                             <line x1="12" y1="22.08" x2="12" y2="12"></line>
                         </svg>
-                        <span>Dashboard</span>
+                        <span>لوحة القيادة</span>
                     </a>
                 </li>
                 <li>
@@ -204,7 +204,7 @@
                     </form>
                     <a class="sidebar-header" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i data-feather="log-out"></i>
-                        <span>Logout</span>
+                        <span>تسجيل خروج</span>
                     </a>
                 </li>
             </ul>
