@@ -3,53 +3,73 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Company;
 use App\Models\InvestorRequest;
 use App\Models\RequestBike;
-use App\Models\User;
+use Illuminate\Http\Request;
 
 class StatisticController extends Controller
 {
     public function index()
     {
-        $totalFunds = RequestBike::selectRaw('MONTH(created_at) as month, SUM(total_funds) as sum')
-            ->whereYear('created_at', date('Y'))
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get();
+        return view('admin.statistic.index');
+    }
 
-        $totalamounts = InvestorRequest::selectRaw('MONTH(created_at) as month, SUM(amount) as sum')
-            ->whereYear('created_at', date('Y'))
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get();
+    public function getData(Request $request)
+    {
+        $period = $request->get('period', 'monthly'); // Default to 'monthly'
+        $currentYear = date('Y');
 
-        $labels = [];
+        if ($period === 'monthly') {
+            $currentMonth = date('m');
+
+            $totalFunds = RequestBike::selectRaw('DAY(created_at) as day, SUM(total_funds) as sum')
+                ->whereYear('created_at', $currentYear)
+                ->whereMonth('created_at', $currentMonth)
+                ->groupBy('day')
+                ->orderBy('day')
+                ->get();
+
+            $totalAmounts = InvestorRequest::selectRaw('DAY(created_at) as day, SUM(amount) as sum')
+                ->whereYear('created_at', $currentYear)
+                ->whereMonth('created_at', $currentMonth)
+                ->groupBy('day')
+                ->orderBy('day')
+                ->get();
+
+            $labels = range(1, 31);
+        } elseif ($period === 'yearly') {
+            $totalFunds = RequestBike::selectRaw('MONTH(created_at) as month, SUM(total_funds) as sum')
+                ->whereYear('created_at', $currentYear)
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+
+            $totalAmounts = InvestorRequest::selectRaw('MONTH(created_at) as month, SUM(amount) as sum')
+                ->whereYear('created_at', $currentYear)
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+
+            $labels = array_map(fn($m) => date('F', mktime(0, 0, 0, $m, 1)), range(1, 12));
+        }
+
         $fundsData = [];
         $amountsData = [];
-        for ($i = 1; $i <= 12; $i++) {
-            $month = date('F', mktime(0, 0, 0, $i, 1));
-            $fundSum = $totalFunds->firstWhere('month', $i)->sum ?? 0;
-            $amountSum = $totalamounts->firstWhere('month', $i)->sum ?? 0;
+
+        foreach ($labels as $index => $label) {
+            $index += 1; // Convert to 1-based index
+            $fundSum = $totalFunds->firstWhere($period === 'monthly' ? 'day' : 'month', $index)->sum ?? 0;
+            $amountSum = $totalAmounts->firstWhere($period === 'monthly' ? 'day' : 'month', $index)->sum ?? 0;
 
             $fundsData[] = $fundSum;
             $amountsData[] = $amountSum;
-            $labels[] = $month;
         }
 
-        $data = [
+        return response()->json([
             'labels' => $labels,
             'fundsData' => $fundsData,
             'amountsData' => $amountsData,
-        ];
-
-        $companies = Company::where('status', 1)
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        $investors = User::orderBy('created_at', 'desc')->where('role', 0)->get();
-
-        return view('admin.statistic.index', compact('data', 'companies', 'investors'));
+        ]);
     }
 
 }

@@ -47,7 +47,7 @@
                         </div>
                         <div class="dashboard-content">
                             <h5>الشركات</h5>
-                            <p>طلب جديد <span class="growth">5 أكثر ↑</span></p>
+                            <p>{{ $companiesCounts ?? '' }}</p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         </div>
                         <div class="dashboard-content">
                             <h5>المستثمرين</h5>
-                            <p>مستثمرون جدد <span class="growth">10 أكثر ↑</span></p>
+                            <p>{{ $investorCounts ?? '' }}</p>
                         </div>
                     </div>
                 </div>
@@ -132,14 +132,14 @@
             <!-- البطاقة اليمنى -->
             {{-- <div class="row justify-content-center"> --}}
             <!-- حاوية البطاقة -->
-            <div class="col-lg-4 col-md-6 col-sm-12 mt-5">
+            <div class="col-lg-4 col-md-6 col-sm-12 mt-5" dir="rtl">
                 <div class="card shadow-sm">
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title mb-0">الاستثمار الأخير</h5>
-                            <button class="btn btn-light btn-sm">
+                            {{-- <button class="btn btn-light btn-sm">
                                 <i class="fa fa-ellipsis-v"></i>
-                            </button>
+                            </button> --}}
                         </div>
                         <hr>
                         <!-- قائمة الاستثمارات -->
@@ -147,7 +147,7 @@
                             @foreach ($investors as $investor)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
-                                    <i class="fa fa-briefcase fa-lg text-primary me-3"></i>
+                                    <i class="fa fa-briefcase fa-lg text-primary p-lg-2"></i>
                                     <div>
                                         <h6 class="mb-0">{{ $investor->name ?? '' }}</h6>
                                         <small class="text-muted">{{ $investor->created_at ? $investor->created_at->format('M d, Y') : '' }}</small>

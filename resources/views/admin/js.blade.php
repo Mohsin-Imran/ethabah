@@ -1,6 +1,5 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
+{{-- <script>
     const dataMonthly = {
         labels: @json($data['labels']),
         datasets: [
@@ -45,7 +44,7 @@
                 x: {
                     title: {
                         display: true,
-                        text: 'Time Period',
+                        text: 'Day of the Month',
                     }
                 },
                 y: {
@@ -61,6 +60,109 @@
                 }
             }
         }
+    });
+</script> --}}
+<script>
+    let currentChart;
+
+    function renderChart(data) {
+        if (currentChart) currentChart.destroy();
+
+        const ctx = document.getElementById('lineChart').getContext('2d');
+        currentChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `$${context.raw.toLocaleString()}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time Period',
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Investment (in SAR)',
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return `$${value / 1000}k`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Load initial data
+    const dataMonthly = {
+        labels: @json($data['labels'] ?? []),
+        datasets: [
+            {
+                label: 'إجمالي أموال الشركة',
+                data: @json($data['fundsData'] ?? []),
+                borderColor: '#FFA500',
+                backgroundColor: 'rgba(255, 165, 0, 0.2)',
+                borderWidth: 2,
+                tension: 0.4
+            },
+            {
+                label: 'إجمالي مبلغ المستثمر',
+                data: @json($data['amountsData'] ?? []),
+                borderColor: '#1E90FF',
+                backgroundColor: 'rgba(30, 144, 255, 0.2)',
+                borderWidth: 2,
+                tension: 0.4
+            }
+        ]
+    };
+    renderChart(dataMonthly);
+
+    // Fetch data when the dropdown changes
+    document.getElementById('timePeriodSelect').addEventListener('change', function () {
+        const period = this.value;
+
+        fetch(`/admin/statistic/data?period=${period}`)
+            .then(response => response.json())
+            .then(data => {
+                const chartData = {
+                    labels: data.labels,
+                    datasets: [
+                        {
+                            label: 'Company Total Funds',
+                            data: data.fundsData,
+                            borderColor: '#FFA500',
+                            backgroundColor: 'rgba(255, 165, 0, 0.2)',
+                            borderWidth: 2,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Investor Total Amount',
+                            data: data.amountsData,
+                            borderColor: '#1E90FF',
+                            backgroundColor: 'rgba(30, 144, 255, 0.2)',
+                            borderWidth: 2,
+                            tension: 0.4
+                        }
+                    ]
+                };
+                renderChart(chartData);
+            });
     });
 </script>
 

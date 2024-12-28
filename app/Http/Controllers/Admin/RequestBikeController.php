@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Company;
 use App\Models\RequestBike;
+use App\Models\InvestorRequest;
+use App\Http\Controllers\Controller;
 
 class RequestBikeController extends Controller
 {
     public function index()
     {
         $requestBikes = RequestBike::with('user')->get();
+        $companies = Company::all();
+        $companiesCounts = Company::count();
+        $investorCounts = User::where('role', 0)->get()->count();
+        $investorFunds = InvestorRequest::sum('amount');
+        $investors = User::orderBy('created_at', 'desc')->where('role', 0)->get();
         return view('admin.request_bike.index', get_defined_vars());
     }
 
@@ -18,7 +26,6 @@ class RequestBikeController extends Controller
         $requestBike = RequestBike::find($id);
         return view('admin.request_bike.view', data: get_defined_vars());
     }
-
 
     public function destroy($id)
     {

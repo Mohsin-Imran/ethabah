@@ -16,16 +16,16 @@
     <div class="row justify-content-center">
         <div class="card p-4 shadow-sm border-0" style="background: #f4f4f4;">
             <div class="card-header p-2 bg-primary text-white arabic-text">
-                <h3 class="mb-0 text-white">Request View</h3>
+                <h3 class="mb-0 text-white">عرض الطلب</h3>
             </div>
             <div class="card-body bg-white" style="border-radius: 0 0 15px 15px;">
                 <div class="d-flex flex-row justify-content-between mt-1 p-1 border-bottom">
-                    <strong class="text-dark">Company Name</strong>
                     <span class="text-secondary">{{ $requestBike->user->name ?? 'Not Available' }}</span>
+                    <strong class="text-dark">اسم الشركة</strong>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Company Email</strong>
                     <span class="text-secondary">{{ $requestBike->user->email ?? 'Not Available' }}</span>
+                    <strong class="text-dark">البريد الإلكتروني للشركة</strong>
                 </div>
                 {{-- <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">Company Phone</strong>
@@ -36,24 +36,27 @@
                     <span class="text-secondary">{{ $requestBike->register_num ?? 'Not Available' }}</span>
                 </div> --}}
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Project Name</strong>
                     <span class="text-secondary">{{ $requestBike->name ?? 'Not Available' }}</span>
+                    <strong class="text-dark">اسم المشروع</strong>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Category Name</strong>
                     <span class="text-secondary">{{ $requestBike->category ?? 'Not Available' }}</span>
+                    <strong class="text-dark">اسم الفئة</strong>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Purpose Of Funding</strong>
                     <span class="text-secondary">{{ $requestBike->purpose_of_funding ?? 'Not Available' }}</span>
+                    <strong class="text-dark">غرض التمويل</strong>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Total Funds</strong>
                     <span class="text-secondary">{{ $requestBike->total_funds ?? 'Not Available' }}</span>
+                    <strong class="text-dark">إجمالي الصناديق</strong>
+                </div>
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <span class="text-secondary">{{ $requestBike->description ?? 'Not Available' }}</span>
+                    <strong class="text-dark">الوصف</strong>
                 </div>
                 <div class="mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Document</strong>
-                    <div class="d-flex flex-row justify-content-end" style="margin: -20px;" id="licenses">
+                    <div class="d-flex flex-row justify-content-start" id="licenses">
                         @php
                         $request_document = json_decode($requestBike->request_document, true) ?? [];
                         @endphp
@@ -80,14 +83,11 @@
                         {{-- <button class="btn-sm btn-primary h-25" onclick="downloadAll('request_document')"> <i class="fa fa-download"></i></button> --}}
                     </div>
                     <br>
-                </div>
-                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Description</strong>
-                    <span class="text-secondary">{{ $requestBike->description ?? 'Not Available' }}</span>
+                    <strong class="text-dark mt-2" style="float: right; position: relative; top: -40px;">المستند</strong>
                 </div>
             </div>
             <div class="card-footer text-center" style="background-color: #e0e0e0; padding: 15px; border-radius: 0 0 15px 15px;">
-                <small class="text-muted">Created on: {{ $requestBike->created_at->format('d M, Y') ?? '' }}</small>
+                <small class="text-muted">تم الإنشاء في: {{ $requestBike->created_at->format('d M, Y') ?? '' }}</small>
             </div>
         </div>
     </div>

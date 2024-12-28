@@ -20,12 +20,13 @@
             </div>
             <div class="row gy-3">
                 <div class="card">
-                    {{-- <div class="col-lg-2 mt-3">
+                    <div class="col-lg-2 mt-3">
                         <select id="timePeriodSelect" class="form-control">
-                            <option value="monthly">Monthly</option>
-                            <option value="yearly">Yearly</option>
+                            <option value="yearly">سنوي</option>
+                            <option value="monthly">شهرية</option>
                         </select>
-                    </div> --}}
+                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     <canvas id="lineChart" width="300" height="100"></canvas>
                 </div>
 

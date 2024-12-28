@@ -129,7 +129,10 @@
                     </div>
                     <br>
                 </div>
-
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <strong class="text-dark d-none">Description</strong>
+                    <a class="btn-sm btn-success" href="{{ route('company.profile.edit') }}">Edit Profile</a>
+                </div>
             </div>
             <div class="card-footer text-center" style="background-color: #e0e0e0; padding: 15px; border-radius: 0 0 15px 15px;">
                 <small class="text-muted">Created on: {{ $profile->company->created_at->format('d M, Y') ?? '' }}</small>

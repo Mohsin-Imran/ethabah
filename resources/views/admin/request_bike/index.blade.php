@@ -51,7 +51,7 @@
                 </div>
                 <div class="dashboard-content">
                     <h5>الشركات</h5>
-                    <p>طلب جديد <span class="growth">5 أكثر ↑</span></p>
+                    <p>{{ $companiesCounts ?? '' }}</p>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="dashboard-content">
                     <h5>المستثمرين</h5>
-                    <p>مستثمرون جدد <span class="growth">10 أكثر ↑</span></p>
+                    <p>{{ $investorCounts ?? '' }}</p>
                 </div>
             </div>
         </div>

@@ -13,6 +13,8 @@ class DashboardController extends Controller
     public function index()
     {
         $companies  = Company::all();
+        $companiesCounts  = Company::count();
+        $investorCounts  = User::where('role', 0)->get()->count();
         $investorFunds  = InvestorRequest::sum('amount');
         $investors = User::orderBy('created_at', 'desc')->where('role', 0)->get();
         return view('admin.dashboard', get_defined_vars());

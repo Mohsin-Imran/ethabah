@@ -41,6 +41,9 @@ Route::post('register/company', [CompanyCompanyController::class, 'register'])->
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::any('logout', [HomeController::class, 'logout'])->name('logout');
+
+Route::get('/admin/statistic/data', [StatisticController::class, 'getData']);
+
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
