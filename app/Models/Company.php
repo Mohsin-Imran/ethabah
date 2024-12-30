@@ -18,6 +18,7 @@ class Company extends Model
         'register_certificate',
         'commercial_certificate',
         'licenses',
+        'address',
         'user_id',
     ];
 

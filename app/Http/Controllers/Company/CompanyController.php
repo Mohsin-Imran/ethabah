@@ -68,6 +68,7 @@ class CompanyController extends Controller
         $company->name = $request->name;
         $company->register_num = $request->register_num;
         $company->phone = $request->phone;
+        $company->address = $request->address;
         $company->email = $request->email;
         $company->password = $hashedPassword;
         $company->save(); // Save company to generate its ID

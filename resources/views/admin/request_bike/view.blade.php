@@ -49,7 +49,7 @@
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <span class="text-secondary">{{ $requestBike->total_funds ?? 'Not Available' }}</span>
-                    <strong class="text-dark">إجمالي الصناديق</strong>
+                    <strong class="text-dark"> إجمالي التمويل المطلوب</strong>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <span class="text-secondary">{{ $requestBike->description ?? 'Not Available' }}</span>
@@ -83,11 +83,11 @@
                         {{-- <button class="btn-sm btn-primary h-25" onclick="downloadAll('request_document')"> <i class="fa fa-download"></i></button> --}}
                     </div>
                     <br>
-                    <strong class="text-dark mt-2" style="float: right; position: relative; top: -40px;">المستند</strong>
+                    <strong class="text-dark mt-2" style="float: right; position: relative; top: -40px;"> المستندات / الضمانات</strong>
                 </div>
             </div>
             <div class="card-footer text-center" style="background-color: #e0e0e0; padding: 15px; border-radius: 0 0 15px 15px;">
-                <small class="text-muted">تم الإنشاء في: {{ $requestBike->created_at->format('d M, Y') ?? '' }}</small>
+                <small class="text-muted">{{ $requestBike->created_at->format('d M, Y') ?? '' }}</small>
             </div>
         </div>
     </div>

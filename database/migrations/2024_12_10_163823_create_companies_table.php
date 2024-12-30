@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('register_num')->nullable();
             $table->string('phone');
             $table->string('email');
+            $table->longText('address');
             $table->string('password');
             $table->json('register_certificate')->nullable();
             $table->json('commercial_certificate')->nullable();

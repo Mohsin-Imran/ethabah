@@ -32,8 +32,8 @@
     <div class="row">
         <div class="card p-2">
             <div class="card-header p-2 bg-primary d-flex flex-row justify-content-between">
-                <a href="{{ route('admin.investor.funds.create') }}" class="btn-sm btn-danger p-2 text-dark"> إضافة صناديق المستثمرين <i class="fa fa-user-plus"></i>  </a>
-                <h3 class="mb-0 text-white">قوائم صناديق المستثمرين</h3>
+                <a href="{{ route('admin.investor.funds.create') }}" class="btn-sm btn-danger p-2 text-dark">إضافة صندوق إستثمار<i class="fa fa-user-plus"></i>  </a>
+                <h3 class="mb-0 text-white">قوائم صناديق الإستثمار</h3>
             </div>
             <div class="row mt-5">
                 @foreach ($investorFunds as $data)
@@ -60,7 +60,7 @@
                             <p class="text-white"> {{ $data->month . ' ' . ($data->duration_of_investment ?? 'غير متوفر') }}</p>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <p class="text-white">مدفوع</p>
+                            <p class="text-white">نظام الدفع</p>
                             <p class="text-white">{{ $data->profit ?? 'غير متوفر' }}</p>
                         </div>
                         <table>

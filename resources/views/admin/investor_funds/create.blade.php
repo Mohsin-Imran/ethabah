@@ -26,7 +26,7 @@
     <div class="row">
         <div class="card p-1">
             <div class="card-header p-2 bg-primary">
-                <h3 class="mb-0 text-white">إضافة صندوق استثماري</h3>
+                <h3 class="mb-0 text-white"> إسم الصندوق </h3>
             </div>
             <div class="card-body p-2">
                 <form method="POST" action="{{ route('admin.investor.funds.store') }}" enctype="multipart/form-data">
@@ -60,7 +60,7 @@
                         </div>
 
                         <div class="mb-3 mt-2 col-lg-12">
-                            <label for="company" class="form-label">الشركة <span style="color: red;">*</span></label>
+                            <label for="company" class="form-label">الشركات <span style="color: red;">*</span></label>
                             <select name="company_id[]" id="select3" multiple class="form-control custom-select @error('company_id') is-invalid @enderror">
                                 @foreach ($companies as $requestBike)
                                 @if ($requestBike->company)
@@ -139,6 +139,53 @@
                             </span>
                             @enderror
                         </div>
+{{-- 
+                        <div class="mb-3 mt-2 col-lg-12">
+                            <label class="form-label">سيتم دفع الربح <span style="color: red;">*</span></label>
+                            <div>
+                                <input type="radio" id="monthly" name="profit" value="monthly" {{ old('profit') == 'monthly' ? 'checked' : '' }} onclick="toggleCustomMonths(false)">
+                                <label for="monthly">شهري</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="quarterly" name="profit" value="quarterly" {{ old('profit') == 'quarterly' ? 'checked' : '' }} onclick="toggleCustomMonths(false)">
+                                <label for="quarterly">ربع سنوي</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="yearly" name="profit" value="yearly" {{ old('profit') == 'yearly' ? 'checked' : '' }} onclick="toggleCustomMonths(false)">
+                                <label for="yearly">سنوي</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="custom" name="profit" value="custom" {{ old('profit') == 'custom' ? 'checked' : '' }} onclick="toggleCustomMonths(true)">
+                                <label for="custom">مخصص</label>
+                            </div>
+                            <div id="custom-months-container" style="display: none;">
+                                <label for="custom-months" class="form-label">أدخل عدد الأشهر</label>
+                                <input type="number" id="custom-months" name="custom_months" class="form-control" value="{{ old('custom_months') }}" min="1" placeholder="عدد الأشهر">
+                                @error('custom_months')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            @error('profit')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <script>
+                            function toggleCustomMonths(show) {
+                                const customMonthsContainer = document.getElementById('custom-months-container');
+                                customMonthsContainer.style.display = show ? 'block' : 'none';
+                            }
+
+                            // Initialize state based on the selected radio button
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const customRadio = document.getElementById('custom');
+                                toggleCustomMonths(customRadio.checked);
+                            });
+                        </script> --}}
+
                     </div>
                     <button type="submit" class="btn-sm btn-primary">إضافة</button>
                 </form>

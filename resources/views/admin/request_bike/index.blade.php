@@ -75,7 +75,7 @@
                         <tr>
                             <th dir="rtl" style="text-align: justify;">الإجراءات</th>
                             <th dir="rtl" style="text-align: justify;">الحالة</th>
-                            <th dir="rtl" style="text-align: justify;">إجمالي الصناديق</th>
+                            <th dir="rtl" style="text-align: justify;">إجمالي التمويل المطلوب</th>
                             <th dir="rtl" style="text-align: justify;">الاستثمار</th>
                             <th dir="rtl" style="text-align: justify;">الفئة</th>
                             <th dir="rtl" style="text-align: justify;">البريد الإلكتروني للشركة</th>

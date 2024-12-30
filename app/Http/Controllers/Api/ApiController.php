@@ -135,6 +135,7 @@ class ApiController extends Controller
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'phone' => 'required|string',
+                'address' => 'required|string',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|min:8',
                 'register_num' => 'required|string',
@@ -158,6 +159,7 @@ class ApiController extends Controller
             $company->phone = $validatedData['phone'];
             $company->register_num = $validatedData['register_num'];
             $company->email = $validatedData['email'];
+            $company->address = $validatedData['address'];
             $company->password = $hashedPassword;
             $company->user_id = $user->id;
             $company->save();

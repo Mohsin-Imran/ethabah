@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-header-left">
-                    <h3 id="investment-title">لوحة القيادة</h3>
+                    <h3 id="investment-title">لوحة التحكم</h3>
                 </div>
             </div>
             <div class="row gy-3">
@@ -35,7 +35,7 @@
                             <i class="fa fa-hand-holding-usd"></i> <!-- تم تحديثه إلى أيقونة "hand-holding-usd" للصندوق -->
                         </div>
                         <div class="dashboard-content">
-                            <h5>إجمالي الصندوق</h5>
+                            <h5> إجمالي صناديق الإستثمار</h5>
                             <p>المستثمرين <span class="growth">{{ $investorFunds ?? '' }}</span></p>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
 
         <div class="row align-items-stretch">
             <!-- البطاقة اليسرى -->
-            <div class="col-lg-8 mt-5">
+            <div class="col-lg-8 mt-5" dir="rtl">
                 <div class="card h-100 p-2">
                     <div class="table-responsive mt-4">
                         <table id="example" class="table table-bordered table-hover table-striped">
@@ -136,7 +136,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0">الاستثمار الأخير</h5>
+                            <h5 class="card-title mb-0">المستثمرين الجدد</h5>
                             {{-- <button class="btn btn-light btn-sm">
                                 <i class="fa fa-ellipsis-v"></i>
                             </button> --}}

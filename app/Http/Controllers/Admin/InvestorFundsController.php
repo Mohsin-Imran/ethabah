@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AssignedCompany;
 use App\Models\Category;
-use App\Models\InvestmentFundCompany;
 use App\Models\InvestorFunds;
 use App\Models\InvestorRequest;
 use App\Models\RequestBike;
@@ -17,7 +16,7 @@ class InvestorFundsController extends Controller
 {
     public function index()
     {
-        $investorCounts = InvestorRequest::select('investor_funds_id', \DB::raw('COUNT(*) as count'))
+        $investorCounts = InvestorRequest::select('investor_funds_id', DB::raw('COUNT(*) as count'))
             ->groupBy('investor_funds_id')
             ->pluck('count', 'investor_funds_id');
         $investorFunds = InvestorFunds::withCount(['investmentFundCompanies as investmentFundCount'])->get();
@@ -29,7 +28,6 @@ class InvestorFundsController extends Controller
 
         return view('admin.investor_funds.index', compact('investorFunds'));
     }
-
 
     public function create()
     {
@@ -76,10 +74,16 @@ class InvestorFundsController extends Controller
     public function view($id)
     {
         $investorFund = InvestorFunds::with('investmentFundCompanies')->findOrFail($id);
-        $amountSum = InvestorRequest::where('investor_funds_id',$id)->sum('amount');
-        $investorRequest = InvestorRequest::with('user')->where('investor_funds_id',$id)->get();
-        return view('admin.investor_funds.view', compact('investorFund','amountSum','investorRequest'));
+        $amountSum = InvestorRequest::where('investor_funds_id', $id)->sum('amount');
+        $investorRequest = InvestorRequest::with(['user', 'investmentFund.companies'])->where('investor_funds_id', $id)->get();
+        foreach ($investorRequest as $request) {
+            $profitPercentage = $request->investmentFund->profit_percentage ?? 0;
+            $request->calculatedProfit = ($request->amount * $profitPercentage) / 100;
+            $request->profitPercentage = $profitPercentage;
+        }
+        return view('admin.investor_funds.view', compact('investorFund', 'amountSum', 'investorRequest'));
     }
+
     public function edit($id)
     {
         $investorFund = InvestorFunds::findOrFail($id);
@@ -132,6 +136,14 @@ class InvestorFundsController extends Controller
             ->get();
 
         return response()->json($companies);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $investorFund = InvestorFunds::findOrFail($id);
+        $investorFund->status = $request->status;
+        $investorFund->save();
+        return redirect()->back()->with('message', 'Status updated successfully.');
     }
 
 }

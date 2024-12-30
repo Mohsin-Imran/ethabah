@@ -12,31 +12,31 @@
 @section('content')
 
 
-<div class="container-fluid">
+<div class="container-fluid" dir="rtl">
     <div class="row justify-content-center">
         <div class="card p-4 shadow-sm border-0" style="background: #f4f4f4;">
             <div class="card-header p-2 bg-primary text-white arabic-text">
-                <h3 class="mb-0 text-white">Investor Profile</h3>
+                <h3 class="mb-0 text-white">الملف الشخصي للمستثمر</h3>
             </div>
             <div class="card-body bg-white" style="border-radius: 0 0 15px 15px;">
                 <div class="d-flex flex-row justify-content-between mt-1 p-1 border-bottom">
-                    <strong class="text-dark">Name</strong>
+                    <strong class="text-dark">الإسم الكامل</strong>
                     <span class="text-secondary">{{ $investor->name ?? 'Not Available' }}</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Email</strong>
+                    <strong class="text-dark">البريد الإلكتروني</strong>
                     <span class="text-secondary">{{ $investor->email ?? 'Not Available' }}</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Phone</strong>
+                    <strong class="text-dark">رقم الهاتف</strong>
                     <span class="text-secondary">{{ $investor->phone ?? 'Not Available' }}</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Address</strong>
+                    <strong class="text-dark">عنوان</strong>
                     <span class="text-secondary">{{ $investor->address ?? 'Not Available' }}</span>
                 </div>
                 <div class="mt-4 p-1 border-bottom">
-                    <strong class="text-dark">Passport</strong>
+                    <strong class="text-dark">جواز السفر أو هوية </strong>
                     <div class="d-flex flex-row justify-content-end" id="commercial-certificates">
                         @php
                         $passport = json_decode($investor->passport, true) ?? [];
@@ -66,7 +66,7 @@
                     <br>
                 </div>
                 <div class="mt-4 p-1 border-bottom">
-                    <strong class="text-dark">National ID</strong>
+                    <strong class="text-dark"> إثبات العنوان</strong>
                     <div class="d-flex flex-row justify-content-end" id="commercial-certificates">
                         @php
                         $national_id = json_decode($investor->national_id, true) ?? [];
@@ -97,7 +97,7 @@
                 </div>
             </div>
             <div class="card-footer text-center" style="background-color: #e0e0e0; padding: 15px; border-radius: 0 0 15px 15px;">
-                <small class="text-muted">Created on: {{ $investor->created_at->format('d M, Y') ?? '' }}</small>
+                <small class="text-muted">{{ $investor->created_at->format('d M, Y') ?? '' }}</small>
             </div>
         </div>
     </div>

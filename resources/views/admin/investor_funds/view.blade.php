@@ -16,7 +16,7 @@
     <div class="row justify-content-center">
         <div class="card p-4 shadow-sm border-0" style="background: #f4f4f4;">
             <div class="card-header p-2 bg-primary text-white arabic-text">
-                <h3 class="mb-0 text-white">عرض صندوق الاستثمار</h3>
+                <h3 class="mb-0 text-white">إسم الصندوق الإستثماري</h3>
             </div>
             <div class="card-body bg-white" style="border-radius: 0 0 15px 15px;">
                 <div class="d-flex flex-row justify-content-between mt-1 p-1 border-bottom">
@@ -32,14 +32,14 @@
                     <div class="d-flex flex-wrap">
                         @if($investorFund->companies->isNotEmpty())
                         <!-- Display the first 2 companies -->
-                        @foreach ($investorFund->companies->take(1) as $company)
+                        @foreach ($investorFund->companies->take(0) as $company)
                         <span class="text-secondary badge bg-primary text-white me-2 mb-2">
                             {{ $company->name ?? 'Not Available' }}
                         </span>
                         @endforeach
 
                         <!-- Button to open the modal if there are more than 2 companies -->
-                        @if($investorFund->companies->count() > 1)
+                        @if($investorFund->companies->count() > 0)
                         <button type="button" class="text-secondary badge bg-primary text-white me-2 mb-2" data-bs-toggle="modal" data-bs-target="#companyModal">
                             See More
                         </button>
@@ -91,7 +91,7 @@
                     <strong class="text-dark">المستثمرون</strong>
                     <div class="d-flex flex-wrap">
                         <!-- Limit to 3 investors initially -->
-                        @foreach ($investorRequest->take(2) as $request)
+                        @foreach ($investorRequest->take(0) as $request)
                         @if($request->user)
                         <!-- Check if user exists -->
                         <span class="text-secondary badge bg-primary text-white me-2 mb-2">
@@ -100,7 +100,7 @@
                         @endif
                         @endforeach
 
-                        @if($investorRequest->count() > 2)
+                        @if($investorRequest->count() > 0)
                         <!-- If there are more than 3 investors, show the button -->
                         <button class="text-secondary badge bg-primary text-white me-2 mb-2" data-bs-toggle="modal" data-bs-target="#modalId">
                             See More
@@ -133,7 +133,9 @@
                                     <tr>
                                         <th>الاسم</th>
                                         <th>المبلغ</th>
-                                        <th>وقت الاستثمار</th>
+                                        <th>نسبة الربح</th>
+                                        <th>الربح المحسوب</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -142,16 +144,17 @@
                                     <tr>
                                         <td>{{ $request->user->name ?? 'Not Available' }}</td>
                                         <td>{{ $request->amount ?? 'Not Available' }}</td>
-                                        <td>{{ $request->time_of_investment ?? 'غير متوفر' }}</td>
+                                        <td>{{ $request->profitPercentage ?? 'Not Available' }}%</td>
+                                        <td>{{ $request->calculatedProfit ?? 'Not Available' }}</td>
                                     </tr>
                                     @endif
                                     @endforeach
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
 
 
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
@@ -164,18 +167,51 @@
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">الحالة</strong>
-                    <span class="text-secondary">
-                        @if(isset($investorFund->total_funds) && isset($amountSum))
-                        @if($amountSum >= $investorFund->total_funds)
-                        <span class="text-secondary badge bg-info text-white">Start</span>
-                        @else
-                        <span class="text-secondary badge bg-warning text-white">Waiting</span>
-                        @endif
-                        @else
-                        Not Available
-                        @endif
-                    </span>
+                    @if($investorFund->status == 0)
+                    <span class="badge bg-success" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Investment not completed</span>
+                    @elseif($investorFund->status == 3)
+                    <span class="badge bg-warning" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Waiting Investors</span>
+                    @elseif($investorFund->status == 2)
+                    <span class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Started</span>
+                    @elseif($investorFund->status == 1)
+                    <span class="badge bg-success" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Completed</span>
+                    @elseif($investorFund->status == 4)
+                    <span class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Rejected</span>
+                    @endif
                 </div>
+
+                <!-- Modal for Status Update -->
+                <div class="modal fade" id="statusModal{{ $investorFund->id }}" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content p-2">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalTitleId">
+                                    تحديث حالة الشركة
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body mt-3">
+                                <form action="{{ route('admin.investor.funds.status', $investorFund->id) }}" method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="status{{ $investorFund->id }}" class="form-label">حالة الشركة</label>
+                                        <select name="status" id="status{{ $investorFund->id }}" class="form-control">
+                                            <option value="" disabled selected>حالة الشركة</option>
+                                            <option value="0" {{ $investorFund->status == 0 ? 'selected' : '' }}>Investment not completed</option>
+                                            <option value="3" {{ $investorFund->status == 3 ? 'selected' : '' }}>Waiting Investors</option>
+                                            <option value="2" {{ $investorFund->status == 2 ? 'selected' : '' }}>Started</option>
+                                            <option value="1" {{ $investorFund->status == 1 ? 'selected' : '' }}>Completed</option>
+                                            <option value="4" {{ $investorFund->status == 4 ? 'selected' : '' }}>Rejected</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">حفظ</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
 
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">نسبة الربح</strong>

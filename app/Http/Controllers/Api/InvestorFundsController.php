@@ -10,7 +10,7 @@ class InvestorFundsController extends Controller
     public function index()
     {
         try {
-            $investmentFunds = InvestorFunds::with('investmentFundCompanies')->get();
+            $investmentFunds = InvestorFunds::with('investmentFundCompanies.companies')->get();
             return response()->json([
                 'success' => true,
                 'message' => 'Investment Funds retrieved successfully.',

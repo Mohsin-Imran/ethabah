@@ -28,12 +28,20 @@
                     <strong class="text-dark">البريد الإلكتروني</strong>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <span class="text-secondary">{{ $company->phone ?? 'غير متوفر' }}</span>
+                    <span class="text-secondary" style="unicode-bidi: bidi-override; direction: ltr;">
+                        {{ $company->phone ?? 'غير متوفر' }}
+                    </span>
                     <strong class="text-dark">رقم الهاتف</strong>
                 </div>
+
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <span class="text-secondary">{{ $company->register_num ?? 'غير متوفر' }}</span>
-                    <strong class="text-dark">رقم التسجيل</strong>
+                    <strong class="text-dark">رقم السجل التجاري</strong>
+                </div>
+
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <span class="text-secondary">{{ $company->address ?? 'N/A' }}</span>
+                    <strong class="text-dark">عنوان الشركة</strong>
                 </div>
 
                 <div class="mt-4 p-1 border-bottom">
@@ -63,7 +71,7 @@
                         @endforeach
                         <button class="btn-sm btn-primary h-25" onclick="downloadAll('register-certificates')"><i class="fa fa-download"></i></button>
                     </div>
-                    <strong style="float: right; position: relative; top: -40px;">Register Certificates</strong>
+                    <strong style="float: right; position: relative; top: -40px;">السجل التجاري</strong>
                 </div>
 
                 <div class="mt-4 p-1 border-bottom">
@@ -94,7 +102,7 @@
                         @endforeach
                         <button class="btn-sm btn-primary h-25" onclick="downloadAll('commercial-certificates')"> <i class="fa fa-download"></i></button>
                     </div>
-                    <strong class="text-dark" style="float: right; position: relative; top: -40px;">Commercial Certificates</strong>
+                    <strong class="text-dark" style="float: right; position: relative; top: -40px;">جواز السفر أو هوية المالك</strong>
                 </div>
 
                 <div class="mt-4 p-1 border-bottom">
@@ -124,7 +132,7 @@
                         @endforeach
                         <button class="btn-sm btn-primary h-25" onclick="downloadAll('licenses')"> <i class="fa fa-download"></i></button>
                     </div>
-                    <strong class="text-dark" style="float: right; position: relative; top: -40px;">Licenses</strong>
+                    <strong class="text-dark" style="float: right; position: relative; top: -40px;">تراخيص أخرى</strong>
                 </div>
 
             </div>

@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">المبلغ</strong>
+                    <strong class="text-dark">مبلغ الاستثمار</strong>
                     <span class="text-secondary">{{ $investorReq->amount ?? 'غير متوفر' }}</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
@@ -37,8 +37,12 @@
                     <span class="text-secondary">{{ $profitPercentage ?? 'غير متوفر' }}%</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">إجمالي مبلغ الربح</strong>
+                    <strong class="text-dark">ربح</strong>
                     <span class="text-secondary">{{ $calculatedProfit ?? 'غير متوفر' }}</span>
+                </div>
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <strong class="text-dark">المجموع </strong>
+                    <span class="text-secondary">{{ ($investorReq->amount ?? 0) + ($calculatedProfit ?? 0) ?: 'غير متوفر' }}</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">بداية الفترة</strong>
