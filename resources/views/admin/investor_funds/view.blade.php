@@ -75,7 +75,7 @@
                                         <td>{{ $company->name ?? 'Not Available' }}</td>
                                         <td>
                                             <a href="{{ route('admin.request.bike.view', $company->id) }}" class="btn-sm btn-primary" title="عرض">
-                                                <i class="fa fa-eye text-white"></i>
+                                                view
                                             </a>
                                         </td>
                                     </tr>
@@ -224,6 +224,14 @@
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">سيتم دفع الربح</strong>
                     <span class="text-secondary">{{ $investorFund->profit ?? 'Not Available' }}</span>
+                </div>
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <p class="text-dark">بداية الفترة</p>
+                    <p class="text-dark">{{ $investorFund->end_of_period ?? 'غير متوفر' }}</p>
+                </div>
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <p class="text-dark">نهاية الفترة</p>
+                    <p class="text-dark">{{ $investorFund->end_of_period ?? 'غير متوفر' }}</p>
                 </div>
             </div>
             <div class="card-footer text-center" style="background-color: #e0e0e0; padding: 15px; border-radius: 0 0 15px 15px;">

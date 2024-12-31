@@ -59,28 +59,8 @@ class InvestorRequestController extends Controller
         try {
             // Fetching data with necessary relationships
             $data = InvestorRequest::with('investmentFund.investmentFundCompanies.company')
-                ->get()
-                ->map(function ($investorRequest) {
-                    return [
-                        'id' => $investorRequest->id,
-                        'company_names' => $investorRequest->investmentFund
-                            ->investmentFundCompanies
-                            ->pluck('company.name'), // Extract only the company names
-                        'other_data' => $investorRequest->only([ // Corrected 'onle' to 'only'
-                            'id',
-                            'user_id',
-                            'investor_funds_id',
-                            'amount',
-                            'time_of_investment',
-                            'start_of_period',
-                            'end_of_period',
-                            'status',
-                            'created_at',
-                            'updated_at',
-                        ]),
-                    ];
-                });
-
+                ->where('user_id',auth()->user()->id)
+                ->get();
             return response()->json([
                 'success' => true,
                 'message' => 'All Investor Requests retrieved successfully.',

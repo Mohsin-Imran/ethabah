@@ -108,6 +108,12 @@
                                     </div>
 
                                     <div class="col-lg-6 mb-4">
+                                        <label for="address">Company Address</label>
+                                        <input id="address" placeholder="Company Address" type="text" class="form-control form-control-lg @error('company_address') is-invalid @enderror" name="address">
+                                        <ul id="register_preview" class="file-list mt-3"></ul>
+                                    </div>
+
+                                    <div class="col-lg-6 mb-4">
                                         <label for="email">Password</label>
                                         <input id="password" type="password" placeholder="Password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                                         @error('password')
@@ -144,7 +150,7 @@
                                         </label>
                                     </div> --}}
 
-                                    <div class="col-lg-6 mt-4">
+                                    <div class="col-lg-6 mt-2">
                                         <button class="btn w-100 btn-success" style="" type="submit">Submit</button>
                                         <div class="d-flex flex-row justify-content-between">
                                             <a href="{{ route('password.request') }}" style="color: #393f81; text-decoration: none;">Forgot password?</a>

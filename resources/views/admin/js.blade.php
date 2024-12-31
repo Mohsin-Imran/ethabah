@@ -81,7 +81,7 @@
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return `$${context.raw.toLocaleString()}`;
+                                return `SAR ${context.raw.toLocaleString()}`;
                             }
                         }
                     }
