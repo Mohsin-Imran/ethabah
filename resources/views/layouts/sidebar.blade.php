@@ -189,13 +189,23 @@
             @else
             <ul class="sidebar-menu">
                 <li>
-                    <a class="sidebar-header" href="{{ route('company.company.dashboard') }}" style="{{ request()->routeIs('company.company.dashboard') ? 'background-color: white; color: #214d45;' : '' }}">
+                    <a class="sidebar-header" href="{{ route('investor.investor.dashboard') }}" style="{{ request()->routeIs('investor.investor.dashboard') ? 'background-color: white; color: #214d45;' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box">
                             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                             <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                             <line x1="12" y1="22.08" x2="12" y2="12"></line>
                         </svg>
                         <span>لوحة التحكم</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="sidebar-header" href="{{ route('investor.profile.view') }}" style="{{ request()->routeIs('investor.profile.view') ? 'background-color: white; color: #214d45;' : '' }}">
+                        <!-- Updated SVG for Profile -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"></path>
+                            <path d="M12 14c-3.31 0-6 1.69-6 3v1h12v-1c0-1.31-2.69-3-6-3z"></path>
+                        </svg>
+                        <span>الملفات</span>
                     </a>
                 </li>
                 <li>

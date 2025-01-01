@@ -30,6 +30,9 @@ class HomeController extends Controller
             } elseif ($user->role == 2) {
                 return redirect()->route('company.company.dashboard');
             }
+            elseif ($user->role == 0) {
+                return redirect()->route('investor.investor.dashboard');
+            }
         }
         return redirect()->route('login');
     }

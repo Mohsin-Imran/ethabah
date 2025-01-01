@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('total_funds')->nullable();
             $table->string('profit_percentage');
             $table->longText('duration_of_investment');
+            $table->string('start_of_period');
+            $table->string('end_of_period');
             $table->string('status')->default(0);
             $table->timestamps();
         });
