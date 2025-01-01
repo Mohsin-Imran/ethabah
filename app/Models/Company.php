@@ -47,4 +47,10 @@ class Company extends Model
         return $this->belongsToMany(InvestorFunds::class, 'investment_fund_companies');
     }
 
+
+    public function projectDoument()
+    {
+        return $this->belongsTo(ProjectUpdate::class);
+    }
+
 }

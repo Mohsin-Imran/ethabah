@@ -75,4 +75,31 @@ class InvestorRequestController extends Controller
         }
     }
 
+    public function investorDashboard()
+    {
+        try {
+            $investmentFunds = InvestorRequest::where('user_id', auth()->user()->id)
+                ->with('investmentFund') 
+                ->get();
+            $allInvestmentFunds = $investmentFunds->pluck('investmentFund')->flatten();
+            $investorpendingStatus = $allInvestmentFunds->where('status', '!=', 1)->count();  
+            $investorapprovedStatus = $allInvestmentFunds->where('status', 1)->count(); 
+            $investorAmount = InvestorRequest::where('user_id', auth()->user()->id)->sum('amount');
+        
+            return response()->json([
+                'success' => true,
+                'message' => 'Investor Dashboard Data.',
+                'investorapprovedStatus' => $investorapprovedStatus,
+                'investorpendingStatus' => $investorpendingStatus,
+                'investorAmount' => $investorAmount,  
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while fetching investment funds names.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
 }

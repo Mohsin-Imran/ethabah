@@ -40,8 +40,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/project/investor/docu/get', [ProjectUpdateDocument::class, 'getInvestorDoc']);
     Route::get('/project/update/docu/get', [ProjectUpdateDocument::class, 'index']);
     Route::get('/investment/funds/get', [InvestorFundsController::class, 'index']);
+    Route::get('/investment/funds/investor/document/get', [InvestorFundsController::class, 'investorFundAndDocuments']);
     Route::get('/investment/funds/name/get', [InvestorFundsController::class, 'investmentFundsNames']);
     Route::get('/investor/invest/data/get', [InvestorRequestController::class, 'getInvestorData']);
+    Route::get('/investor/dashboard/data', [InvestorRequestController::class, 'investorDashboard']);
 });
 
 // Fallback route
