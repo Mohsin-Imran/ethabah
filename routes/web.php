@@ -135,9 +135,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Route::middleware(['auth', 'company'])->prefix('company')->name('company.')->group(function () {
     Route::get('dashboard', [CompanyDashboardController::class, 'index'])->name('company.dashboard');
 
-    // Route::controller(CompanyCompanyController::class)->group(function () {
-    //     Route::post('register', 'register')->name('register');
-    // });
+   
 
     Route::controller(ProfileController::class)->prefix('profile/')->name('profile.')->group(function () {
         Route::get('view', 'view')->name('view');
@@ -152,6 +150,7 @@ Route::middleware(['auth', 'company'])->prefix('company')->name('company.')->gro
         Route::post('store', 'store')->name('store');
         Route::post('updateDocument', 'updateDocument')->name('updateDocument');
     });
+    
 });
 
 
