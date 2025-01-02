@@ -92,6 +92,41 @@
         color: green;
         font-size: 12px;
     }
-    .nav-tabs{
+
+    .nav-tabs {
         border-bottom: 0px;
+    }
+
+    .PTag {
+        font-size: 20px;
+        color: black;
+        font-family: Arial;
+    }
+
+    .fundTotal {
+        color: #214D45;
+        font-weight: bold;
+        border: 1px solid #214D45;
+        padding: 2px;
+        font-size: 15px;
+    }
+
+    .timeDate {
+        color: black;
+        padding: 2px;
+        font-size: 15px;
+    }
+    .categoryName {
+        color: black;
+        padding: 2px;
+        font-size: 15px;
+    }
+    .h2Hed {
+        color: black;
+        padding: 2px;
+        font-size: 30px;
+    }
+
+    .bBorder {
+        border-bottom: 1.5px solid black;
     }

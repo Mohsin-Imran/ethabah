@@ -157,6 +157,9 @@ Route::middleware(['auth', 'company'])->prefix('company')->name('company.')->gro
 
 
 Route::middleware(['auth', 'investor'])->prefix('investor')->name('investor.')->group(function () {
+    Route::get('/under/review', function () {
+        return view('company.under_review');
+    });
     Route::get('dashboard', [InvestorDashboardController::class, 'index'])->name('investor.dashboard');
 
     // Route::controller(CompanyCompanyController::class)->group(function () {

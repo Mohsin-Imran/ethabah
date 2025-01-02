@@ -81,7 +81,7 @@
                         </div>
 
                         <div class="mb-3 mt-2 col-lg-6">
-                            <label for="request_document" class="form-label">Request Document</span></label>
+                            <label for="request_document" class="form-label">Document</span></label>
                             <input id="request_document" type="file" class="form-control @error('request_document') is-invalid @enderror" name="request_document[]" multiple>
                             @error('request_document')
                             <span class="invalid-feedback" role="alert">
@@ -102,5 +102,21 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(session('message1'))
+    <script>
+        Swal.fire({
+            title: 'Under Review',
+            text: 'Our team reviews and approves the documents to activate the account. It usually takes 24-48 hours to review the document.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            background: '#142E29',  // Dark green background color
+            color: '#fff',  // White text color
+            iconColor: '#fff',  // White icon color
+            confirmButtonColor: '#b3dd0d'  // Primary blue button background color
+        });
+    </script>
+@endif
+
 @include('select')
 @endsection

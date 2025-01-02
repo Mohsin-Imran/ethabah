@@ -66,7 +66,7 @@ class RequestController extends Controller
         $requestData->request_document = !empty($uploadedFiles) ? json_encode($uploadedFiles) : null; // Save file info as JSON
         $requestData->save();
 
-        return redirect()->back()->with('message', 'Request Add successfully');
+        return redirect()->back()->with('message1', 'Request Add successfully');
 
     }
 

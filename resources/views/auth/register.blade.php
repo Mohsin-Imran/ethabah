@@ -1,171 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <title>Company Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7e2;
+            padding: 20px;
+        }
+        .form-control{
+            background-color: #b4d7c3;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            text-align: center;
+            color: #000;
+            font-family: Arial;
+        }
+
+        .submit-btn {
+            background-color: #b3dd0d;
+            color: #000;
+            font-weight: bold;
+            border: none;
+            padding: 8px;
+        }
+
+        .submit-btn:hover {
+            background-color: #9fca0b;
+        }
+
+        .upload-btn {
+            background-color: #00a87e;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .upload-btn:hover {
+            background-color: #008b68;
+        }
+
+        a {
+            color: #00a87e;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
 </head>
-<style>
-    span,
-    label,
-    p,
-    a {
-        font-family: 'Times New Roman';
-    }
-
-    input::placeholder {
-        font-size: 16px;
-        /* font-family: 'Times New Roman'; */
-    }
-
-    .file-list {
-        list-style-type: none;
-        padding-left: 0;
-    }
-
-    .file-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    .file-name {
-        flex-grow: 1;
-    }
-
-    .delete-btn {
-        margin-left: 10px;
-        cursor: pointer;
-        color: red;
-    }
-
-</style>
-
 <body>
-    <section class="" style="background-color: #214d45;">
-        <div class="container py-3 h-100">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <form class="form-horizontal auth-form" method="POST" action="{{ route('company.register') }}" enctype="multipart/form-data">
-                            @csrf
-                            <div class="card-body p-4 p-lg-5 text-black">
-                                <div class="text-center mb-3">
-                                    <img src="{{ asset('MainLogo_Dark.png') }}" height="150px" width="150px" class="img-fluid" alt="">
-                                    <br>
-                                    <span class="h1 fw-bold mb-0" style="position: relative; right: 16px;">Company Registration</span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 mb-4">
-                                        <label for="name">Full Company Name</label>
-                                        <input id="name" placeholder="Full Company Name" type="text" class="form-control form-control-lg @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                                        @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-6 mb-4">
-                                        <label class="form-label" for="registration_number">Company Registration Number</label>
-                                        <input id="registration_number" name="register_num" type="text" placeholder="Company Registration Number" class="form-control form-control-lg @error('register_num') is-invalid @enderror" value="{{ old('register_num') }}" required autofocus>
-                                        @error('register_num')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-lg-6 mb-4">
-                                        <label for="phone">Phone Number</label>
-                                        <div class="d-flex">
-                                            <select id="country_code" name="country_code" class="form-control form-control-lg w-auto me-2" required>
-                                                <option value="+966">+966</option>
-                                                <option value="+972">+972</option>
-                                                <option value="+971">+971</option>
-                                                <option value="+973">+973</option>
-                                            </select>
-                                            <input id="phone" name="phone" type="text" placeholder="Enter Phone Number" class="form-control form-control-lg @error('phone') is-invalid @enderror" value="{{ old('phone') }}" required>
-                                        </div>
-                                        @error('phone')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-lg-6 mb-4">
-                                        <label for="email">Email Address</label>
-                                        <input id="email" type="email" name="email" class="form-control form-control-lg @error('email') is-invalid @enderror" placeholder="Email Address" value="{{ old('email') }}" required autofocus>
-                                        @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-lg-6 mb-4">
-                                        <label for="address">Company Address</label>
-                                        <input id="address" placeholder="Company Address" type="text" class="form-control form-control-lg @error('company_address') is-invalid @enderror" name="address">
-                                        <ul id="register_preview" class="file-list mt-3"></ul>
-                                    </div>
-
-                                    <div class="col-lg-6 mb-4">
-                                        <label for="email">Password</label>
-                                        <input id="password" type="password" placeholder="Password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                                        @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-lg-6 mb-4">
-                                        <label for="email">Confirm Password</label>
-                                        <input id="password-confirm" placeholder="Confirm Password" type="password" class="form-control form-control-lg" name="password_confirmation" required autocomplete="new-password">
-                                    </div>
-                                    <div class="col-lg-6 mb-4">
-                                        <label for="register_certificate">Company Registration Certificates</label>
-                                        <input id="register_certificate" type="file" class="form-control @error('register_certificate') is-invalid @enderror" name="register_certificate[]" multiple required>
-                                        <ul id="register_preview" class="file-list mt-3"></ul>
-                                    </div>
-
-                                    <div class="col-lg-6 mb-4">
-                                        <label for="commercial_certificate">Commercial Registration Certificates</label>
-                                        <input id="commercial_certificate" type="file" class="form-control @error('commercial_certificate') is-invalid @enderror" name="commercial_certificate[]" multiple required>
-                                        <ul id="commercial_preview" class="file-list mt-3"></ul>
-                                    </div>
-
-                                    <div class="col-lg-6 mb-4">
-                                        <label for="licenses">Other Licenses</label>
-                                        <input id="licenses" type="file" class="form-control @error('licenses') is-invalid @enderror" name="licenses[]" multiple required>
-                                        <ul id="licenses_preview" class="file-list mt-3"></ul>
-                                    </div>
-                                    {{-- <div class="form-check mb-4">
-                                        <input type="checkbox" class="form-check-input" id="termsCheckbox" required>
-                                        <label class="form-check-label" for="termsCheckbox">
-                                            I agree with <a href="/terms" target="_blank" class="text-primary">Terms of Condition</a> and <a href="/privacy" target="_blank" class="text-primary">Privacy Policy</a>.
-                                        </label>
-                                    </div> --}}
-
-                                    <div class="col-lg-6 mt-2">
-                                        <button class="btn w-100 btn-success" style="" type="submit">Submit</button>
-                                        <div class="d-flex flex-row justify-content-between">
-                                            <a href="{{ route('password.request') }}" style="color: #393f81; text-decoration: none;">Forgot password?</a>
-                                            <a href="{{ route('login') }}" style="color: #393f81; text-decoration: none;;">Login here</a>
-                                        </div>
-                                    </div>
-                                </div>
+    <div class="container">
+        <form class="form-horizontal auth-form" method="POST" action="{{ route('company.register') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="col-lg-6 offset-lg-3" id="registration-section">
+                <div class="card p-4">
+                    <div class="row g-4">
+                        <h2 class="card-title">Company Registration</h2>
+                        <div class="">
+                            <label for="company-name" class="form-label">Full Company Name</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus id="company-name" placeholder="Enter Full Company Name">
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email Address" value="{{ old('email') }}" required autofocus>
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="">
+                            <label for="reg-number" class="form-label">Company Registration Number</label>
+                            <input type="text" name="register_num" type="text" placeholder="Company Registration Number" class="form-control @error('register_num') is-invalid @enderror" value="{{ old('register_num') }}" required>
+                            @error('register_num')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="">
+                            <label for="reg-number" class="form-label">Company Address</label>
+                            <input type="text" name="address" type="text" placeholder="Company Registration Number" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" required>
+                            @error('address')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <div class="input-group">
+                                <select class="form-select"style="max-width: 120px;background-color: #b4d7c3;">
+                                    <option value="+966">+966</option>
+                                </select>
+                                <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" placeholder="Enter phone number">
+                                @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
+                        </div>
+                        <div class="">
+                            <label for="password">Password</label>
+                            <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" oninput="validatePassword()">
+                            <div id="password-error" class="text-danger mt-1" style="display: none;">Password must be at least 8 characters long.</div>
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
 
-                        </form>
+                        <div class="">
+                            <label for="password-confirm">Confirm Password</label>
+                            <input id="password-confirm" type="password" placeholder="Confirm Password" class="form-control" name="password_confirmation" required autocomplete="new-password" oninput="validatePassword()">
+                            <div id="confirm-password-error" class="text-danger mt-1" style="display: none;">Passwords do not match.</div>
+                        </div>
+                        <button type="button" class="submit-btn text-white">Next &raquo;</button>
+
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    @include('admin.js')
+
+            <div class="col-lg-6 offset-lg-3" id="verification-section" style="display: none;">
+                <div class="card p-4 mt-5">
+                    <h2 class="card-title">Account Verification</h2>
+                    <div class="mt-3">
+                        <label for="reg-cert" class="form-label">Company Registration Certificate</label>
+                        <br>
+                        <button type="button" class="btn upload-btn" onclick="document.getElementById('reg-cert').click()">Upload</button>
+                        <input type="file" id="reg-cert" class="form-control d-none" multiple onchange="handleFileUpload(event, 'reg-cert-files')" required>
+                        <ul id="reg-cert-files" class="list-group mt-2"></ul>
+                    </div>
+
+                    <div class="mb-1">
+                        <label for="comm-reg-cert" class="form-label">Commercial Registration Certificate</label>
+                        <br>
+                        <button type="button" class="btn upload-btn" onclick="document.getElementById('comm-reg-cert').click()">Upload</button>
+                        <input type="file" id="comm-reg-cert" class="form-control d-none" multiple onchange="handleFileUpload(event, 'comm-reg-files')" required>
+                        <ul id="comm-reg-files" class="list-group mt-2"></ul>
+                    </div>
+
+                    <div class="mb-1">
+                        <label for="other-licenses" class="form-label">Other Licenses</label>
+                        <br>
+                        <button type="button" class="btn upload-btn" onclick="document.getElementById('other-licenses').click()">Upload</button>
+                        <input type="file" id="other-licenses" class="form-control d-none" multiple onchange="handleFileUpload(event, 'other-licenses-files')" required>
+                        <ul id="other-licenses-files" class="list-group mt-2"></ul>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="terms">
+                        <label for="terms" class="form-check-label">
+                            I agree with <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+                    <button type="button" class="btn w-100 btn-success mt-2 previous-btn">Previous</button>
+                    <button class="btn w-100  mt-2" style="background-color: #b3dd0d;color:white;" type="submit" onclick="validateFileUploads()">Submit</button>
+                    <div class="d-flex flex-row justify-content-between mt-2">
+                        <a href="{{ route('password.request') }}" style="color: #393f81; text-decoration: none;">Forgot password?</a>
+                        <a href="{{ route('login') }}" style="color: #393f81; text-decoration: none;;">Login here</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function validateFileUploads() {
+            const fileInputs = [
+                document.getElementById('reg-cert'),
+                document.getElementById('comm-reg-cert'),
+                document.getElementById('other-licenses')
+            ];
+            let isValid = true;
+            let missingFields = [];
+
+            fileInputs.forEach(input => {
+                if (input.files.length === 0) {
+                    isValid = false;
+                    missingFields.push(input.previousElementSibling.textContent.trim());
+                }
+            });
+
+            if (!isValid) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Missing Files',
+                    // html: `<p>Please upload the following files:</p><ul>${missingFields.map(field => `<li>${field}</li>`).join('')}</ul>`,
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'All files uploaded!',
+                    text: 'Submitting the form...',
+                    confirmButtonText: 'Submit'
+                }).then(() => {
+                    // Submit the form programmatically
+                    document.querySelector('form').submit();
+                });
+            }
+        }
+    </script>
+    <script>
+        // Function to handle file upload and preview file names
+        function handleFileUpload(event, listId) {
+            const fileList = event.target.files;
+            const list = document.getElementById(listId);
+
+            // Clear the list before adding new files
+            list.innerHTML = '';
+
+            // Loop through uploaded files and add to the list
+            Array.from(fileList).forEach((file, index) => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                listItem.textContent = file.name;
+
+                // Add delete button
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn-sm btn-danger';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.onclick = () => {
+                    listItem.remove();
+                    const input = event.target;
+                    const dt = new DataTransfer();
+
+                    // Retain only files that are not deleted
+                    Array.from(input.files).forEach((f, i) => {
+                        if (i !== index) dt.items.add(f);
+                    });
+
+                    input.files = dt.files; // Update the file input
+                };
+
+                listItem.appendChild(deleteBtn);
+                list.appendChild(listItem);
+            });
+        }
+
+    </script>
+
+    <script>
+        // Validate Password and Confirm Password in real-time
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('password-confirm').value;
+
+            // Password length validation
+            const passwordError = document.getElementById('password-error');
+            if (password.length < 8) {
+                passwordError.style.display = 'block';
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+            // Confirm Password match validation
+            const confirmPasswordError = document.getElementById('confirm-password-error');
+            if (password !== confirmPassword && confirmPassword !== '') {
+                confirmPasswordError.style.display = 'block';
+            } else {
+                confirmPasswordError.style.display = 'none';
+            }
+        }
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const nextButton = document.querySelector('.submit-btn');
+            const previousButton = document.querySelector('.previous-btn');
+            const registrationSection = document.getElementById('registration-section');
+            const verificationSection = document.getElementById('verification-section');
+
+            // Show verification section and hide registration section
+            nextButton.addEventListener('click', () => {
+                registrationSection.style.display = 'none'; // Hide the first div
+                verificationSection.style.display = 'block'; // Show the second div
+            });
+
+            // Show registration section and hide verification section
+            previousButton.addEventListener('click', () => {
+                verificationSection.style.display = 'none'; // Hide the second div
+                registrationSection.style.display = 'block'; // Show the first div
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

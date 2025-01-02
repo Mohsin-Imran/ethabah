@@ -65,11 +65,44 @@
                 </div>
 
             </div>
-            <div class="card mt-5">
+            {{-- <div class="card mt-5">
                 <div class="col-lg-12">
                     <canvas id="lineChart" width="300" height="100"></canvas>
                 </div>
+            </div> --}}
+            <div class="row mt-5">
+                <div class="text-center">
+                    <h2 class="h2Hed">My Request</h2>
+                </div>
+                @foreach ($requestesDatas as $requestesData)
+                <div class="col-lg-4 mt-2">
+                    <!-- Adjusted col size for responsive layout -->
+                    <div class="card p-2" style="border: 1px solid #214D45;">
+                        <div class="d-flex flex-row justify-content-between">
+                            <p class="PTag">{{ $requestesData->name ?? ''}}</p>
+                            <button class="btn" style="color: #b3dd0d; padding: 10px;height:40px;">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                        <span class="bBorder"></span>
+                        <div class="d-flex flex-row justify-content-between mt-2">
+                            <p class="categoryName">{{ $requestesData->category ?? '' }}</p>
+                            <p class="fundTotal ">SAR{{ $requestesData->total_funds ?? '' }}</p>
+                        </div>
+                        <span class="bBorder"></span>
+                        <div class="d-flex flex-row justify-content-between mt-2">
+                            @if($requestesData->status == 1)
+                            <span class="btn-sm h-25 " style="background-color: #214D45;color:white;">Accept</span>
+                            @else
+                            <span class="btn-sm h-25 " style="background-color: #b3dd0d;color:#214D45;">Under Review</span>
+                            @endif
+                            <p class="timeDate ">{{ $requestesData->created_at->format('d M, Y') ?? 'N/A' }}</p>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
+
         </div>
     </div>
 </div>
