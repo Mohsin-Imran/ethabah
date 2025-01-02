@@ -25,20 +25,15 @@ class HomeController extends Controller
     {
         if (auth()->check()) {
             $user = auth()->user();
-            logger('Authenticated user:', ['user' => $user]);
             if ($user->role == 1) {
                 return redirect()->route('admin.admin.dashboard');
             } elseif ($user->role == 2) {
-                if ($user->status == 0) {
-                    return 'dsadsad';
-                } else {
-                    return redirect()->route('company.company.dashboard');
-                }
-            } elseif ($user->role == 0) {
+                return redirect()->route('company.company.dashboard');
+            }
+            elseif ($user->role == 0) {
                 return redirect()->route('investor.investor.dashboard');
             }
         }
-        logger('User not authenticated');
         return redirect()->route('login');
     }
 

@@ -27,7 +27,7 @@
     <div class="row">
         <div class="card p-1">
             <div class="card-header p-2 bg-primary">
-                <h3 class="mb-0 text-white">Add Request</h3>
+                <h3 class="mb-0 text-white">Submit A Request</h3>
             </div>
             <div class="card-body p-2" dir="rtl">
                 <form method="POST" action="{{ route('company.request.store') }}" enctype="multipart/form-data">

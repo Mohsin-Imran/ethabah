@@ -55,7 +55,25 @@
         }
     });
 </script>
+<script>
+    function filterCards() {
+        const selectedStatus = document.querySelector('input[name="status"]:checked').value;
+        const cards = document.querySelectorAll('.card-item');
 
+        cards.forEach(card => {
+            const cardStatus = card.getAttribute('data-status');
+            if (cardStatus === selectedStatus) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Initial filter on page load
+    document.addEventListener('DOMContentLoaded', filterCards);
+
+</script>
 
 
 

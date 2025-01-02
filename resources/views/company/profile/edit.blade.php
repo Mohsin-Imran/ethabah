@@ -17,7 +17,7 @@
     <div class="row">
         <div class="card p-1">
             <div class="card-header bg-primary p-2 d-flex flex-row">
-                <h3 class="text-white">Edit Profile</h3>
+                <h3 class="text-white">Personal Information</h3>
             </div>
 
             <div class="card-body p-2">

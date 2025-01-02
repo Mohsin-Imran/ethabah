@@ -9,7 +9,7 @@ class ProjectUpdate extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'company_id', 'project_id', 'update_name', 'document'];
+    protected $fillable = ['user_id', 'company_id', 'request_id', 'update_name', 'document'];
 
     
 

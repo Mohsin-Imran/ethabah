@@ -40,6 +40,6 @@ class RequestBike extends Model
 
     public function projectUpdate()
     {
-        return $this->hasMany(ProjectUpdate::class,'project_id' ,'id');
+        return $this->hasMany(ProjectUpdate::class,'request_id' ,'id');
     }
 }

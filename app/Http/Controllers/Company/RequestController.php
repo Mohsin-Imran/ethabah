@@ -73,7 +73,7 @@ class RequestController extends Controller
     public function updateDocument(Request $request)
     {
         $validatedData = $request->validate([
-            'project_id' => 'required|string|max:255',
+            'request_id' => 'required|string|max:255',
             'update_name' => 'required|string|max:255',
             'document' => 'nullable|array',
             'document.*' => 'file|mimes:pdf,doc,docx,jpeg,png|max:2048',
@@ -92,7 +92,7 @@ class RequestController extends Controller
 
         $projectData->user_id = $request->user_id;
         $projectData->company_id = $request->company_id;
-        $projectData->project_id = $validatedData['project_id'];
+        $projectData->request_id = $validatedData['request_id'];
         $projectData->update_name = $validatedData['update_name'];
         $projectData->document = !empty($uploadedFiles) ? json_encode($uploadedFiles) : null;
 

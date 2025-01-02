@@ -55,6 +55,14 @@ class InvestorFundsController extends Controller
         ]);
 
         $investorFund = new InvestorFunds;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            if ($investorFund->image && file_exists(public_path('investorFund/' . $investorFund->image))) {
+                unlink(public_path('investorFund/' . $investorFund->image));
+            }
+            $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('investorFund'), $imageName);
+            $investorFund->image = $imageName;
+        }
         $investorFund->user_id = auth()->user()->id;
         $investorFund->category_id = $request->category_id;
         $investorFund->name = $request->name;
@@ -111,6 +119,14 @@ class InvestorFundsController extends Controller
         ]);
 
         $investorFund = InvestorFunds::findOrFail($id);
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            if ($investorFund->image && file_exists(public_path('investorFund/' . $investorFund->image))) {
+                unlink(public_path('investorFund/' . $investorFund->image));
+            }
+            $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move(public_path('investorFund'), $imageName);
+            $investorFund->image = $imageName;
+        }
         $investorFund->user_id = auth()->user()->id;
         $investorFund->category_id = $request->category_id;
         $investorFund->name = $request->name;

@@ -30,7 +30,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
+    @include('company.css')
 </head>
 
 <body>
@@ -62,6 +62,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @include('admin.js')
+    @include('company.js')
 
     <!-- Bootstrap js-->
     <script src="{{ asset('assets/dashboard/js/bootstrap.bundle.min.js') }}"></script>

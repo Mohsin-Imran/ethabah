@@ -152,6 +152,19 @@
                             </span>
                             @enderror
                         </div>
+
+                        <div class="mb-3 mt-2 col-lg-12">
+                            <label for="image" class="form-label">صورة</label>
+                            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image" onchange="previewImage(event)">
+                            @if(!empty($investorFund->image))
+                            <img src="{{ asset('investorFund/' . $investorFund->image) }}" alt="Investor Fund Image" height="100px" width="100px">
+                            @else
+                            <p>Image not found</p>
+                            @endif
+                            <div id="image-preview-container" class="mt-3" style="display:none;">
+                                <img id="image-preview" src="" alt="Image Preview" height="100px" width="100px">
+                            </div>
+                        </div>
                     </div>
                     <button type="submit" class="btn-sm btn-primary">تحديث</button>
                 </form>

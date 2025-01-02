@@ -25,6 +25,7 @@ return new class extends Migration
             $table->longText('duration_of_investment');
             $table->string('start_of_period');
             $table->string('end_of_period');
+            $table->longText('image')->nullable();
             $table->string('status')->default(0);
             $table->timestamps();
         });

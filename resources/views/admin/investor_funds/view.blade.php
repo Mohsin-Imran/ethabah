@@ -226,12 +226,22 @@
                     <span class="text-secondary">{{ $investorFund->profit ?? 'Not Available' }}</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <p class="text-dark">بداية الفترة</p>
-                    <p class="text-dark">{{ $investorFund->end_of_period ?? 'غير متوفر' }}</p>
+                    <strong class="text-dark">بداية الفترة</strong>
+                    <span class="text-secondary">{{ $investorFund->start_of_period ?? 'Not Available' }}</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <p class="text-dark">نهاية الفترة</p>
-                    <p class="text-dark">{{ $investorFund->end_of_period ?? 'غير متوفر' }}</p>
+                    <strong class="text-dark">نهاية الفترة</strong>
+                    <span class="text-secondary">{{ $investorFund->end_of_period ?? 'Not Available' }}</span>
+                </div>
+                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                    <strong class="text-dark">صورة</strong>
+                    <span class="text-secondary">
+                        @if(!empty($investorFund->image))
+                        <img src="{{ asset('investorFund/' . $investorFund->image) }}" alt="Investor Fund Image" height="60px" width="60px">
+                        @else
+                        <p>Image not found</p>
+                        @endif
+                    </span>
                 </div>
             </div>
             <div class="card-footer text-center" style="background-color: #e0e0e0; padding: 15px; border-radius: 0 0 15px 15px;">

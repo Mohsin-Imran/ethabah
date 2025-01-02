@@ -147,6 +147,15 @@
             @elseif(auth()->check() && auth()->user()->role == 2)
             <ul class="sidebar-menu">
                 <li>
+                    <a class="sidebar-header" href="{{ route('company.company.dashboard') }}" style="{{ request()->routeIs('company.company.dashboard') ? 'background-color: white; color: #214d45;' : '' }}">
+                        <!-- Updated SVG for Request -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
                     <a class="sidebar-header" href="{{ route('company.request.create') }}" style="{{ request()->routeIs('company.request.create') ? 'background-color: white; color: #214d45;' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box">
                             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
@@ -167,21 +176,12 @@
                     </a>
                 </li>
                 <li>
-                    <a class="sidebar-header" href="{{ route('company.profile.view') }}" style="{{ request()->routeIs('company.profile.view') ? 'background-color: white; color: #214d45;' : '' }}">
+                    <a class="sidebar-header" href="{{ route('company.profile.edit') }}" style="{{ request()->routeIs('company.profile.edit') ? 'background-color: white; color: #214d45;' : '' }}">
                         <!-- Updated SVG for Request -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
                             <path d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                         <span>Personal information</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="sidebar-header" href="{{ route('company.company.dashboard') }}" style="{{ request()->routeIs('company.company.dashboard') ? 'background-color: white; color: #214d45;' : '' }}">
-                        <!-- Updated SVG for Request -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
-                            <path d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                        <span>Dashboard</span>
                     </a>
                 </li>
                 <li>

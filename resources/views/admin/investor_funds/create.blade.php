@@ -160,6 +160,21 @@
                             @enderror
                         </div>
 
+                        <div class="mb-3 mt-2 col-lg-12">
+                            <label for="image" class="form-label">صورة</label>
+                            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image" value="{{ old('image') }}" onchange="previewImage(event)">
+                            @error('image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                            <div id="image-preview-container" class="mt-3" style="display:none;">
+                                <img id="image-preview" src="" alt="Image Preview" style="max-width: 100%; height: auto;">
+                            </div>
+                        </div>
+                        
+                        
+
 {{--
                         <div class="mb-3 mt-2 col-lg-12">
                             <label class="form-label">سيتم دفع الربح <span style="color: red;">*</span></label>
