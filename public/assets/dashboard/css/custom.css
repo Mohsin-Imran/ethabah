@@ -54,6 +54,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        background-color: black;
+        color: white;
     }
 
     .dashboard-icon {
@@ -79,13 +81,14 @@
         margin: 0;
         font-size: 15px;
         font-weight: bold;
+        color: white;
     }
 
     .dashboard-content p {
         margin: 0;
         font-size: 15px;
-        color: black;
         font-weight: bold;
+        color: white;
     }
 
     .growth {
@@ -97,4 +100,4 @@
         border-bottom: 0px;
     }
 
-    
+

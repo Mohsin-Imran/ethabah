@@ -146,7 +146,7 @@
                         <label for="reg-cert" class="form-label">Company Registration Certificate</label>
                         <br>
                         <button type="button" class="btn upload-btn" onclick="document.getElementById('reg-cert').click()">Upload</button>
-                        <input type="file" id="reg-cert" class="form-control d-none" multiple onchange="handleFileUpload(event, 'reg-cert-files')" required>
+                        <input type="file" name="register_certificate[]" id="reg-cert" class="form-control d-none" multiple onchange="handleFileUpload(event, 'reg-cert-files')" required>
                         <ul id="reg-cert-files" class="list-group mt-2"></ul>
                     </div>
 
@@ -154,7 +154,7 @@
                         <label for="comm-reg-cert" class="form-label">Commercial Registration Certificate</label>
                         <br>
                         <button type="button" class="btn upload-btn" onclick="document.getElementById('comm-reg-cert').click()">Upload</button>
-                        <input type="file" id="comm-reg-cert" class="form-control d-none" multiple onchange="handleFileUpload(event, 'comm-reg-files')" required>
+                        <input type="file" name="commercial_certificate[]" id="comm-reg-cert" class="form-control d-none" multiple onchange="handleFileUpload(event, 'comm-reg-files')" required>
                         <ul id="comm-reg-files" class="list-group mt-2"></ul>
                     </div>
 
@@ -162,7 +162,7 @@
                         <label for="other-licenses" class="form-label">Other Licenses</label>
                         <br>
                         <button type="button" class="btn upload-btn" onclick="document.getElementById('other-licenses').click()">Upload</button>
-                        <input type="file" id="other-licenses" class="form-control d-none" multiple onchange="handleFileUpload(event, 'other-licenses-files')" required>
+                        <input type="file" name="licenses[]" id="other-licenses" class="form-control d-none" multiple onchange="handleFileUpload(event, 'other-licenses-files')" required>
                         <ul id="other-licenses-files" class="list-group mt-2"></ul>
                     </div>
 

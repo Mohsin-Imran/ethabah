@@ -17,11 +17,12 @@ class CompanyController extends Controller
 
     public function register(Request $request)
     {
+        // Validation
         $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required',
-            'register_certificate.*' => 'required',
-            'commercial_certificate.*' => 'required',
+            'register_certificate.*' => 'required|file',
+            'commercial_certificate.*' => 'required|file',
             'licenses.*' => 'file',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
@@ -30,13 +31,14 @@ class CompanyController extends Controller
 
         $hashedPassword = bcrypt($request->password);
 
+        // Create a new Company instance
         $company = new Company();
 
         // Save Multiple Register Certificates
         $registerCertificates = [];
         if ($request->hasFile('register_certificate')) {
             foreach ($request->file('register_certificate') as $file) {
-                $fileName = time() . '_' . uniqid() . '.' . $file->extension();
+                $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('register_certificate'), $fileName);
                 $registerCertificates[] = $fileName;
             }
@@ -47,7 +49,7 @@ class CompanyController extends Controller
         $commercialCertificates = [];
         if ($request->hasFile('commercial_certificate')) {
             foreach ($request->file('commercial_certificate') as $file) {
-                $fileName = time() . '_' . uniqid() . '.' . $file->extension();
+                $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('commercial_certificate'), $fileName);
                 $commercialCertificates[] = $fileName;
             }
@@ -58,32 +60,40 @@ class CompanyController extends Controller
         $licenses = [];
         if ($request->hasFile('licenses')) {
             foreach ($request->file('licenses') as $file) {
-                $fileName = time() . '_' . uniqid() . '.' . $file->extension();
+                $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('licenses'), $fileName);
                 $licenses[] = $fileName;
             }
             $company->licenses = json_encode($licenses);
         }
 
+        // Save other company details
         $company->name = $request->name;
         $company->register_num = $request->register_num;
         $company->phone = $request->phone;
-        $company->address = $request->address;
+        $company->address = $request->address ?? null;
         $company->email = $request->email;
         $company->password = $hashedPassword;
         $company->save(); // Save company to generate its ID
 
+        // Create associated User
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $hashedPassword;
-        $user->role = 2;
+        $user->role = 2; // Assign role for company
         $user->company_id = $company->id;
         $user->save();
+
+        // Update company with user_id
         $company->user_id = $user->id;
         $company->save();
+
+        // Log in the user
         auth()->login($user);
-        return redirect()->route('company.company.dashboard')->with('message', 'Data updated successfully');
+
+        // Redirect to dashboard
+        return redirect()->route('company.company.dashboard')->with('message', 'Registration successful!');
     }
 
 }

@@ -33,7 +33,7 @@
     @include('company.css')
 </head>
 
-<body>
+<body style="background-color: #f5f5ef;">
 
     <!-- page-wrapper Start-->
     <div class="page-wrapper">
@@ -44,7 +44,7 @@
             <!-- SideBar-->
             @yield('sidebar')
             <!-- SideBar Ends-->
-            <div class="page-body">
+            <div class="page-body" style="background-color: #f5f5ef;">
                 <!-- content-->
                 @yield('content')
                 <!-- content Ends-->
