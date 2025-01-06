@@ -12,8 +12,12 @@ class CompanyController extends Controller
 
     public function index()
     {
-        return view('company.register');
+        if (auth()->check()) {
+            return redirect()->route('investor.investor.dashboard');
+        }
+        return view('investor.register');
     }
+
 
     public function register(Request $request)
     {

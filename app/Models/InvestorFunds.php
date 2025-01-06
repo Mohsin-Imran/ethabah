@@ -31,5 +31,8 @@ class InvestorFunds extends Model
     {
         return $this->hasMany(InvestmentFundCompany::class, 'investor_funds_id', 'id');
     }
-
+    public function investments()
+    {
+        return $this->hasMany(InvestorRequest::class, 'investor_funds_id', 'id');
+    }
 }

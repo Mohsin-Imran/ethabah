@@ -60,23 +60,34 @@
                         </div>
 
                         <div class="mb-3 mt-2 col-lg-12">
-                            <label for="company" class="form-label">الشركات <span style="color: red;">*</span></label>
-                            <select name="company_id[]" id="select3" multiple class="form-control custom-select @error('company_id') is-invalid @enderror">
-                                @foreach ($companies as $requestBike)
-                                @if ($requestBike->company)
-                                <!-- Ensure the relationship exists -->
-                                <option value="{{ $requestBike->company->id }}" data-total-funds="{{ $requestBike->total_funds }}" {{ in_array($requestBike->company->id, old('company_id', [])) ? 'selected' : '' }}>
-                                    {{ $requestBike->company->name }}
-                                </option>
-                                @endif
-                                @endforeach
-                            </select>
-                            @error('company_id')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
+                            <div class="mb-3 mt-2 col-lg-12">
+                                <label for="company" class="form-label">الشركات <span style="color: red;">*</span></label>
+                                <select name="company_id[]" id="select3" multiple class="form-control custom-select @error('company_id') is-invalid @enderror">
+                                    @foreach ($companies as $requestBike)
+                                    @if ($requestBike->company)
+                                    <!-- Ensure the relationship exists -->
+                                    <option value="{{ $requestBike->company->id }}"
+                                            data-total-funds="{{ $requestBike->total_funds }}"
+                                            data-requestbike-id="{{ $requestBike->id }}"
+                                            {{ in_array($requestBike->company->id, old('company_id', [])) ? 'selected' : '' }}>
+                                        {{ $requestBike->company->name }}
+                                    </option>
+                                    @endif
+                                    @endforeach
+                                </select>
+                                @error('company_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            <!-- Input field for RequestBike ID (will be dynamically populated) -->
+                            <div class="mb-3">
+                                <label for="requestbike_id" class="form-label">RequestBike ID</label>
+                                <input type="text" id="requestbike_id" class="form-control" readonly>
+                            </div>
+
 
                         <div class="mb-3 mt-2 col-lg-6">
                             <label for="total_funds" class="form-label">إجمالي الصناديق</label>
@@ -172,8 +183,8 @@
                                 <img id="image-preview" src="" alt="Image Preview" style="max-width: 100%; height: auto;">
                             </div>
                         </div>
-                        
-                        
+
+
 
 {{--
                         <div class="mb-3 mt-2 col-lg-12">

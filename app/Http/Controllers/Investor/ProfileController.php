@@ -42,7 +42,7 @@ class ProfileController extends Controller
             $nationalIds = [];
             foreach ($request->file('national_id') as $file) {
                 $fileName = time() . '_' . uniqid() . '.' . $file->extension();
-                $file->move(public_path('investor_profile'), $fileName);
+                $file->move(public_path('investor_register'), name: $fileName);
                 $nationalIds[] = $fileName;
             }
             $user->national_id = json_encode($nationalIds);
@@ -53,7 +53,7 @@ class ProfileController extends Controller
             $passports = [];
             foreach ($request->file('passport') as $file) {
                 $fileName = time() . '_' . uniqid() . '.' . $file->extension();
-                $file->move(public_path('investor_profile'), $fileName);
+                $file->move(public_path('investor_register'), $fileName);
                 $passports[] = $fileName;
             }
             $user->passport = json_encode($passports);

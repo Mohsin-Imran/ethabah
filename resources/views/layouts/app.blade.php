@@ -34,7 +34,15 @@
 </head>
 
 <body style="background-color: #f5f5ef;">
+    <style>
+        input[type="date"] {
+            direction: rtl;
+            /* Set the text direction to RTL */
+            text-align: right;
+            /* Align the text to the right */
+        }
 
+    </style>
     <!-- page-wrapper Start-->
     <div class="page-wrapper">
         <!-- Page Header Start-->
@@ -63,6 +71,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @include('admin.js')
     @include('company.js')
+    @include('investor.js')
 
     <!-- Bootstrap js-->
     <script src="{{ asset('assets/dashboard/js/bootstrap.bundle.min.js') }}"></script>
@@ -88,6 +97,7 @@
                 }
             }
         });
+
     </script>
 
     {{-- //toaster script and code link// --}}

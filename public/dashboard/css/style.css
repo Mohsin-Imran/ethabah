@@ -6,6 +6,9 @@
     --theme-color: #214d45
 }
 
+
+
+
 @-webkit-keyframes textNoise1 {
     0% {
         -webkit-clip-path: inset(54% 0 42% 0);

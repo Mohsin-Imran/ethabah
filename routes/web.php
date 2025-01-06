@@ -18,7 +18,10 @@ use App\Http\Controllers\Company\ProfileController;
 use App\Http\Controllers\Company\RequestController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Investor\DashboardController as InvestorDashboardController;
+use App\Http\Controllers\Investor\InvestorController as InvestorInvestorController;
 use App\Http\Controllers\Investor\ProfileController as InvestorProfileController;
+use App\Http\Controllers\Investor\InvestorFundsController as InvestorInvestorFundsController;
+use App\Http\Controllers\Investor\RequestController as ControllersInvestorRequestController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,8 +40,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('register/company', [CompanyCompanyController::class, 'index'])->name('company.register');
+Route::get('register/investor', [CompanyCompanyController::class, 'index'])->name('investor.register');
 Route::post('register/company', [CompanyCompanyController::class, 'register'])->name('company.register');
+Route::post('register/investor', [InvestorInvestorController::class, 'investorRegister'])->name('investor.store');
 
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -135,7 +139,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Route::middleware(['auth', 'company'])->prefix('company')->name('company.')->group(function () {
     Route::get('dashboard', [CompanyDashboardController::class, 'index'])->name('company.dashboard');
 
-   
+
 
     Route::controller(ProfileController::class)->prefix('profile/')->name('profile.')->group(function () {
         Route::get('view', 'view')->name('view');
@@ -150,7 +154,7 @@ Route::middleware(['auth', 'company'])->prefix('company')->name('company.')->gro
         Route::post('store', 'store')->name('store');
         Route::post('updateDocument', 'updateDocument')->name('updateDocument');
     });
-    
+
 });
 
 
@@ -171,11 +175,16 @@ Route::middleware(['auth', 'investor'])->prefix('investor')->name('investor.')->
         Route::post('update', 'update')->name('update');
     });
 
-    Route::controller(RequestController::class)->prefix('request/')->name('request.')->group(function () {
+    Route::controller(ControllersInvestorRequestController::class)->prefix('request/')->name('request.')->group(function () {
         Route::get('index', 'index')->name('index');
         Route::get('view/{id}', 'view')->name('view');
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
         Route::post('updateDocument', 'updateDocument')->name('updateDocument');
+    });
+
+    Route::controller(InvestorInvestorFundsController::class)->prefix('investor/funds/')->name('investor.funds.')->group(function () {
+        Route::get('index', 'index')->name('index');
+        Route::get('view/{id}', 'view')->name('view');
     });
 });

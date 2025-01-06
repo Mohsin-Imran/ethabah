@@ -16,11 +16,11 @@
     if (!option.id) {
         return option.text;
     }
-    var $option = $( 
+    var $option = $(
         '<span><input type="checkbox" style="margin-right: 8px;">' + option.text + '</span>'
-    );
-    return $option;
-}
+        );
+        return $option;
+    }
 
     // Manage selection when checkboxes are clicked
     $(document).on('click', '.select2-results__option', function (e) {
@@ -41,10 +41,10 @@
         }
         select.val(val).trigger('change');
         e.stopPropagation();
-        
+
         let totalFunds = 0;
         let amount = 0;
-        
+
         val.forEach(function (id) {
             const option = select.find(`option[value="${id}"]`);
             totalFunds += parseFloat(option.data('total-funds')) || 0;
@@ -56,7 +56,7 @@
     });
 
 
-        
+
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
