@@ -37,6 +37,6 @@ class InvestmentFundCompany extends Model
     }
 
     public function investmentFund() {
-        return $this->belongsTo(InvestorFunds::class);
+        return $this->belongsTo(InvestorFunds::class,'investor_funds_id','id');
     }
 }

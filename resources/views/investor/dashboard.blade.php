@@ -63,11 +63,62 @@
                 </div>
             </div>
 
-             <div class="card mt-5">
+            <div class="card mt-5">
                 <div class="col-lg-12">
-                    <canvas id="lineGraphChart" width="300" height="100"></canvas>
+                    <canvas id="investorChart" width="300" height="100"></canvas>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            
+            <script type="text/javascript">
+                // Fetching the labels, data, and colors from the server-side
+                var labels = {!! json_encode($labels ?? []) !!};
+                var data = {!! json_encode($data ?? []) !!};
+                var colors = {!! json_encode($colors ?? []) !!};
+            
+                // Chart configuration
+                const chartData = {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Investor Investment Amount',
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        data: data,
+                    }]
+                };
+            
+                const chartConfig = {
+                    type: 'bar',
+                    data: chartData,
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        return 'SAR: ' + tooltipItem.raw;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                };
+            
+                // Create the chart
+                const investorChart = new Chart(
+                    document.getElementById('investorChart'),
+                    chartConfig
+                );
+            </script>
+            
         </div>
     </div>
 </div>
