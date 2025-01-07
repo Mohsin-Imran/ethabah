@@ -13,7 +13,22 @@ class RequestController extends Controller
 {
     public function index()
     {
-        $requestesData = InvestorRequest::with('investmentFund.category')->where('user_id', auth()->user()->id)->get();
+        $requestesData = InvestorRequest::with('investmentFund.investmentFundCompanies')->where('user_id', auth()->user()->id)->get();
+
+        // Initialize an empty collection to store the project updates
+        $projectUpdates = collect();
+
+        // Loop through each request data and fetch project updates
+        foreach ($requestesData as $request) {
+            // Ensure the relationship is loaded and request_id is available
+            foreach ($request->investmentFund->investmentFundCompanies as $company) {
+                $updates = ProjectUpdate::where('request_id', $company->request_id)->get();
+                $projectUpdates = $projectUpdates->merge($updates); // Merge the updates into the collection
+            }
+        }
+
+        // Remove duplicates based on the 'id' field of ProjectUpdate
+        $projectUpdates = $projectUpdates->unique('id');
         return view('investor.request.index', get_defined_vars());
     }
 
@@ -61,7 +76,6 @@ class RequestController extends Controller
 
         return redirect()->back()->with('message', 'Request added successfully');
     }
-
 
     public function updateDocument(Request $request)
     {

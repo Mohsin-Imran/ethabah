@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AssignedCompany;
 use App\Models\Category;
+use App\Models\InvestmentFundCompany;
 use App\Models\InvestorFunds;
 use App\Models\InvestorRequest;
 use App\Models\RequestBike;
@@ -35,11 +36,16 @@ class InvestorFundsController extends Controller
         $assignedCompanies = AssignedCompany::with('company')->get();
         $categories = Category::all();
 
-        $companies = RequestBike::select('company_id', DB::raw('SUM(total_funds) as total_funds'))
-            ->with('company')
+        $companies = RequestBike::select(
+            'company_id',
+            DB::raw('SUM(total_funds) as total_funds'),
+            DB::raw('MIN(id) as id') // Gets the smallest id in each group
+        )
+            ->with('company') // Ensure 'company' is a valid relationship
             ->where('status', 1)
             ->groupBy('company_id')
             ->get();
+
         return view('admin.investor_funds.create', get_defined_vars());
     }
 
@@ -76,7 +82,17 @@ class InvestorFundsController extends Controller
         $investorFund->duration_of_investment = $request->duration_of_investment;
         $investorFund->save();
 
-        $investorFund->companies()->attach($request->company_id);
+        $companyIds = $request->company_id; // Array of selected company IDs
+        $requestIds = explode(',', $request->selected_company_ids); // Array of request_ids (data-ids from selected companies)
+
+        // Loop through the companies and store the relation with the request_id
+        foreach ($companyIds as $index => $companyId) {
+            $investorFundCompany = new InvestmentFundCompany();
+            $investorFundCompany->investor_funds_id = $investorFund->id;
+            $investorFundCompany->request_id = $requestIds[$index]; // Set the corresponding request_id
+            $investorFundCompany->company_id = $companyId; // Save the company ID
+            $investorFundCompany->save();
+        }
 
         return redirect()->route('admin.investor.funds.index')->with('message', 'Data added successfully');
     }
@@ -99,8 +115,12 @@ class InvestorFundsController extends Controller
         $investorFund = InvestorFunds::findOrFail($id);
         $investors = User::where('role', 0)->get();
         $categories = Category::all();
-        $companies = RequestBike::select('company_id', DB::raw('SUM(total_funds) as total_funds'))
-            ->with('company') // Ensure the company relationship is eager-loaded
+        $companies = RequestBike::select(
+            'company_id',
+            DB::raw('SUM(total_funds) as total_funds'),
+            DB::raw('MIN(id) as id') // Gets the smallest id in each group
+        )
+            ->with('company') // Ensure 'company' is a valid relationship
             ->where('status', 1)
             ->groupBy('company_id')
             ->get();
@@ -140,6 +160,26 @@ class InvestorFundsController extends Controller
         $investorFund->duration_of_investment = $request->duration_of_investment;
         $investorFund->save();
         $investorFund->companies()->sync($request->company_id);
+
+        // Handle saving request_ids (data-ids from the select options)
+        $companyIds = $request->company_id; // Array of selected company IDs
+        $requestIds = explode(',', $request->selected_company_ids); // Get the data-ids for each selected company
+
+        // Loop through each selected company and update the pivot table
+        foreach ($companyIds as $index => $companyId) {
+            $investorFundCompany = InvestmentFundCompany::where('investor_funds_id', $investorFund->id)
+                ->where('company_id', $companyId)
+                ->first();
+            if (!$investorFundCompany) {
+                $investorFundCompany = new InvestmentFundCompany();
+            }
+
+            // Update the relationship and the request_id (data-ids)
+            $investorFundCompany->investor_funds_id = $investorFund->id;
+            $investorFundCompany->company_id = $companyId;
+            $investorFundCompany->request_id = $requestIds[$index]; // Set the corresponding request_id
+            $investorFundCompany->save();
+        }
         return redirect()->route('admin.investor.funds.index')->with('message', 'Data updated successfully');
     }
 

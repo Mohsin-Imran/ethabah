@@ -60,33 +60,27 @@
                         </div>
 
                         <div class="mb-3 mt-2 col-lg-12">
-                            <div class="mb-3 mt-2 col-lg-12">
-                                <label for="company" class="form-label">الشركات <span style="color: red;">*</span></label>
-                                <select name="company_id[]" id="select3" multiple class="form-control custom-select @error('company_id') is-invalid @enderror">
-                                    @foreach ($companies as $requestBike)
-                                    @if ($requestBike->company)
-                                    <!-- Ensure the relationship exists -->
-                                    <option value="{{ $requestBike->company->id }}"
-                                            data-total-funds="{{ $requestBike->total_funds }}"
-                                            data-requestbike-id="{{ $requestBike->id }}"
-                                            {{ in_array($requestBike->company->id, old('company_id', [])) ? 'selected' : '' }}>
-                                        {{ $requestBike->company->name }}
-                                    </option>
-                                    @endif
-                                    @endforeach
-                                </select>
-                                @error('company_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
+                            <label for="company" class="form-label">الشركات <span style="color: red;">*</span></label>
+                            <select name="company_id[]" id="select3" multiple class="form-control custom-select">
+                                @foreach ($companies as $requestBike)
+                                @if ($requestBike->company)
+                                <option
+                                    value="{{ $requestBike->company->id }}"
+                                    data-total-funds="{{ $requestBike->total_funds }}"
+                                    data-ids="{{ $requestBike->id }}"> <!-- This is the ID you want to capture -->
+                                    {{ $requestBike->company->name }}
+                                </option>
+                                @endif
+                                @endforeach
+                            </select>
+                            @error('company_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
 
-                            <!-- Input field for RequestBike ID (will be dynamically populated) -->
-                            <div class="mb-3">
-                                <label for="requestbike_id" class="form-label">RequestBike ID</label>
-                                <input type="text" id="requestbike_id" class="form-control" readonly>
-                            </div>
+                            <input id="selected_company_ids" name="selected_company_ids" type="hidden">
+                        </div>
 
 
                         <div class="mb-3 mt-2 col-lg-6">
@@ -163,7 +157,7 @@
 
                         <div class="mb-3 mt-2 col-lg-12">
                             <label for="end_of_period" class="form-label">نهاية الفترة</label>
-                            <input type="date"  placeholder="نسبة الربح" min="1" class="form-control @error('end_of_period') is-invalid @enderror" name="end_of_period" id="end_of_period" value="{{ old('end_of_period') }}">
+                            <input type="date" placeholder="نسبة الربح" min="1" class="form-control @error('end_of_period') is-invalid @enderror" name="end_of_period" id="end_of_period" value="{{ old('end_of_period') }}">
                             @error('end_of_period')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -186,59 +180,60 @@
 
 
 
-{{--
+                        {{--
                         <div class="mb-3 mt-2 col-lg-12">
                             <label class="form-label">سيتم دفع الربح <span style="color: red;">*</span></label>
                             <div>
                                 <input type="radio" id="monthly" name="profit" value="monthly" {{ old('profit') == 'monthly' ? 'checked' : '' }} onclick="toggleCustomMonths(false)">
-                                <label for="monthly">شهري</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="quarterly" name="profit" value="quarterly" {{ old('profit') == 'quarterly' ? 'checked' : '' }} onclick="toggleCustomMonths(false)">
-                                <label for="quarterly">ربع سنوي</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="yearly" name="profit" value="yearly" {{ old('profit') == 'yearly' ? 'checked' : '' }} onclick="toggleCustomMonths(false)">
-                                <label for="yearly">سنوي</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="custom" name="profit" value="custom" {{ old('profit') == 'custom' ? 'checked' : '' }} onclick="toggleCustomMonths(true)">
-                                <label for="custom">مخصص</label>
-                            </div>
-                            <div id="custom-months-container" style="display: none;">
-                                <label for="custom-months" class="form-label">أدخل عدد الأشهر</label>
-                                <input type="number" id="custom-months" name="custom_months" class="form-control" value="{{ old('custom_months') }}" min="1" placeholder="عدد الأشهر">
-                                @error('custom_months')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            @error('profit')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <script>
-                            function toggleCustomMonths(show) {
-                                const customMonthsContainer = document.getElementById('custom-months-container');
-                                customMonthsContainer.style.display = show ? 'block' : 'none';
-                            }
-
-                            // Initialize state based on the selected radio button
-                            document.addEventListener('DOMContentLoaded', function () {
-                                const customRadio = document.getElementById('custom');
-                                toggleCustomMonths(customRadio.checked);
-                            });
-                        </script> --}}
-
+                        <label for="monthly">شهري</label>
                     </div>
-                    <button type="submit" class="btn-sm btn-primary">إضافة</button>
-                </form>
+                    <div>
+                        <input type="radio" id="quarterly" name="profit" value="quarterly" {{ old('profit') == 'quarterly' ? 'checked' : '' }} onclick="toggleCustomMonths(false)">
+                        <label for="quarterly">ربع سنوي</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="yearly" name="profit" value="yearly" {{ old('profit') == 'yearly' ? 'checked' : '' }} onclick="toggleCustomMonths(false)">
+                        <label for="yearly">سنوي</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="custom" name="profit" value="custom" {{ old('profit') == 'custom' ? 'checked' : '' }} onclick="toggleCustomMonths(true)">
+                        <label for="custom">مخصص</label>
+                    </div>
+                    <div id="custom-months-container" style="display: none;">
+                        <label for="custom-months" class="form-label">أدخل عدد الأشهر</label>
+                        <input type="number" id="custom-months" name="custom_months" class="form-control" value="{{ old('custom_months') }}" min="1" placeholder="عدد الأشهر">
+                        @error('custom_months')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    @error('profit')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
             </div>
+            <script>
+                function toggleCustomMonths(show) {
+                    const customMonthsContainer = document.getElementById('custom-months-container');
+                    customMonthsContainer.style.display = show ? 'block' : 'none';
+                }
+
+                // Initialize state based on the selected radio button
+                document.addEventListener('DOMContentLoaded', function() {
+                    const customRadio = document.getElementById('custom');
+                    toggleCustomMonths(customRadio.checked);
+                });
+
+            </script> --}}
+
         </div>
+        <button type="submit" class="btn-sm btn-primary">إضافة</button>
+        </form>
     </div>
+</div>
+</div>
 </div>
 
 @include('select')

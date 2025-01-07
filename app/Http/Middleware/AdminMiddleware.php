@@ -20,8 +20,6 @@ class AdminMiddleware
         if (auth()->check() && auth()->user()->role == 1) {
             return $next($request);
         }
-        return response()->json([
-            'error' => 'Unauthorized access. You are not allowed to perform this action.'
-        ], 403);
+        return redirect()->back();
     }
 }

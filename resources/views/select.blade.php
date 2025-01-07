@@ -13,11 +13,11 @@
 
     // Add checkboxes to dropdown options
     function formatOption(option) {
-    if (!option.id) {
-        return option.text;
-    }
-    var $option = $(
-        '<span><input type="checkbox" style="margin-right: 8px;">' + option.text + '</span>'
+        if (!option.id) {
+            return option.text;
+        }
+        var $option = $(
+            '<span><input type="checkbox" style="margin-right: 8px;">' + option.text + '</span>'
         );
         return $option;
     }
@@ -29,35 +29,62 @@
         $checkbox.prop('checked', selected);
 
         // Update Select2's internal selection state
-        var optionId = $(this).attr('id');
+        var optionId = $(this).attr('id'); // Get option ID
         var select = $('#select3');
-        var val = select.val() || [];
+        var val = select.val() || []; // Get current selected values
+
         if (selected) {
-            val.push(optionId);
+            val.push(optionId); // Add the ID if selected
         } else {
             val = val.filter(function (v) {
-                return v !== optionId;
+                return v !== optionId; // Remove the ID if deselected
             });
         }
-        select.val(val).trigger('change');
+
+        select.val(val).trigger('change'); // Update Select2
         e.stopPropagation();
 
         let totalFunds = 0;
         let amount = 0;
 
+        // Calculate total funds and update inputs
         val.forEach(function (id) {
             const option = select.find(`option[value="${id}"]`);
             totalFunds += parseFloat(option.data('total-funds')) || 0;
             amount += parseFloat(option.data('total-funds')) || 0;
         });
 
-        $('#total_funds').val(totalFunds);
-        $('#amount').val(amount);  // This ensures that 'Amount' is updated with the total funds value
+        $('#total_funds').val(totalFunds); // Update total funds input
+        $('#amount').val(amount); // Update amount input
+
+        // Populate the hidden input with selected data-ids values
+        var selectedIds = val.map(function(id) {
+            return select.find(`option[value="${id}"]`).data('ids'); // Get the data-ids from selected options
+        });
+        $('#selected_company_ids').val(selectedIds.join(',')); // Update hidden input with data-ids values
     });
 
+    // Listen for deselection via Select2's close button
+    $('#select3').on('select2:unselect', function (e) {
+        var data = e.params.data;
+        var select = $('#select3');
+        var val = select.val() || []; // Get current selected values
 
+        // Remove the deselected ID
+        val = val.filter(function (v) {
+            return v !== data.id; // Ensure the deselected ID is removed
+        });
 
+        select.val(val).trigger('change'); // Update Select2
+
+        // Update the hidden input
+        var selectedIds = val.map(function(id) {
+            return select.find(`option[value="${id}"]`).data('ids'); // Get the data-ids from selected options
+        });
+        $('#selected_company_ids').val(selectedIds.join(',')); // Update hidden input with data-ids values
+    });
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
     const companySelect = document.getElementById('select3');

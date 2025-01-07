@@ -62,11 +62,66 @@
 
 
                     <div class="d-flex flex-row justify-content-between">
-                        {{-- @if($data->status == 1)
-                        <span class="badge bg-success me-2 float-end">Approved</span>
-                        @else
-                        <span class="badge bg-warning me-2 float-end">Review</span>
-                        @endif --}}
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalId{{ $data->id }}" class="fa fa-file btn-sm btn-red ml-3" style="font-size: 15px; background-color: #214D45; color: white;"></a>
+                        <div class="modal fade" id="modalId{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content p-2">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalTitleId">
+                                            Project Document
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="row mt-3">
+                                            <div class="col-lg-6 p-2" style="border: 1px solid;">
+                                                Update Name
+                                            </div>
+                                            <div class="col-lg-6 p-2" style="border: 1px solid;">
+                                                Update Document
+                                            </div>
+                                            @forelse ($projectUpdates as $projectData)
+                                            <div class="col-lg-6 p-2" style="border: 1px solid;">
+                                                {{ $projectData->update_name ?? 'No update name provided' }}
+                                            </div>
+                                            <div class="col-lg-6 p-2" style="border: 1px solid;">
+                                                @php
+                                                $document = json_decode($projectData->document, true) ?? [];
+                                                @endphp
+                                                @forelse ($document as $file)
+                                                @php
+                                                $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+                                                @endphp
+                                                <span class="text-secondary me-2" data-file="{{ asset('document/' . $file) }}" style="margin-bottom: 10px;">
+                                                    @if (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif', 'bmp']))
+                                                    <a href="{{ asset('document/' . $file) }}" data-fancybox="gallery" data-caption="License">
+                                                        <img src="{{ asset('document/' . $file) }}" width="40px" height="40px" class="mb-2 border" alt="License" style="border: 2px solid #000; padding: 3px;">
+                                                    </a>
+                                                    @elseif (strtolower($fileExtension) == 'pdf')
+                                                    <a href="{{ asset('document/' . $file) }}" target="_blank" class="btn btn-info p-2 text-white" style="position: relative; top:0px;">
+                                                        <i class="fas fa-file-pdf" style="font-size: 24px;"></i>
+                                                    </a>
+                                                    @elseif (strtolower($fileExtension) == 'docx' || strtolower($fileExtension) == 'doc')
+                                                    <a href="{{ asset('document/' . $file) }}" target="_blank" class="btn btn-success p-2 text-white" style="position: relative; top:0px;">
+                                                        <i class="fas fa-file-word" style="font-size: 24px;"></i>
+                                                    </a>
+                                                    @endif
+                                                </span>
+                                                @empty
+                                                <span>No documents available</span>
+                                                @endforelse
+                                            </div>
+                                            @empty
+                                            <div class="col-12">
+                                                <p>No project updates available.</p>
+                                            </div>
+                                            @endforelse
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -76,4 +131,3 @@
     </div>
 </div>
 @endsection
-                

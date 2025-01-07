@@ -50,12 +50,12 @@
                         </div>
 
                         <div class="mb-3 mt-2 col-lg-12">
-                            <label for="company" class="form-label">الشركة <span style="color: red;">*</span></label>
-                            <select name="company_id[]" id="select3" multiple class="form-control custom-select @error('company_id') is-invalid @enderror">
+                            <label for="company" class="form-label">الشركات <span style="color: red;">*</span></label>
+                            <select name="company_id[]" id="select3" multiple class="form-control custom-select">
                                 @foreach ($companies as $requestBike)
                                 @if ($requestBike->company)
-                                <!-- Ensure the relationship exists -->
-                                <option value="{{ $requestBike->company->id }}" data-total-funds="{{ $requestBike->total_funds }}" {{ in_array($requestBike->company->id, old('company_id', $investorFund->companies->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                <option value="{{ $requestBike->company->id }}" data-total-funds="{{ $requestBike->total_funds }}" data-ids="{{ $requestBike->id }}" {{ in_array($requestBike->company->id, old('company_id', $investorFund->companies->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                    <!-- This is the ID you want to capture -->
                                     {{ $requestBike->company->name }}
                                 </option>
                                 @endif
@@ -66,7 +66,10 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
+
+                            <input id="selected_company_ids" name="selected_company_ids" type="hidden" value="">
                         </div>
+
 
                         <div class="mb-3 mt-2 col-lg-6">
                             <label for="amount" class="form-label">إجمالي الصناديق</label>

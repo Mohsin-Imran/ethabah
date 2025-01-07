@@ -66,18 +66,13 @@
                                 <thead>
                                     <tr>
                                         <th>اسم الشركة</th>
-                                        <th>الإجراءات</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($investorFund->companies as $company)
                                     <tr>
                                         <td>{{ $company->name ?? 'Not Available' }}</td>
-                                        <td>
-                                            <a href="{{ route('admin.request.bike.view', $company->id) }}" class="btn-sm btn-primary" title="عرض">
-                                                view
-                                            </a>
-                                        </td>
+
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -168,15 +163,15 @@
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">الحالة</strong>
                     @if($investorFund->status == 0)
-                    <span class="badge bg-success" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Investment not completed</span>
+                    <span class="badge bg-success">Investment not completed</span>
                     @elseif($investorFund->status == 3)
-                    <span class="badge bg-warning" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Waiting Investors</span>
+                    <span class="badge bg-warning">Waiting Investors</span>
                     @elseif($investorFund->status == 2)
-                    <span class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Started</span>
+                    <span class="badge bg-primary">Started</span>
                     @elseif($investorFund->status == 1)
-                    <span class="badge bg-success" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Completed</span>
+                    <span class="badge bg-success">Completed</span>
                     @elseif($investorFund->status == 4)
-                    <span class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Rejected</span>
+                    <span class="badge bg-danger">Rejected</span>
                     @endif
                 </div>
 

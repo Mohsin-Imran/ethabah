@@ -12,6 +12,7 @@ class InvestmentFundCompany extends Model
     protected $fillable = [
         'investor_funds_id',
         'company_id',
+        'request_id',
     ];
 
     // Define the relationship with the InvestorFunds model
