@@ -51,7 +51,7 @@
                             <span id="error_message" class="text-danger" style="display: none;">Amount exceeds the pending funds!</span>
                         </div>
 
-                        <div class="mb-3 mt-2 col-lg-12">
+                        {{-- <div class="mb-3 mt-2 col-lg-12">
                             <label for="start_of_period" class="form-label">Start of Period <span style="color: red;">*</span></label>
                             <input type="date" placeholder="start_of_period" class="form-control @error('start_of_period') is-invalid @enderror" name="start_of_period" id="start_of_period" value="">
                             @error('start_of_period')
@@ -68,7 +68,7 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-                        </div>
+                        </div> --}}
                     </div>
                     <button type="submit" class="btn-sm btn-primary">Add</button>
                 </form>

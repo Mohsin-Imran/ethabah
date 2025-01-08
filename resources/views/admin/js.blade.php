@@ -298,3 +298,17 @@
         }
     }
 </script>
+
+<script>
+    function toggleCustomMonths(show) {
+        const customMonthsContainer = document.getElementById('custom-months-container');
+        customMonthsContainer.style.display = show ? 'block' : 'none';
+    }
+
+    // Initialize state based on the selected radio button
+    document.addEventListener('DOMContentLoaded', function() {
+        const customRadio = document.getElementById('custom');
+        toggleCustomMonths(customRadio.checked);
+    });
+
+</script>

@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\VehicleFundsController;
 use App\Http\Controllers\Company\CompanyController as CompanyCompanyController;
 use App\Http\Controllers\Company\DashboardController as CompanyDashboardController;
+use App\Http\Controllers\Company\InvestorFundsController as CompanyInvestorFundsController;
 use App\Http\Controllers\Company\ProfileController;
 use App\Http\Controllers\Company\RequestController;
 use App\Http\Controllers\HomeController;
@@ -154,7 +155,10 @@ Route::middleware(['auth', 'company'])->prefix('company')->name('company.')->gro
         Route::post('store', 'store')->name('store');
         Route::post('updateDocument', 'updateDocument')->name('updateDocument');
     });
-
+    Route::controller(CompanyInvestorFundsController::class)->prefix('investor/funds/')->name('investor.funds.')->group(function () {
+        Route::get('index', 'index')->name('index');
+        Route::get('view/{id}', 'view')->name('view');
+    });
 });
 
 

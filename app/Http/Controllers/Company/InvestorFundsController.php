@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Investor;
+namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use App\Models\InvestorFunds;
@@ -23,7 +23,8 @@ class InvestorFundsController extends Controller
             $fund->investorCounts = $investorCounts[$fund->id] ?? 0; // Default to 0 if no investors
         }
 
-        return view('investor.investor_funds.index', compact('investorFunds'));
+        // Pass the funds data to the view
+        return view('company.investor_funds.index', compact('investorFunds'));
     }
 
     public function view($id)
@@ -38,7 +39,7 @@ class InvestorFundsController extends Controller
             $request->calculatedProfit = ($request->amount * $profitPercentage) / 100;
             $request->profitPercentage = $profitPercentage;
         }
-        return view('investor.investor_funds.view', compact('investorFund', 'amountSum', 'investorRequest'));
+        return view('company.investor_funds.view', compact('investorFund', 'amountSum', 'investorRequest'));
     }
 
 }

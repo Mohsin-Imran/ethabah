@@ -77,6 +77,7 @@ class InvestorFundsController extends Controller
         $investorFund->profit_percentage = $request->profit_percentage;
         $investorFund->total_funds = $request->input('total_funds');
         $investorFund->month = $request->month;
+        $investorFund->custom_months = $request->custom_months;
         $investorFund->end_of_period = $request->end_of_period;
         $investorFund->start_of_period = $request->start_of_period;
         $investorFund->duration_of_investment = $request->duration_of_investment;
@@ -152,6 +153,7 @@ class InvestorFundsController extends Controller
         $investorFund->name = $request->name;
         $investorFund->profit = $request->profit;
         $investorFund->amount = $request->amount;
+        $investorFund->custom_months = $request->custom_months;
         $investorFund->profit_percentage = $request->profit_percentage;
         $investorFund->total_funds = $request->input('total_funds');
         $investorFund->month = $request->month;

@@ -18,14 +18,15 @@ return new class extends Migration
             $table->unsignedBigInteger('company_id')->nullable();
             $table->string('name');
             $table->string('profit');
-            $table->string('amount');
+            $table->string('amount')->nullable();
             $table->string('month')->nullable();
             $table->string('total_funds')->nullable();
             $table->string('profit_percentage');
-            $table->longText('duration_of_investment');
+            $table->longText('duration_of_investment')->nullable();
             $table->string('start_of_period');
             $table->string('end_of_period');
             $table->longText('image')->nullable();
+            $table->string('custom_months')->nullable();
             $table->string('status')->default(0);
             $table->timestamps();
         });

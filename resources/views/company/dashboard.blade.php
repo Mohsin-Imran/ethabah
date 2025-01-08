@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="row gy-3">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
                             <i class="fa-solid fa-hourglass-start"></i>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
                             <i class="fa-solid fa-thumbs-up"></i>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
                             <i class="fa-solid fa-money-bill-1-wave"></i> <!-- Updated to "users" icon for Companies -->
@@ -51,8 +51,8 @@
                             <p>{{ $requestFundsSum ?? '' }}.00</p>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3">
+                </div> --}}
+                <div class="col-md-4">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
                             <i class="fa-solid fa-code-pull-request"></i>

@@ -52,9 +52,9 @@ class RequestController extends Controller
     {
         $validatedData = $request->validate([
             'amount' => 'required|numeric|min:1',
-            'end_of_period' => 'required|date',
+            // 'end_of_period' => 'required|date',
             'investor_funds_id' => 'required|exists:investor_funds,id',
-            'start_of_period' => 'required|date',
+            // 'start_of_period' => 'required|date',
         ]);
 
         $fund = InvestorFunds::with('investments')->findOrFail($validatedData['investor_funds_id']);
@@ -70,8 +70,8 @@ class RequestController extends Controller
         $investment->user_id = auth()->user()->id;
         $investment->investor_funds_id = $validatedData['investor_funds_id'];
         $investment->amount = $validatedData['amount'];
-        $investment->end_of_period = $validatedData['end_of_period'];
-        $investment->start_of_period = $validatedData['start_of_period'];
+        // $investment->end_of_period = $validatedData['end_of_period'];
+        // $investment->start_of_period = $validatedData['start_of_period'];
         $investment->save();
 
         return redirect()->back()->with('message', 'Request added successfully');

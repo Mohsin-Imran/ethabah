@@ -26,7 +26,6 @@
     p {
         font-family: 'Times New Roman';
     }
-
 </style>
 <div class="container-fluid" dir="rtl" lang="ar">
     <div class="row">
@@ -56,7 +55,9 @@
                                     <div class="info-text">
                                         <span class="badge bg-primary">📅 {{ $data->updated_at ? $data->updated_at->format('d M, Y') : '' }}</span>
                                     </div>
-
+                                    <div class="info-text mt-2">
+                                        <span class="badge bg-primary">🕒 {{ $data->updated_at ? $data->updated_at->format('h:i A') : 'N/A' }}</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="amount-text">
@@ -66,59 +67,14 @@
                                 <br>
                                 SAR {{ number_format($data->amount_received, 2) ?? 'Not Available' }}
                             </div>
-                            <div class="progress" style="height: 20px;">
+                            <div class="progress">
                                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ round($data->progress_percentage, 2) }}%;" aria-valuenow="{{ round($data->progress_percentage, 2) ?? 0 }}" aria-valuemin="0" aria-valuemax="100">
                                     {{ round($data->progress_percentage, 0) }}% Complete
                                 </div>
                             </div>
 
 
-                            <div class="row">
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
-                                </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
-                                </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
-                                </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
-                                </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
-                                </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
-                                </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
-                                </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
-                                </div>
-                               
-                            </div>
-
-
-                            {{-- <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                            <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                                 <span class="spanTest">Total Amount</span>
                                 <span class="badge bg-primary">{{ number_format($data->total_funds, 2) ?? 'Not Available' }}</span>
                             </div>
@@ -157,7 +113,8 @@
                                     <span class="badge bg-secondary">Unknown</span>
                                     @endswitch
                                 </span>
-                            </div> --}}
+                            </div>
+
                         </div>
                     </div>
                 </div>
