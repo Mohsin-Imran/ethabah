@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\InvestmentFundCompany;
 use App\Models\InvestorFunds;
 use App\Models\InvestorRequest;
+use App\Models\Payment;
 use App\Models\RequestBike;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -103,12 +104,14 @@ class InvestorFundsController extends Controller
         $investorFund = InvestorFunds::with('investmentFundCompanies')->findOrFail($id);
         $amountSum = InvestorRequest::where('investor_funds_id', $id)->sum('amount');
         $investorRequest = InvestorRequest::with(['user', 'investmentFund.companies'])->where('investor_funds_id', $id)->get();
+        $userIds = $investorRequest->pluck('user_id');
         foreach ($investorRequest as $request) {
             $profitPercentage = $request->investmentFund->profit_percentage ?? 0;
             $request->calculatedProfit = ($request->amount * $profitPercentage) / 100;
             $request->profitPercentage = $profitPercentage;
         }
-        return view('admin.investor_funds.view', compact('investorFund', 'amountSum', 'investorRequest'));
+
+        return view('admin.investor_funds.view', compact('investorFund',  'amountSum', 'investorRequest'));
     }
 
     public function edit($id)
@@ -206,6 +209,24 @@ class InvestorFundsController extends Controller
         $investorFund->status = $request->status;
         $investorFund->save();
         return redirect()->back()->with('message', 'Status updated successfully.');
+    }
+
+    public function payment(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'amount' => 'required',
+        ]);
+        $payment = new Payment();
+        $payment->user_id = $request->user_id;
+        $payment->investor_funds_id = $request->investor_funds_id;
+        $payment->amount = $request->amount;
+        $payment->created_by = auth()->user()->id;
+        if ($payment->save()) {
+            return redirect()->back()->with('message', 'Request added successfully');
+        } else {
+            return redirect()->back()->with('error', 'Failed to save data');
+        }
     }
 
 }

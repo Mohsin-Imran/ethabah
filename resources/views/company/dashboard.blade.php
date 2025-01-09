@@ -92,7 +92,7 @@
                         <span class="bBorder"></span>
                         <div class="d-flex flex-row justify-content-between mt-2">
                             @if($requestesData->status == 1)
-                            <span class="btn-sm h-25 " style="background-color: #214D45;color:white;">Accept</span>
+                            <span class="btn-sm h-25 " style="background-color: #214D45;color:white;">Accepted</span>
                             @else
                             <span class="btn-sm h-25 " style="background-color: #b3dd0d;color:#214D45;">Under Review</span>
                             @endif

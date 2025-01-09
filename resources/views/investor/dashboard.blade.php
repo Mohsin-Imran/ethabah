@@ -64,60 +64,60 @@
             </div>
 
             <div class="card mt-5">
-              <div class="col-lg-12">
-    <canvas id="investmentChart" width="300" height="100"></canvas>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="text/javascript">
-    // Fetching the labels, data, and colors from the server-side
-    var chartLabels = {!! json_encode($chartLabels ?? []) !!};
-    var chartDataValues = {!! json_encode($chartDataValues ?? []) !!};
-    var chartColors = {!! json_encode($chartColors ?? []) !!};
-
-    // Chart configuration
-    const investmentChartData = {
-        labels: chartLabels,
-        datasets: [{
-            label: 'Monthly Investment Amount',
-            backgroundColor: chartColors,
-            borderColor: chartColors,
-            data: chartDataValues,
-        }]
-    };
-
-    const investmentChartConfig = {
-        type: 'bar',
-        data: investmentChartData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            return 'SAR: ' + tooltipItem.raw;
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    beginAtZero: true
-                }
-            }
-        }
-    };
-
-    // Create the chart
-    const investmentChart = new Chart(
-        document.getElementById('investmentChart'),
-        investmentChartConfig
-    );
-</script>
+                <div class="col-lg-12">
+                    <canvas id="investmentChart" width="300" height="100"></canvas>
+                </div>
             </div>
         </div>
     </div>
 </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript">
+        // Fetching the labels, data, and colors from the server-side
+        var chartLabels = {!! json_encode($chartLabels ?? []) !!};
+        var chartDataValues = {!! json_encode($chartDataValues ?? []) !!};
+        var chartColors = {!! json_encode($chartColors ?? []) !!};
+
+        // Chart configuration
+        const investmentChartData = {
+            labels: chartLabels,
+            datasets: [{
+                label: 'Monthly Investment Amount',
+                backgroundColor: chartColors,
+                borderColor: chartColors,
+                data: chartDataValues,
+            }]
+        };
+
+        const investmentChartConfig = {
+            type: 'bar',
+            data: investmentChartData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return 'SAR: ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Create the chart
+        const investmentChart = new Chart(
+            document.getElementById('investmentChart'),
+            investmentChartConfig
+        );
+    </script>
 @endsection

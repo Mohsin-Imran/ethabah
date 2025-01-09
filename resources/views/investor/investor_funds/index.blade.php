@@ -64,7 +64,9 @@
                                     Collect Amount
                                 </span>
                                 <br>
-                                SAR {{ number_format($data->amount_received, 2) ?? 'Not Available' }}
+                                <span class="spanTest">
+                                    SAR {{ number_format($data->amount_received, 2) ?? 'Not Available' }}
+                                </span>
                             </div>
                             <div class="progress" style="height: 20px;">
                                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ round($data->progress_percentage, 2) }}%;" aria-valuenow="{{ round($data->progress_percentage, 2) ?? 0 }}" aria-valuemin="0" aria-valuemax="100">
@@ -73,91 +75,139 @@
                             </div>
 
 
-                            <div class="row">
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
+                            <div class="row p-1" style="position: relative; right: 5px;">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <i class="fa fa-briefcase cutomFontIcon"></i>
+                                    </div>
+                                    <div class="col-lg-12" style="position: relative;right: 29px;">
+                                        <span class="cutomFontSpan">Fund Name</span>
+                                        <br>
+                                        <span class="cutomFontSpan">{{ $data->name ?? '' }}</span>
+                                    </div>
+                                    <hr>
                                 </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <i class="fa fa-ban cutomFontIcon"></i>
+                                    </div>
+                                    <div class="col-lg-12" style="position: relative;right: 29px;">
+                                        <span class="cutomFontSpan">Fund Type</span>
+                                        <br>
+                                        <span class="cutomFontSpan">{{ $data->category->name ?? '' }}</span>
+                                    </div>
+                                    <hr>
                                 </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <i class="fas fa-clock cutomFontIcon"></i>
+                                    </div>
+                                    <div class="col-lg-12" style="position: relative;right: 29px;">
+                                        <span class="cutomFontSpan">Fund Duration</span>
+                                        <br>
+                                        <span class="cutomFontSpan">{{ $data->duration_of_investment ?? 'Not Available' }}</span>
+                                    </div>
+                                    <hr>
                                 </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <i class="fas fa-money-bill-wave cutomFontIcon"></i>
+                                    </div>
+                                    <div class="col-lg-12" style="position: relative;right: 29px;">
+                                        <span class="cutomFontSpan">Total Funds</span>
+                                        <br>
+                                        <span class="cutomFontSpan">{{ $data->total_funds ?? 'Not Available' }}</span>
+                                    </div>
+                                    <hr>
                                 </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <i class="fas fa-money-bill-alt cutomFontIcon"></i>
+                                    </div>
+                                    <div class="col-lg-12" style="position: relative;right: 29px;">
+                                        <span class="cutomFontSpan">Funds Received</span>
+                                        <br>
+                                        <span class="cutomFontSpan"> SAR {{ number_format($data->amount_received, 2) ?? 'Not Available' }}</span>
+                                    </div>
+                                    <hr>
                                 </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <i class="fa fa-percent cutomFontIcon"></i>
+                                    </div>
+                                    <div class="col-lg-12" style="position: relative;right: 29px;">
+                                        <span class="cutomFontSpan">Profit</span>
+                                        <br>
+                                        <span class="cutomFontSpan">{{ $data->profit_percentage ?? '' }}%</span>
+                                    </div>
+                                    <hr>
                                 </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <i class="fas fa-user-alt cutomFontIcon"></i>
+                                    </div>
+                                    <div class="col-lg-12" style="position: relative;right: 29px;">
+                                        <span class="cutomFontSpan">Total Company</span>
+                                        <br>
+                                        <span class="cutomFontSpan">{{ $data->investmentFundCounts ?? 'غير متوفر' }}</span>
+                                    </div>
+                                    <hr>
                                 </div>
-                                <div class="col-lg-6 border-bottom">
-                                    <span>Price</span>
-                                    <br>
-                                    <span>Price</span>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <i class="fas fa-user-friends cutomFontIcon"></i>
+                                    </div>
+                                    <div class="col-lg-12" style="position: relative;right: 29px;">
+                                        <span class="cutomFontSpan">Total Investor</span>
+                                        <br>
+                                        <span class="cutomFontSpan">{{ $data->investorCounts ?? '' }}</span>
+                                    </div>
+                                    <hr>
                                 </div>
-                               
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <i class="fa fa-star cutomFontIcon"></i>
+                                    </div>
+                                    <div class="col-lg-12" style="position: relative;right: 29px;">
+                                        <span class="cutomFontSpan">Profit will be paid</span>
+                                        <br>
+                                        <span class="cutomFontSpan">{{ $data->profit ?? '' }}</span>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <i class="fas fa-toggle-on cutomFontIcon"></i>
+                                    </div>
+                                    <div class="col-lg-12" style="position: relative;right: 29px;">
+                                        <span class="cutomFontSpan">Status</span>
+                                        <br>
+                                        <span>
+                                            @switch($data->status)
+                                            @case(0)
+                                            <span class="badge bg-success" style="font-size: 9px; white-space: normal;">Investment not completed</span>
+                                            @break
+                                            @case(3)
+                                            <span class="badge bg-warning">Waiting Investors</span>
+                                            @break
+                                            @case(2)
+                                            <span class="badge bg-primary">Started</span>
+                                            @break
+                                            @case(1)
+                                            <span class="badge bg-success">Completed</span>
+                                            @break
+                                            @case(4)
+                                            <span class="badge bg-danger">Rejected</span>
+                                            @break
+                                            @default
+                                            <span class="badge bg-secondary">Unknown</span>
+                                            @endswitch
+                                        </span>
+                                    </div>
+                                    <hr>
+                                </div>
                             </div>
-
-
-                            {{-- <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                                <span class="spanTest">Total Amount</span>
-                                <span class="badge bg-primary">{{ number_format($data->total_funds, 2) ?? 'Not Available' }}</span>
-                            </div>
-                            <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                                <span class="spanTest">Fund Duration</span>
-                                <span class="badge bg-primary">{{ $data->duration_of_investment ?? 'Not Available' }}</span>
-                            </div>
-                            <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                                <span class="spanTest">Fund Type</span>
-                                <span class="badge bg-primary">{{ $data->category->name ?? 'Not Available' }}</span>
-                            </div>
-                            <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                                <span class="spanTest">Profit Percentage</span>
-                                <span class="badge bg-primary">{{ $data->profit_percentage ?? 'Not Available' }}%</span>
-                            </div>
-                            <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                                <span class="spanTest">Fund Status</span>
-                                <span class="">
-                                    @switch($data->status)
-                                    @case(0)
-                                    <span class="badge bg-success">Investment not completed</span>
-                                    @break
-                                    @case(3)
-                                    <span class="badge bg-warning">Waiting Investors</span>
-                                    @break
-                                    @case(2)
-                                    <span class="badge bg-primary">Started</span>
-                                    @break
-                                    @case(1)
-                                    <span class="badge bg-success">Completed</span>
-                                    @break
-                                    @case(4)
-                                    <span class="badge bg-danger">Rejected</span>
-                                    @break
-                                    @default
-                                    <span class="badge bg-secondary">Unknown</span>
-                                    @endswitch
-                                </span>
-                            </div> --}}
+                            <a href="{{ route('investor.request.create') }}" class="btn btn-primary w-100">Add Investment</a>
                         </div>
                     </div>
                 </div>

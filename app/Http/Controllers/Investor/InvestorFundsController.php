@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Investor;
 use App\Http\Controllers\Controller;
 use App\Models\InvestorFunds;
 use App\Models\InvestorRequest;
+use App\Models\Payment;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class InvestorFundsController extends Controller
@@ -14,7 +16,8 @@ class InvestorFundsController extends Controller
         $investorCounts = InvestorRequest::select('investor_funds_id', DB::raw('COUNT(*) as count'))
             ->groupBy('investor_funds_id')
             ->pluck('count', 'investor_funds_id');
-        $investorFunds = InvestorFunds::with('category')->get();
+        // $investorFundsCount = InvestorFunds::withCount(['investmentFundCompanies as investmentFundCount'])->get();
+        $investorFunds = InvestorFunds::with('category')->withCount(['investmentFundCompanies as investmentFundCounts'])->get();
         foreach ($investorFunds as $fund) {
             $fund->amountSum = InvestorRequest::where('investor_funds_id', $fund->id)->sum('amount');
             $fund->total_funds = $fund->amount; // Example: total funds logic
@@ -40,5 +43,7 @@ class InvestorFundsController extends Controller
         }
         return view('investor.investor_funds.view', compact('investorFund', 'amountSum', 'investorRequest'));
     }
+
+
 
 }

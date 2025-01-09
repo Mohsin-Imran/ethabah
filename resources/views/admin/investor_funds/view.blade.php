@@ -118,7 +118,7 @@
 
 
                 <div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content p-2">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalTitleId">
@@ -135,7 +135,7 @@
                                         <th>المبلغ</th>
                                         <th>نسبة الربح</th>
                                         <th>الربح المحسوب</th>
-
+                                        <th>أضف المبلغ</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -146,6 +146,32 @@
                                         <td>{{ $request->amount ?? 'Not Available' }}</td>
                                         <td>{{ $request->profitPercentage ?? 'Not Available' }}%</td>
                                         <td>{{ $request->calculatedProfit ?? 'Not Available' }}</td>
+                                        <td><a href="" class="btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#payment{{ $request->id }}">Pay</a></td>
+                                        <div class="modal fade" id="payment{{ $request->id }}" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content p-2">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalTitleId">
+                                                            مبلغ الدفع
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{{ route('admin.investor.funds.payment', $request->investor_funds_id) }}" method="POST">
+                                                            @csrf
+                                                            <div class="mb-3">
+                                                                <input type="hidden" name="user_id" value="{{ $request->user_id }}" id="input-{{ $request->id }}">
+                                                                <input type="hidden" name="created_by" value="{{ auth()->user()->id ?? '' }}" id="">
+                                                                <input type="hidden" name="investor_funds_id" value="{{ $request->investor_funds_id ?? '' }}" id="">
+                                                                <label for="">كمية</label>
+                                                                <input type="number" placeholder="Amount" class="form-control" name="amount" id="">
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">يُقدِّم</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tr>
                                     @endif
                                     @endforeach
@@ -172,12 +198,12 @@
                     @elseif($investorFund->status == 3)
                     <span class="badge bg-warning" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Waiting Investors</span>
                     @elseif($investorFund->status == 2)
-                    <span class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Started</span>
-                    @elseif($investorFund->status == 1)
-                    <span class="badge bg-success" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Completed</span>
-                    @elseif($investorFund->status == 4)
-                    <span class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Rejected</span>
-                    @endif
+                    <span class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Started
+                        <span>📅 {{ $investorFund->updated_at ? $investorFund->updated_at->format('d M, Y') : '' }}</span> @elseif($investorFund->status == 1)
+                        <span class="badge bg-success" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Completed</span>
+                        @elseif($investorFund->status == 4)
+                        <span class="badge bg-danger" data-bs-toggle="modal" data-bs-target="#statusModal{{ $investorFund->id }}">Rejected</span>
+                        @endif
                 </div>
 
                 <!-- Modal for Status Update -->
@@ -250,4 +276,5 @@
         </div>
     </div>
 </div>
+
 @endsection

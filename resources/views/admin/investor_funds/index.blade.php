@@ -32,16 +32,23 @@
     <div class="row">
         <div class="card p-2">
             <div class="card-header p-2 bg-primary d-flex flex-row justify-content-between">
-                <a href="{{ route('admin.investor.funds.create') }}" class="btn-sm btn-danger p-2 text-dark">إضافة صندوق إستثمار<i class="fa fa-user-plus"></i>  </a>
+                <a href="{{ route('admin.investor.funds.create') }}" class="btn-sm btn-danger p-2 text-dark">إضافة صندوق إستثمار<i class="fa fa-user-plus"></i> </a>
                 <h3 class="mb-0 text-white">قوائم صناديق الإستثمار</h3>
             </div>
             <div class="row mt-5">
                 @foreach ($investorFunds as $data)
                 <div class="col-lg-4">
-                    <div class="card bg-primary p-3">
+                    <div class="">
+                        @if($data->image)
+                        <img src="{{ asset('investorFund/'.$data->image) }}" height="200px" class="card-img-top" alt="Investment Image">
+                        @else
+                        <img src="https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png" height="200px" class="card-img-top" alt="Default Image">
+                        @endif
+                    </div>
+                    <div class="card bg-primary p-3" style="border-radius: 0px;">
                         <div class="d-flex flex-row justify-content-between">
-                            <h5 class="text-white">اسم صندوق الاستثمار </h5>
-                            <h5 class="text-white">{{ $data->name ?? 'غير متوفر' }}</h5>
+                            <h5 class="text-white" style="font-family: 'Times New Roman';">اسم صندوق الاستثمار </h5>
+                            <h5 class="text-white" style="font-family: 'Times New Roman';">{{ $data->name ?? 'غير متوفر' }}</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
                             <p class="text-white">عدد الشركات</p>

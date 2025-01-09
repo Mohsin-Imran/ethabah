@@ -101,6 +101,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         Route::post('update/{id}', 'update')->name('update');
         Route::get('destroy/{id}', 'destroy')->name('destroy');
         Route::post('status/{id}', 'updateStatus')->name('status');
+        Route::post('payment/{id}', 'payment')->name('payment');
         Route::get('getCompaniesByCategory', 'getCompaniesByCategory')->name('getCompaniesByCategory');
     });
 

@@ -246,7 +246,7 @@
                             <line x1="5" y1="8" x2="19" y2="8"></line>
                             <line x1="5" y1="16" x2="19" y2="16"></line>
                         </svg>
-                        <span>Investment Funds</span>
+                        <span>All investment Funds</span>
                     </a>
                 </li>
                 <li>
@@ -257,7 +257,7 @@
                             <line x1="12" y1="20" x2="12" y2="4"></line>
                             <line x1="6" y1="20" x2="6" y2="16"></line>
                         </svg>
-                        <span>Investments</span>
+                        <span>My investment Funds</span>
                     </a>
                 </li>
                 <li>
