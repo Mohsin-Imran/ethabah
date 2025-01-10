@@ -221,14 +221,18 @@
 <div class="container mt-5" dir="rtl">
     {{-- <h3 class="mb-4">My Request</h3> --}}
     <div class="d-flex justify-content-start mb-3">
-        <div class="d-flex justify-content-end mb-3">
-            <span class="ms-3">
-                <input type="radio" id="approved" name="status" value="approved" checked onchange="filterCards()">
-                <label for="approved">Approved</label>
+        <div class="d-flex justify-content-end align-items-center mb-3">
+            <span class="form-check ms-3">
+                <input class="form-check-input" type="radio" id="approved" name="status" value="approved" checked onchange="filterCards()">
+                <label class="form-check-label" style="position: relative;right:30px;" for="approved">
+                    Approved
+                </label>
             </span>
-            <span>
-                <input type="radio" id="review" name="status" value="review" onchange="filterCards()">
-                <label for="review">Review</label>
+            <span class="form-check ms-3">
+                <input class="form-check-input" type="radio" id="review" name="status" value="review" onchange="filterCards()">
+                <label class="form-check-label" style="position: relative;right:30px;" for="review">
+                    Review
+                </label>
             </span>
         </div>
     </div>
@@ -237,7 +241,7 @@
         @foreach ($requestesData as $data)
         <div class="col-md-4 card-item" data-status="{{ $data->status == 1 ? 'approved' : 'review' }}">
             <div class="card p-3" style="background-color: #e8f8ec;">
-                <img src="https://static.toiimg.com/photo/80452572.cms?imgsize=156776" height="200px" class="card-img-top rounded" alt="Google Ads">
+                {{-- <img src="https://static.toiimg.com/photo/80452572.cms?imgsize=156776" height="200px" class="card-img-top rounded" alt="Google Ads"> --}}
                 <div class="card-body">
                     <h5 class="card-title text-dark" style="color: black; font-weight: bold;">{{ $data->name ?? '' }}</h5>
                     <p class="card-text">
@@ -282,7 +286,7 @@
                                             </button>
                                         </li>
                                     </ul>
-    
+
                                     <!-- Tab Content -->
                                     <div class="tab-content" id="tabContent{{ $data->id }}">
                                         <!-- Form Tab -->

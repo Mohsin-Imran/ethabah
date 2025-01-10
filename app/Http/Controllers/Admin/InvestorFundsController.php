@@ -53,6 +53,7 @@ class InvestorFundsController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'company_id' => 'required|array',
             'company_id.*' => 'exists:companies,id',
