@@ -32,6 +32,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    Route::get('/investor/edit', [ApiController::class, 'editInvestor']);
+    Route::post('/investor/update', [ApiController::class, 'investorUpdate']);
     Route::post('/request/store', [RequestController::class, 'store']);
     Route::get('/request/get', [RequestController::class, 'index']);
     Route::get('/request/status/count', [RequestController::class, 'dataCount']);

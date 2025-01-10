@@ -198,4 +198,92 @@ class ApiController extends Controller
         return json_encode($uploadedFiles);
     }
 
+    public function editInvestor()
+    {
+        $userID = auth()->id();
+        if (!$userID) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+        try {
+            $user = User::findOrFail($userID);
+            return response()->json([
+                'message' => 'Investor details fetched successfully.',
+                'data' => $user,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Investor not found.',
+                'error' => $e->getMessage(),
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An unexpected error occurred.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function investorUpdate(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'phone' => 'required|string',
+                'passport' => 'required',
+                'passport.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:5120',
+                'national_id' => 'required',
+                'national_id.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:5120',
+                'address' => 'required|string',
+                'email' => 'required|email|unique:users,email,' . auth()->user()->id,
+                'password' => 'required|string|min:8|confirmed',
+                'password_confirmation' => 'required|string|min:8',
+            ]);
+
+            $hashedPassword = bcrypt($validatedData['password']);
+
+            $userID = auth()->user()->id();
+            if (!$userID) {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
+
+            $user = User::find($userID);
+            $user->name = $validatedData['name'];
+            $user->email = $validatedData['email'];
+            $user->phone = $validatedData['phone'];
+            $user->address = $validatedData['address'];
+            // $user->password = $hashedPassword;
+            if ($request->filled('password')) {
+                $user->password = bcrypt($validatedData['password']);
+            }
+            $user->role = 0;
+            $passportFiles = [];
+            if ($request->hasFile('passport')) {
+                $passportFiles = $this->processUploadedFiles($request->file('passport'));
+                $user->passport = json_encode($passportFiles);
+            }
+            $nationalIDFiles = [];
+            if ($request->hasFile('national_id')) {
+                $nationalIDFiles = $this->processUploadedFiles($request->file('national_id'));
+                $user->national_id = json_encode($nationalIDFiles);
+            }
+
+            $user->save();
+
+            return response()->json([
+                'message' => 'User registered successfully.',
+                'user' => $user,
+            ], 201);
+
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Validation Error.',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An unexpected error occurred.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }
