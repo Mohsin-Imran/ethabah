@@ -120,7 +120,7 @@
     }
 
 
-/* 
+    /*
     .amount-text {
         font-weight: bold;
         font-size: 20px;
@@ -131,7 +131,8 @@
         height: 20px;
         background-color: #e9ecef;
         border-radius: 5px;
-        margin-bottom: 10px;
+        /* margin-bottom: 10px; */
+        margin-top: 8px;
     }
 
     .progress-bar {
@@ -157,5 +158,13 @@
 
 
     .cutomFontSpan {
-        font-weight: bold;
+        color: black;
+        font-family: 'Times New Roman';
+    }
+
+    .paymentIcon {
+        color: white;
+        padding: 8px;
+        position: relative;
+        top: 3px;
     }

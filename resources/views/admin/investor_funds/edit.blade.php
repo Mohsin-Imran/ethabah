@@ -67,8 +67,16 @@
                             </span>
                             @enderror
 
-                            <input id="selected_company_ids" name="selected_company_ids" type="hidden" value="">
+                            <input id="selected_company_ids" name="selected_company_ids" type="hidden" value="{{ old('company_id', implode(',', $investorFund->companies->pluck('id')->toArray())) }}">
                         </div>
+
+                        <!-- JavaScript to update hidden input field on change -->
+                        <script>
+                            document.getElementById('select3').addEventListener('change', function() {
+                                var selectedCompanies = Array.from(this.selectedOptions).map(option => option.value);
+                                document.getElementById('selected_company_ids').value = selectedCompanies.join(',');
+                            });
+                        </script>
 
 
                         <div class="mb-3 mt-2 col-lg-6">
@@ -141,15 +149,6 @@
                             <label for="start_of_period" class="form-label">داية فترة التمويل</label>
                             <input type="date" min="1" class="form-control @error('start_of_period') is-invalid @enderror" name="start_of_period" id="start_of_period" value="{{ old('start_of_period',$investorFund->start_of_period) }}">
                             @error('start_of_period')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3 mt-2 col-lg-12">
-                            <label for="end_of_period" class="form-label">نهاية الفترة<span style="color: red;">*</span></label>
-                            <input type="date" placeholder="نسبة الربح" class="form-control @error('end_of_period') is-invalid @enderror" name="end_of_period" id="end_of_period" value="{{ old('end_of_period', $investorFund->end_of_period) }}">
-                            @error('end_of_period')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

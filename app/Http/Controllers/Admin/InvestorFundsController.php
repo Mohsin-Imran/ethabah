@@ -11,6 +11,7 @@ use App\Models\InvestorRequest;
 use App\Models\Payment;
 use App\Models\RequestBike;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -79,20 +80,39 @@ class InvestorFundsController extends Controller
         $investorFund->total_funds = $request->input('total_funds');
         $investorFund->month = $request->month;
         $investorFund->custom_months = $request->custom_months;
-        $investorFund->end_of_period = $request->end_of_period;
+        // $investorFund->end_of_period = $request->end_of_period;
         $investorFund->start_of_period = $request->start_of_period;
+        if ($request->start_of_period) {
+            $startOfPeriod = Carbon::parse($request->start_of_period);
+            if ($request->profit == 'monthly') {
+                $newEndOfPeriod = $startOfPeriod->addMonth();
+                $investorFund->end_of_period = $newEndOfPeriod->toDateString();
+            }
+            elseif ($request->profit == 'quarterly') {
+                $newEndOfPeriod = $startOfPeriod->addMonths(3);
+                $investorFund->end_of_period = $newEndOfPeriod->toDateString();
+            }
+            elseif ($request->profit == 'yearly') {
+                $newEndOfPeriod = $startOfPeriod->addYear();
+                $investorFund->end_of_period = $newEndOfPeriod->toDateString();
+            }
+            elseif ($request->profit == 'custom' && $request->has('custom_months')) {
+                $investorFund->custom_months = $request->custom_months;
+                $startOfPeriod = Carbon::parse($request->start_of_period);
+                $newEndOfPeriod = $startOfPeriod->addMonths($request->custom_months);
+                $investorFund->end_of_period = $newEndOfPeriod->toDateString();
+            }
+        }
         $investorFund->duration_of_investment = $request->duration_of_investment;
         $investorFund->save();
 
-        $companyIds = $request->company_id; // Array of selected company IDs
-        $requestIds = explode(',', $request->selected_company_ids); // Array of request_ids (data-ids from selected companies)
-
-        // Loop through the companies and store the relation with the request_id
+        $companyIds = $request->company_id;
+        $requestIds = explode(',', $request->selected_company_ids);
         foreach ($companyIds as $index => $companyId) {
             $investorFundCompany = new InvestmentFundCompany();
             $investorFundCompany->investor_funds_id = $investorFund->id;
-            $investorFundCompany->request_id = $requestIds[$index]; // Set the corresponding request_id
-            $investorFundCompany->company_id = $companyId; // Save the company ID
+            $investorFundCompany->request_id = $requestIds[$index];
+            $investorFundCompany->company_id = $companyId;
             $investorFundCompany->save();
         }
 
@@ -101,17 +121,20 @@ class InvestorFundsController extends Controller
 
     public function view($id)
     {
+        // Fetch InvestorFunds with related investmentFundCompanies
         $investorFund = InvestorFunds::with('investmentFundCompanies')->findOrFail($id);
         $amountSum = InvestorRequest::where('investor_funds_id', $id)->sum('amount');
         $investorRequest = InvestorRequest::with(['user', 'investmentFund.companies'])->where('investor_funds_id', $id)->get();
         $userIds = $investorRequest->pluck('user_id');
+        $payments = Payment::whereIn('user_id', $userIds)->get()->groupBy('user_id');
         foreach ($investorRequest as $request) {
             $profitPercentage = $request->investmentFund->profit_percentage ?? 0;
             $request->calculatedProfit = ($request->amount * $profitPercentage) / 100;
             $request->profitPercentage = $profitPercentage;
+            $userPayments = $payments->get($request->user_id, collect());
+            $request->payments = $userPayments;
         }
-
-        return view('admin.investor_funds.view', compact('investorFund',  'amountSum', 'investorRequest'));
+        return view('admin.investor_funds.view', compact('investorFund', 'payments', 'amountSum', 'investorRequest'));
     }
 
     public function edit($id)
@@ -160,8 +183,22 @@ class InvestorFundsController extends Controller
         $investorFund->profit_percentage = $request->profit_percentage;
         $investorFund->total_funds = $request->input('total_funds');
         $investorFund->month = $request->month;
-        $investorFund->end_of_period = $request->end_of_period;
         $investorFund->start_of_period = $request->start_of_period;
+        if ($request->start_of_period) {
+            $startOfPeriod = Carbon::parse($request->start_of_period);
+            if ($request->profit == 'monthly') {
+                $newEndOfPeriod = $startOfPeriod->addMonth();
+                $investorFund->end_of_period = $newEndOfPeriod->toDateString();
+            }
+            elseif ($request->profit == 'quarterly') {
+                $newEndOfPeriod = $startOfPeriod->addMonths(3);
+                $investorFund->end_of_period = $newEndOfPeriod->toDateString();
+            }
+            elseif ($request->profit == 'yearly') {
+                $newEndOfPeriod = $startOfPeriod->addYear();
+                $investorFund->end_of_period = $newEndOfPeriod->toDateString();
+            }
+        }
         $investorFund->duration_of_investment = $request->duration_of_investment;
         $investorFund->save();
         $investorFund->companies()->sync($request->company_id);

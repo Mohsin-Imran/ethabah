@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="info-text">
-                                        <span class="badge bg-primary">📅 {{ $data->updated_at ? $data->updated_at->format('d M, Y') : '' }}</span>
+                                        <span class="badge bg-primary">📅 {{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('F j, Y') : '' }}{{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('F j, Y') : '' }}</span>
                                     </div>
 
                                 </div>
@@ -67,6 +67,7 @@
                                 <span class="spanTest">
                                     SAR {{ number_format($data->amount_received, 2) ?? 'Not Available' }}
                                 </span>
+
                             </div>
                             <div class="progress" style="height: 20px;">
                                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ round($data->progress_percentage, 2) }}%;" aria-valuenow="{{ round($data->progress_percentage, 2) ?? 0 }}" aria-valuemin="0" aria-valuemax="100">
@@ -138,7 +139,7 @@
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
                                         <span class="cutomFontSpan">Profit</span>
                                         <br>
-                                        <span class="cutomFontSpan">{{ $data->profit_percentage ?? '' }}%</span>
+                                        <span class="badge bg-primary">{{ $data->profit_percentage ?? '' }}%</span>
                                     </div>
                                     <hr>
                                 </div>
@@ -161,6 +162,28 @@
                                         <span class="cutomFontSpan">Total Investor</span>
                                         <br>
                                         <span class="cutomFontSpan">{{ $data->investorCounts ?? '' }}</span>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <i class="far fa-clock cutomFontIcon"></i>
+                                    </div>
+                                    <div class="col-lg-12" style="position: relative;right: 29px;">
+                                        <span class="cutomFontSpan">Start of Period</span>
+                                        <br>
+                                        <span class="cutomFontSpan"> {{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('F j, Y') : '' }}</span>
+                                    </div>
+                                    <hr>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-4">
+                                        <i class="far fa-clock cutomFontIcon"></i>
+                                    </div>
+                                    <div class="col-lg-12" style="position: relative;right: 29px;">
+                                        <span class="cutomFontSpan">End of Period</span>
+                                        <br>
+                                        <span class="cutomFontSpan">{{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('F j, Y') : '' }}</span>
                                     </div>
                                     <hr>
                                 </div>

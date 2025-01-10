@@ -45,18 +45,11 @@
                     <span class="text-secondary">{{ ($investorReq->amount ?? 0) + ($calculatedProfit ?? 0) ?: 'غير متوفر' }}</span>
                 </div>
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">بداية الفترة</strong>
-                    <span class="text-secondary">
-                        {{ $investorReq->start_of_period ? \Carbon\Carbon::parse($investorReq->start_of_period)->format('d M,Y') : 'غير متوفر' }}
-                    </span>
+                    <strong class="text-dark">إجمالي مبلغ الدفع</strong>
+                    <span class="text-secondary">{{ $payment ?? ''}}</span>
                 </div>
-                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
-                    <strong class="text-dark">نهاية الفترة</strong>
-                    <span class="text-secondary">
-                        {{ $investorReq->end_of_period ? \Carbon\Carbon::parse($investorReq->end_of_period)->format('d M,Y') : 'غير متوفر' }}
-                    </span>
-                </div>
-                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+
+                {{-- <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">إضافة الدفع</strong>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#modalIdDelete{{ $investorReq->id }}" class="btn-sm btn-primary ml-3">إضافة الدفع</a>
                 </div>
@@ -85,7 +78,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
             <div class="card-footer text-center" style="background-color: #e0e0e0; padding: 15px; border-radius: 0 0 15px 15px;">
@@ -94,5 +87,16 @@
         </div>
     </div>
 </div>
-
+{{-- <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+    <strong class="text-dark">بداية الفترة</strong>
+    <span class="text-secondary">
+        {{ $investorReq->start_of_period ? \Carbon\Carbon::parse($investorReq->start_of_period)->format('d M,Y') : 'غير متوفر' }}
+    </span>
+</div>
+<div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+    <strong class="text-dark">نهاية الفترة</strong>
+    <span class="text-secondary">
+        {{ $investorReq->end_of_period ? \Carbon\Carbon::parse($investorReq->end_of_period)->format('d M,Y') : 'غير متوفر' }}
+    </span>
+</div> --}}
 @endsection

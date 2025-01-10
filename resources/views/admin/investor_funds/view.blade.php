@@ -131,11 +131,12 @@
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
                                     <tr>
-                                        <th>الاسم</th>
-                                        <th>المبلغ</th>
-                                        <th>نسبة الربح</th>
-                                        <th>الربح المحسوب</th>
-                                        <th>أضف المبلغ</th>
+                                        <th style="font-size: 13px;">الاسم</th>
+                                        <th style="font-size: 13px;">المبلغ</th>
+                                        <th style="font-size: 13px;">نسبة الربح</th>
+                                        <th style="font-size: 13px;">الربح المحسوب</th>
+                                        <th style="font-size: 13px;">Total Pay</th>
+                                        <th style="font-size: 13px;">أضف المبلغ</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -146,7 +147,14 @@
                                         <td>{{ $request->amount ?? 'Not Available' }}</td>
                                         <td>{{ $request->profitPercentage ?? 'Not Available' }}%</td>
                                         <td>{{ $request->calculatedProfit ?? 'Not Available' }}</td>
-                                        <td><a href="" class="btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#payment{{ $request->id }}">Pay</a></td>
+                                        <td>
+                                            @php
+                                                $userPayments = $request->payments;
+                                                $totalPaid = $userPayments->sum('amount');
+                                            @endphp
+                                            {{ $totalPaid ?? 0 }}
+                                        </td>
+                                        <td><a href="" class="btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#payment{{ $request->id }}"><i class="fas fa-money-bill paymentIcon text-white"></i>Pay</a></td>
                                         <div class="modal fade" id="payment{{ $request->id }}" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content p-2">
