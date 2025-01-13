@@ -13,9 +13,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-header-left">
-                    <h3>Dashboard</h3>
+                    <h3>لوحة التحكم</h3>
                 </div>
             </div>
+
             <div class="row gy-3">
                 <div class="col-md-3">
                     <div class="dashboard-card">
@@ -23,7 +24,7 @@
                             <i class="fa-solid fa-hourglass-start"></i>
                         </div>
                         <div class="dashboard-content">
-                            <h5>Request Pending</h5>
+                            <h5>الطلبات المعلقة</h5>
                             <p>{{ $investorpendingStatus ?? '' }}</p>
                         </div>
                     </div>
@@ -34,7 +35,7 @@
                             <i class="fa-solid fa-thumbs-up"></i>
                         </div>
                         <div class="dashboard-content">
-                            <h5>Request Approved</h5>
+                            <h5>الطلبات الموافق عليها</h5>
                             <p>{{ $investorapprovedStatus ?? '' }}</p>
                         </div>
                     </div>
@@ -42,10 +43,10 @@
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa-solid fa-money-bill-1-wave"></i> <!-- Updated to "users" icon for Companies -->
+                            <i class="fa-solid fa-money-bill-1-wave"></i> <!-- تم التحديث إلى رمز "users" للشركات -->
                         </div>
                         <div class="dashboard-content">
-                            <h5>Total Investment</h5>
+                            <h5>إجمالي الاستثمار</h5>
                             <p>{{ $investorAmount ?? '' }}</p>
                         </div>
                     </div>
@@ -56,12 +57,13 @@
                             <i class="fa-solid fa-code-pull-request"></i>
                         </div>
                         <div class="dashboard-content">
-                            <h5>Total Request</h5>
+                            <h5>إجمالي الطلبات</h5>
                             <p>{{ $investorRequest ?? '' }}</p>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="card mt-5">
                 <div class="col-lg-12">

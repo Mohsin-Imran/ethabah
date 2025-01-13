@@ -42,9 +42,9 @@
                     <div class="card" style="background-color: #fffff9;">
                         <div class="card-header">
                             @if($data->image)
-                            <img src="{{ asset('investorFund/'.$data->image) }}" height="200px" class="card-img-top rounded" alt="Investment Image">
+                            <img src="{{ asset('investorFund/'.$data->image) }}" height="200px" class="card-img-top rounded" alt="صورة الاستثمار">
                             @else
-                            <img src="https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png" height="200px" class="card-img-top rounded" alt="Default Image">
+                            <img src="https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png" height="200px" class="card-img-top rounded" alt="الصورة الافتراضية">
                             @endif
                         </div>
                         <div class="card-body">
@@ -54,27 +54,26 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="info-text">
-                                        <span class="badge bg-primary">📅 {{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('F j, Y') : '' }}{{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('F j, Y') : '' }}</span>
+                                        <span class="badge bg-primary">📅 {{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('j F, Y') : '' }}</span>
                                     </div>
 
                                 </div>
                             </div>
                             <div class="amount-text">
                                 <span class="spanTest">
-                                    Collect Amount
+                                    المبلغ المُجمع
                                 </span>
                                 <br>
                                 <span class="spanTest">
-                                    SAR {{ number_format($data->amount_received, 2) ?? 'Not Available' }}
+                                    SAR {{ number_format($data->amount_received, 2) ?? 'غير متوفر' }}
                                 </span>
 
                             </div>
                             <div class="progress" style="height: 20px;">
                                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ round($data->progress_percentage, 2) }}%;" aria-valuenow="{{ round($data->progress_percentage, 2) ?? 0 }}" aria-valuemin="0" aria-valuemax="100">
-                                    {{ round($data->progress_percentage, 0) }}% Complete
+                                    {{ round($data->progress_percentage, 0) }}% مكتمل
                                 </div>
                             </div>
-
 
                             <div class="row p-1" style="position: relative; right: 5px;">
                                 <div class="col-lg-6">
@@ -82,7 +81,7 @@
                                         <i class="fa fa-briefcase cutomFontIcon"></i>
                                     </div>
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
-                                        <span class="cutomFontSpan">Fund Name</span>
+                                        <span class="cutomFontSpan">اسم الصندوق</span>
                                         <br>
                                         <span class="cutomFontSpan">{{ $data->name ?? '' }}</span>
                                     </div>
@@ -93,7 +92,7 @@
                                         <i class="fa fa-ban cutomFontIcon"></i>
                                     </div>
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
-                                        <span class="cutomFontSpan">Fund Type</span>
+                                        <span class="cutomFontSpan">نوع الصندوق</span>
                                         <br>
                                         <span class="cutomFontSpan">{{ $data->category->name ?? '' }}</span>
                                     </div>
@@ -104,9 +103,9 @@
                                         <i class="fas fa-clock cutomFontIcon"></i>
                                     </div>
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
-                                        <span class="cutomFontSpan">Fund Duration</span>
+                                        <span class="cutomFontSpan">مدة الصندوق</span>
                                         <br>
-                                        <span class="cutomFontSpan">{{ $data->duration_of_investment ?? 'Not Available' }}</span>
+                                        <span class="cutomFontSpan">{{ $data->duration_of_investment ?? 'غير متوفر' }}</span>
                                     </div>
                                     <hr>
                                 </div>
@@ -115,9 +114,9 @@
                                         <i class="fas fa-money-bill-wave cutomFontIcon"></i>
                                     </div>
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
-                                        <span class="cutomFontSpan">Total Funds</span>
+                                        <span class="cutomFontSpan">إجمالي الصناديق</span>
                                         <br>
-                                        <span class="cutomFontSpan">{{ $data->total_funds ?? 'Not Available' }}</span>
+                                        <span class="cutomFontSpan">{{ $data->total_funds ?? 'غير متوفر' }}</span>
                                     </div>
                                     <hr>
                                 </div>
@@ -126,9 +125,9 @@
                                         <i class="fas fa-money-bill-alt cutomFontIcon"></i>
                                     </div>
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
-                                        <span class="cutomFontSpan">Funds Received</span>
+                                        <span class="cutomFontSpan">الصناديق المستلمة</span>
                                         <br>
-                                        <span class="cutomFontSpan"> SAR {{ number_format($data->amount_received, 2) ?? 'Not Available' }}</span>
+                                        <span class="cutomFontSpan"> SAR {{ number_format($data->amount_received, 2) ?? 'غير متوفر' }}</span>
                                     </div>
                                     <hr>
                                 </div>
@@ -137,7 +136,7 @@
                                         <i class="fa fa-percent cutomFontIcon"></i>
                                     </div>
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
-                                        <span class="cutomFontSpan">Profit</span>
+                                        <span class="cutomFontSpan">الأرباح</span>
                                         <br>
                                         <span class="badge bg-primary">{{ $data->profit_percentage ?? '' }}%</span>
                                     </div>
@@ -148,7 +147,7 @@
                                         <i class="fas fa-user-alt cutomFontIcon"></i>
                                     </div>
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
-                                        <span class="cutomFontSpan">Total Company</span>
+                                        <span class="cutomFontSpan">إجمالي الشركات</span>
                                         <br>
                                         <span class="cutomFontSpan">{{ $data->investmentFundCounts ?? 'غير متوفر' }}</span>
                                     </div>
@@ -159,7 +158,7 @@
                                         <i class="fas fa-user-friends cutomFontIcon"></i>
                                     </div>
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
-                                        <span class="cutomFontSpan">Total Investor</span>
+                                        <span class="cutomFontSpan">إجمالي المستثمرين</span>
                                         <br>
                                         <span class="cutomFontSpan">{{ $data->investorCounts ?? '' }}</span>
                                     </div>
@@ -170,9 +169,9 @@
                                         <i class="far fa-clock cutomFontIcon"></i>
                                     </div>
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
-                                        <span class="cutomFontSpan">Start of Period</span>
+                                        <span class="cutomFontSpan">بداية الفترة</span>
                                         <br>
-                                        <span class="cutomFontSpan"> {{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('F j, Y') : '' }}</span>
+                                        <span class="cutomFontSpan"> {{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('j F, Y') : '' }}</span>
                                     </div>
                                     <hr>
                                 </div>
@@ -181,9 +180,9 @@
                                         <i class="far fa-clock cutomFontIcon"></i>
                                     </div>
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
-                                        <span class="cutomFontSpan">End of Period</span>
+                                        <span class="cutomFontSpan">نهاية الفترة</span>
                                         <br>
-                                        <span class="cutomFontSpan">{{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('F j, Y') : '' }}</span>
+                                        <span class="cutomFontSpan">{{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('j F, Y') : '' }}</span>
                                     </div>
                                     <hr>
                                 </div>
@@ -192,7 +191,7 @@
                                         <i class="fa fa-star cutomFontIcon"></i>
                                     </div>
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
-                                        <span class="cutomFontSpan">Profit will be paid</span>
+                                        <span class="cutomFontSpan">الأرباح التي سيتم دفعها</span>
                                         <br>
                                         <span class="cutomFontSpan">{{ $data->profit ?? '' }}</span>
                                     </div>
@@ -203,39 +202,40 @@
                                         <i class="fas fa-toggle-on cutomFontIcon"></i>
                                     </div>
                                     <div class="col-lg-12" style="position: relative;right: 29px;">
-                                        <span class="cutomFontSpan">Status</span>
+                                        <span class="cutomFontSpan">الحالة</span>
                                         <br>
                                         <span>
                                             @switch($data->status)
                                             @case(0)
-                                            <span class="badge bg-success" style="font-size: 9px; white-space: normal;">Investment not completed</span>
+                                            <span class="badge bg-success" style="font-size: 9px; white-space: normal;">الاستثمار غير مكتمل</span>
                                             @break
                                             @case(3)
-                                            <span class="badge bg-warning">Waiting Investors</span>
+                                            <span class="badge bg-warning">انتظار المستثمرين</span>
                                             @break
                                             @case(2)
-                                            <span class="badge bg-primary">Started</span>
+                                            <span class="badge bg-primary">تم البدء</span>
                                             @break
                                             @case(1)
-                                            <span class="badge bg-success">Completed</span>
+                                            <span class="badge bg-success">مكتمل</span>
                                             @break
                                             @case(4)
-                                            <span class="badge bg-danger">Rejected</span>
+                                            <span class="badge bg-danger">مرفوض</span>
                                             @break
                                             @default
-                                            <span class="badge bg-secondary">Unknown</span>
+                                            <span class="badge bg-secondary">غير معروف</span>
                                             @endswitch
                                         </span>
                                     </div>
                                     <hr>
                                 </div>
                             </div>
-                            <a href="{{ route('investor.request.create') }}" class="btn btn-primary w-100">Add Investment</a>
+                            <a href="{{ route('investor.request.create', ['investor_fund_id' => $data->id]) }}" class="btn btn-primary w-100">إضافة استثمار</a>
                         </div>
                     </div>
                 </div>
                 @endforeach
             </div>
+
         </div>
     </div>
 </div>

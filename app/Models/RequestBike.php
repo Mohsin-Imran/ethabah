@@ -11,7 +11,7 @@ class RequestBike extends Model
 
     protected $fillable = [
         'name',
-        'category',
+        'category_id',
         'purpose_of_funding',
         'user_id',
         'total_funds',
@@ -21,7 +21,7 @@ class RequestBike extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class,'category_id');
     }
 
     public function bike()

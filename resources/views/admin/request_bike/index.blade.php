@@ -77,7 +77,7 @@
                             <th dir="rtl" style="text-align: justify;">الحالة</th>
                             <th dir="rtl" style="text-align: justify;">إجمالي التمويل المطلوب</th>
                             <th dir="rtl" style="text-align: justify;">الاستثمار</th>
-                            <th dir="rtl" style="text-align: justify;">الفئة</th>
+                            <th dir="rtl" style="text-align: justify;">فئة</th>
                             <th dir="rtl" style="text-align: justify;">البريد الإلكتروني للشركة</th>
                             <th dir="rtl" style="text-align: justify;">اسم الشركة</th>
                         </tr>
@@ -108,7 +108,7 @@
                             </td>
                             <td>{{ $data->total_funds ?? 'غير متوفر'}}</td>
                             <td><span class="badge bg-primary">{{ $data->purpose_of_funding ?? 'غير متوفر'}}</span></td>
-                            <td>{{ $data->category ?? 'غير متوفر'}}</td>
+                            <td>{{ $data->category->name ?? 'غير متوفر' }}</td>
                             <td>{{ $data->user->email ?? 'غير متوفر'}}</td>
                             <td>{{ $data->user->name ?? 'غير متوفر'}}</td>
                         </tr>

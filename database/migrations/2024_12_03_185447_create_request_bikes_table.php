@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('name');
-            $table->string('category');
+            $table->string('category')->nullable();
             $table->string('purpose_of_funding');
             $table->string('total_funds');
             $table->longText('description')->nullable();

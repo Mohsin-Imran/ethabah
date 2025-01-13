@@ -11,9 +11,11 @@
             background-color: #f7f7e2;
             padding: 20px;
         }
-        .form-control{
+
+        .form-control {
             background-color: #b4d7c3;
         }
+
         .card {
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -63,13 +65,13 @@
     <div class="container">
         <form class="form-horizontal auth-form" method="POST" action="{{ route('company.register') }}" enctype="multipart/form-data">
             @csrf
-            <div class="col-lg-6 offset-lg-3" id="registration-section">
+            <div class="col-lg-6 offset-lg-3" id="registration-section" dir="rtl">
                 <div class="card p-4">
                     <div class="row g-4">
-                        <h2 class="card-title">Company Registration</h2>
+                        <h2 class="card-title">تسجيل الشركة</h2>
                         <div class="">
-                            <label for="company-name" class="form-label">Full Company Name</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus id="company-name" placeholder="Enter Full Company Name">
+                            <label for="company-name" class="form-label">اسم الشركة الكامل</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus id="company-name" placeholder="أدخل اسم الشركة الكامل">
                             @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -77,8 +79,8 @@
                             @enderror
                         </div>
                         <div class="">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email Address" value="{{ old('email') }}" required autofocus>
+                            <label for="email" class="form-label">عنوان البريد الإلكتروني</label>
+                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="عنوان البريد الإلكتروني" value="{{ old('email') }}" required autofocus>
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -86,8 +88,8 @@
                             @enderror
                         </div>
                         <div class="">
-                            <label for="reg-number" class="form-label">Company Registration Number</label>
-                            <input type="text" name="register_num" type="text" placeholder="Company Registration Number" class="form-control @error('register_num') is-invalid @enderror" value="{{ old('register_num') }}" required>
+                            <label for="reg-number" class="form-label">رقم تسجيل الشركة</label>
+                            <input type="text" name="register_num" placeholder="رقم تسجيل الشركة" class="form-control @error('register_num') is-invalid @enderror" value="{{ old('register_num') }}" required>
                             @error('register_num')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -95,8 +97,8 @@
                             @enderror
                         </div>
                         <div class="">
-                            <label for="reg-number" class="form-label">Company Address</label>
-                            <input type="text" name="address" type="text" placeholder="Company Registration Number" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" required>
+                            <label for="address" class="form-label">عنوان الشركة</label>
+                            <input type="text" name="address" placeholder="عنوان الشركة" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" required>
                             @error('address')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -104,12 +106,12 @@
                             @enderror
                         </div>
                         <div class="">
-                            <label for="phone" class="form-label">Phone Number</label>
+                            <label for="phone" class="form-label">رقم الهاتف</label>
                             <div class="input-group">
-                                <select class="form-select"style="max-width: 120px;background-color: #b4d7c3;">
+                                <select class="form-select" style="max-width: 120px;background-color: #b4d7c3;">
                                     <option value="+966">+966</option>
                                 </select>
-                                <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" placeholder="Enter phone number">
+                                <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
                                 @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -118,9 +120,9 @@
                             </div>
                         </div>
                         <div class="">
-                            <label for="password">Password</label>
-                            <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" oninput="validatePassword()">
-                            <div id="password-error" class="text-danger mt-1" style="display: none;">Password must be at least 8 characters long.</div>
+                            <label for="password">كلمة المرور</label>
+                            <input id="password" type="password" placeholder="كلمة المرور" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" oninput="validatePassword()">
+                            <div id="password-error" class="text-danger mt-1" style="display: none;">يجب أن تكون كلمة المرور 8 أحرف على الأقل.</div>
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -129,39 +131,38 @@
                         </div>
 
                         <div class="">
-                            <label for="password-confirm">Confirm Password</label>
-                            <input id="password-confirm" type="password" placeholder="Confirm Password" class="form-control" name="password_confirmation" required autocomplete="new-password" oninput="validatePassword()">
-                            <div id="confirm-password-error" class="text-danger mt-1" style="display: none;">Passwords do not match.</div>
+                            <label for="password-confirm">تأكيد كلمة المرور</label>
+                            <input id="password-confirm" type="password" placeholder="تأكيد كلمة المرور" class="form-control" name="password_confirmation" required autocomplete="new-password" oninput="validatePassword()">
+                            <div id="confirm-password-error" class="text-danger mt-1" style="display: none;">كلمات المرور غير متطابقة.</div>
                         </div>
-                        <button type="button" class="submit-btn text-white">Next &raquo;</button>
-
+                        <button type="button" class="submit-btn text-white">التالي &raquo;</button>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-6 offset-lg-3" id="verification-section" style="display: none;">
+            <div class="col-lg-6 offset-lg-3" id="verification-section" dir="rtl" style="display: none;">
                 <div class="card p-4 mt-5">
-                    <h2 class="card-title">Account Verification</h2>
+                    <h2 class="card-title">التحقق من الحساب</h2>
                     <div class="mt-3">
-                        <label for="reg-cert" class="form-label">Company Registration Certificate</label>
+                        <label for="reg-cert" class="form-label">شهادة تسجيل الشركة</label>
                         <br>
-                        <button type="button" class="btn upload-btn" onclick="document.getElementById('reg-cert').click()">Upload</button>
+                        <button type="button" class="btn upload-btn" onclick="document.getElementById('reg-cert').click()">رفع</button>
                         <input type="file" name="register_certificate[]" id="reg-cert" class="form-control d-none" multiple onchange="handleFileUpload(event, 'reg-cert-files')" required>
                         <ul id="reg-cert-files" class="list-group mt-2"></ul>
                     </div>
 
                     <div class="mb-1">
-                        <label for="comm-reg-cert" class="form-label">Commercial Registration Certificate</label>
+                        <label for="comm-reg-cert" class="form-label">شهادة التسجيل التجاري</label>
                         <br>
-                        <button type="button" class="btn upload-btn" onclick="document.getElementById('comm-reg-cert').click()">Upload</button>
+                        <button type="button" class="btn upload-btn" onclick="document.getElementById('comm-reg-cert').click()">رفع</button>
                         <input type="file" name="commercial_certificate[]" id="comm-reg-cert" class="form-control d-none" multiple onchange="handleFileUpload(event, 'comm-reg-files')" required>
                         <ul id="comm-reg-files" class="list-group mt-2"></ul>
                     </div>
 
                     <div class="mb-1">
-                        <label for="other-licenses" class="form-label">Other Licenses</label>
+                        <label for="other-licenses" class="form-label">تراخيص أخرى</label>
                         <br>
-                        <button type="button" class="btn upload-btn" onclick="document.getElementById('other-licenses').click()">Upload</button>
+                        <button type="button" class="btn upload-btn" onclick="document.getElementById('other-licenses').click()">رفع</button>
                         <input type="file" name="licenses[]" id="other-licenses" class="form-control d-none" multiple onchange="handleFileUpload(event, 'other-licenses-files')" required>
                         <ul id="other-licenses-files" class="list-group mt-2"></ul>
                     </div>
@@ -169,26 +170,27 @@
                     <div class="form-check mb-3">
                         <input type="checkbox" class="form-check-input" id="terms">
                         <label for="terms" class="form-check-label">
-                            I agree with <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
+                            أوافق على <a href="#">الشروط والأحكام</a> و <a href="#">سياسة الخصوصية</a>
                         </label>
                     </div>
-                    <button type="button" class="btn w-100 btn-success mt-2 previous-btn">Previous</button>
-                    <button class="btn w-100  mt-2" style="background-color: #b3dd0d;color:white;" type="submit" onclick="validateFileUploads()">Submit</button>
+                    <button type="button" class="btn w-100 btn-success mt-2 previous-btn">السابق</button>
+                    <button class="btn w-100 mt-2" style="background-color: #b3dd0d;color:white;" type="submit" onclick="validateFileUploads()">إرسال</button>
                     <div class="d-flex flex-row justify-content-between mt-2">
-                        <a href="{{ route('password.request') }}" style="color: #393f81; text-decoration: none;">Forgot password?</a>
-                        <a href="{{ route('login') }}" style="color: #393f81; text-decoration: none;;">Login here</a>
+                        <a href="{{ route('password.request') }}" style="color: #393f81; text-decoration: none;">هل نسيت كلمة المرور؟</a>
+                        <a href="{{ route('login') }}" style="color: #393f81; text-decoration: none;">تسجيل الدخول هنا</a>
                     </div>
                 </div>
             </div>
+
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function validateFileUploads() {
             const fileInputs = [
-                document.getElementById('reg-cert'),
-                document.getElementById('comm-reg-cert'),
-                document.getElementById('other-licenses')
+                document.getElementById('reg-cert')
+                , document.getElementById('comm-reg-cert')
+                , document.getElementById('other-licenses')
             ];
             let isValid = true;
             let missingFields = [];
@@ -202,23 +204,24 @@
 
             if (!isValid) {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Missing Files',
+                    icon: 'error'
+                    , title: 'Missing Files',
                     // html: `<p>Please upload the following files:</p><ul>${missingFields.map(field => `<li>${field}</li>`).join('')}</ul>`,
                     confirmButtonText: 'OK'
                 });
             } else {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'All files uploaded!',
-                    text: 'Submitting the form...',
-                    confirmButtonText: 'Submit'
+                    icon: 'success'
+                    , title: 'All files uploaded!'
+                    , text: 'Submitting the form...'
+                    , confirmButtonText: 'Submit'
                 }).then(() => {
                     // Submit the form programmatically
                     document.querySelector('form').submit();
                 });
             }
         }
+
     </script>
     <script>
         // Function to handle file upload and preview file names
@@ -260,7 +263,6 @@
     </script>
 
     <script>
-        // Validate Password and Confirm Password in real-time
         function validatePassword() {
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('password-confirm').value;
@@ -284,7 +286,7 @@
 
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const nextButton = document.querySelector('.submit-btn');
             const previousButton = document.querySelector('.previous-btn');
             const registrationSection = document.getElementById('registration-section');
@@ -302,6 +304,7 @@
                 registrationSection.style.display = 'block'; // Show the first div
             });
         });
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

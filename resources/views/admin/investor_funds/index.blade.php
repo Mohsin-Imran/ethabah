@@ -70,6 +70,10 @@
                             <p class="text-white">نظام الدفع</p>
                             <p class="text-white">{{ $data->profit ?? 'غير متوفر' }}</p>
                         </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <p class="text-white">إجمالي المشاهدات</p>
+                            <p class="text-white">{{ $data->viewer ?? '' }}</p>
+                        </div>
                         <table>
                             <tbody>
                                 <tr>

@@ -289,12 +289,12 @@
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                previewImage.src = e.target.result; 
+                previewImage.src = e.target.result;
                 previewContainer.style.display = 'block';
             };
-            reader.readAsDataURL(file); 
+            reader.readAsDataURL(file);
         } else {
-            previewContainer.style.display = 'none'; 
+            previewContainer.style.display = 'none';
         }
     }
 </script>
@@ -311,4 +311,20 @@
         toggleCustomMonths(customRadio.checked);
     });
 
+</script>
+
+<script>
+    const profitRadios = document.querySelectorAll('input[name="profit"]');
+    const monthsContainer = document.getElementById('new-custom-months-container');
+    function toggleMonthsContainer() {
+        if (document.getElementById('new-custom').checked) {
+            monthsContainer.style.display = 'block';
+        } else {
+            monthsContainer.style.display = 'none';
+        }
+    }
+    toggleMonthsContainer();
+    profitRadios.forEach(radio => {
+        radio.addEventListener('change', toggleMonthsContainer);
+    });
 </script>

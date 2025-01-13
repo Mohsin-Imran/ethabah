@@ -14,20 +14,13 @@ class RequestController extends Controller
     public function index()
     {
         $requestesData = InvestorRequest::with('investmentFund.investmentFundCompanies')->where('user_id', auth()->user()->id)->get();
-
-        // Initialize an empty collection to store the project updates
         $projectUpdates = collect();
-
-        // Loop through each request data and fetch project updates
         foreach ($requestesData as $request) {
-            // Ensure the relationship is loaded and request_id is available
             foreach ($request->investmentFund->investmentFundCompanies as $company) {
                 $updates = ProjectUpdate::where('request_id', $company->request_id)->get();
-                $projectUpdates = $projectUpdates->merge($updates); // Merge the updates into the collection
+                $projectUpdates = $projectUpdates->merge($updates);
             }
         }
-
-        // Remove duplicates based on the 'id' field of ProjectUpdate
         $projectUpdates = $projectUpdates->unique('id');
         return view('investor.request.index', get_defined_vars());
     }
@@ -37,15 +30,16 @@ class RequestController extends Controller
         $requestData = RequestBike::with('projectUpdate')->find($id);
         return view('investor.request.view', data: get_defined_vars());
     }
-    public function create()
+    public function create(Request $request)
     {
+        $investorFundId = $request->input('investor_fund_id');
+        $investorFundId = InvestorFunds::increment('viewer');
         $investorFunds = InvestorFunds::with('investments')->get();
 
         foreach ($investorFunds as $fund) {
             $fund->pending_amount = $fund->amount - $fund->investments->sum('amount'); // Calculate pending amount
         }
-
-        return view('investor.request.create', compact('investorFunds'));
+        return view('investor.request.create', compact('investorFunds','investorFundId'));
     }
 
     public function store(Request $request)

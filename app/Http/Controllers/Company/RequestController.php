@@ -12,7 +12,7 @@ class RequestController extends Controller
 {
     public function index()
     {
-        $requestesData = RequestBike::where('user_id', auth()->user()->id)->get();
+        $requestesData = RequestBike::with('category')->where('user_id', auth()->user()->id)->get();
         return view('company.request.index', get_defined_vars());
     }
 
@@ -30,7 +30,7 @@ class RequestController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'category' => 'required', // Validate category id
+            'category_id' => 'required', // Validate category id
             'purpose_of_funding' => 'required|string|max:255',
             'total_funds' => 'required|numeric|min:1',
             'description' => 'required|string|max:1000',
@@ -58,8 +58,9 @@ class RequestController extends Controller
 
         $requestData->user_id = auth()->user()->id;
         $requestData->company_id = auth()->user()->company_id;
+        $requestData->category_id = $request->category_id;
         $requestData->name = $validatedData['name'];
-        $requestData->category = $validatedData['category']; // Use category from the form
+        // $requestData->category = $validatedData['category']; // Use category from the form
         $requestData->purpose_of_funding = $validatedData['purpose_of_funding'];
         $requestData->total_funds = $validatedData['total_funds'];
         $requestData->description = $validatedData['description'];
@@ -102,5 +103,4 @@ class RequestController extends Controller
             return redirect()->back()->with('error', 'Failed to save data');
         }
     }
-
 }

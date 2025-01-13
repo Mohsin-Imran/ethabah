@@ -127,6 +127,8 @@
                         </div>
                         <div class="mb-3 mt-2 col-lg-12">
                             <label class="form-label">سيتم دفع الربح <span style="color: red;">*</span></label>
+
+                            <!-- Radio buttons for different profit options -->
                             <div>
                                 <input type="radio" id="monthly" name="profit" value="monthly" {{ old('profit', $investorFund->profit) == 'monthly' ? 'checked' : '' }}>
                                 <label for="monthly">شهري</label>
@@ -139,12 +141,29 @@
                                 <input type="radio" id="yearly" name="profit" value="yearly" {{ old('profit', $investorFund->profit) == 'yearly' ? 'checked' : '' }}>
                                 <label for="yearly">سنوي</label>
                             </div>
+                            <div>
+                                <input type="radio" id="new-custom" name="profit" value="custom" {{ old('profit', $investorFund->profit) == 'custom' ? 'checked' : '' }}>
+                                <label for="new-custom">مخصص</label>
+                            </div>
+
+                            <!-- Container for custom months input (initially hidden) -->
+                            <div id="new-custom-months-container" style="display: none;">
+                                <label for="new-custom-months" class="form-label">أدخل عدد الأشهر</label>
+                                <input type="number" id="new-custom-months" name="custom_months" class="form-control" value="{{ old('custom_months', $investorFund->custom_months) }}" min="1" placeholder="عدد الأشهر">
+                                @error('custom_months')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
                             @error('profit')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
                         </div>
+
                         <div class="mb-3 mt-2 col-lg-12">
                             <label for="start_of_period" class="form-label">داية فترة التمويل</label>
                             <input type="date" min="1" class="form-control @error('start_of_period') is-invalid @enderror" name="start_of_period" id="start_of_period" value="{{ old('start_of_period',$investorFund->start_of_period) }}">
