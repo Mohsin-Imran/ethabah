@@ -44,7 +44,7 @@
                         </div>
                         <div class="mb-3 mt-2 col-lg-6">
                             <label for="phone" class="form-label">هاتف <span style="color: red;">*</span></label>
-                            <input type="tel" value="{{ $profile->phone ?? '' }}" placeholder="هاتف" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone">
+                            <input type="tel" dir="rtl" value="{{ $profile->phone ?? '' }}" placeholder="هاتف" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone">
                             @error('phone')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

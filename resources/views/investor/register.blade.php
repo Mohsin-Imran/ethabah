@@ -101,7 +101,7 @@
                                 <select class="form-select"style="max-width: 120px;background-color: #b4d7c3;">
                                     <option value="+966">+966</option>
                                 </select>
-                                <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
+                                <input type="tel" dir="rtl" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
                                 @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

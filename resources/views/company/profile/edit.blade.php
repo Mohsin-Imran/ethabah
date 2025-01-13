@@ -45,7 +45,7 @@
                             </div>
                             <div class="mb-3 mt-2 col-lg-12">
                                 <label for="phone" class="form-label">رقم الهاتف <span style="color: red;">*</span></label>
-                                <input type="tel" dir="rtl"  value="{{ $profile->company->phone ?? '' }}" placeholder="رقم الهاتف" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone">
+                                <input type="tel" dir="rtl" value="{{ $profile->company->phone ?? '' }}" placeholder="رقم الهاتف" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone">
                                 @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -54,7 +54,7 @@
                             </div>
                             <div class="mb-3 mt-2 col-lg-12">
                                 <label for="registration_number" class="form-label">رقم تسجيل الشركة <span style="color: red;">*</span></label>
-                                <input id="registration_number" name="register_num" type="text" placeholder="رقم تسجيل الشركة" class="form-control @error('register_num') is-invalid @enderror" value="{{ $profile->company->register_num ?? '' }}" required autofocus>
+                                <input id="registration_number" dir="rtl" name="register_num" type="text" placeholder="رقم تسجيل الشركة" class="form-control @error('register_num') is-invalid @enderror" value="{{ $profile->company->register_num ?? '' }}" required autofocus>
                                 @error('register_num')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

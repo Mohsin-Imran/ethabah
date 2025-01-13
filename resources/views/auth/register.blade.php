@@ -89,7 +89,7 @@
                         </div>
                         <div class="">
                             <label for="reg-number" class="form-label">رقم تسجيل الشركة</label>
-                            <input type="text" name="register_num" placeholder="رقم تسجيل الشركة" class="form-control @error('register_num') is-invalid @enderror" value="{{ old('register_num') }}" required>
+                            <input type="text" dir="rtl" name="register_num" placeholder="رقم تسجيل الشركة" class="form-control @error('register_num') is-invalid @enderror" value="{{ old('register_num') }}" required>
                             @error('register_num')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -111,7 +111,7 @@
                                 <select class="form-select" style="max-width: 120px;background-color: #b4d7c3;">
                                     <option value="+966">+966</option>
                                 </select>
-                                <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
+                                <input type="tel" dir="rtl" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
                                 @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
