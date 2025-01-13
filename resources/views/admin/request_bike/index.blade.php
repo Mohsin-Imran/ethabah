@@ -108,7 +108,11 @@
                             </td>
                             <td>{{ $data->total_funds ?? 'غير متوفر'}}</td>
                             <td><span class="badge bg-primary">{{ $data->purpose_of_funding ?? 'غير متوفر'}}</span></td>
-                            <td>{{ $data->category->name ?? 'غير متوفر' }}</td>
+                            @php
+                            $categoryName = \App\Models\Category::where('id', $data->category_id)->value('name');
+                            @endphp
+                            <span class="badge bg-success me-2 mt-2 float-start">{{ $categoryName }}</span>
+                            <td>{{ $categoryName ?? 'غير متوفر' }}</td>
                             <td>{{ $data->user->email ?? 'غير متوفر'}}</td>
                             <td>{{ $data->user->name ?? 'غير متوفر'}}</td>
                         </tr>
