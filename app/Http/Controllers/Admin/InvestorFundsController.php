@@ -124,7 +124,10 @@ class InvestorFundsController extends Controller
     {
         // Fetch InvestorFunds with related investmentFundCompanies
         $investorFund = InvestorFunds::with('investmentFundCompanies')->findOrFail($id);
-        $investorFund->increment('viewer');
+        $update = [
+            'viewer' => $investorFund->viewer + 1,
+        ];
+        InvestorFunds::where('id', $investorFund->id)->update($update);
         $amountSum = InvestorRequest::where('investor_funds_id', $id)->sum('amount');
         $investorRequest = InvestorRequest::with(['user', 'investmentFund.companies'])->where('investor_funds_id', $id)->get();
         $userIds = $investorRequest->pluck('user_id');

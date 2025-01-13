@@ -33,7 +33,11 @@ class RequestController extends Controller
     public function create(Request $request)
     {
         $investorFundId = $request->input('investor_fund_id');
-        $investorFundId = InvestorFunds::increment('viewer');
+        $investorFund = InvestorFunds::findOrFail($investorFundId);
+        $update = [
+            'viewer' => $investorFund->viewer + 1,
+        ];
+        InvestorFunds::where('id', $investorFund->id)->update($update);
         $investorFunds = InvestorFunds::with('investments')->get();
 
         foreach ($investorFunds as $fund) {
