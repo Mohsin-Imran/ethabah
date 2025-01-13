@@ -133,9 +133,86 @@ class CompanyController extends Controller
         }
     }
 
-/**
- * Private function to handle multiple file uploads and store them in a specific folder.
- */
+
+    public function editCompany()
+    {
+        $companyId = auth()->user()->company_id;
+        if (!$companyId) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+        try {
+            $user = Company::findOrFail($companyId);
+            return response()->json([
+                'message' => 'Investor details fetched successfully.',
+                'data' => $user,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Investor not found.',
+                'error' => $e->getMessage(),
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An unexpected error occurred.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function update(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'phone' => 'required|string',
+                'address' => 'required|string',
+                'email' => 'required|email|unique:users,email,' . auth()->user()->id,
+                'password' => 'required|string|min:8',
+                'register_num' => 'required|string',
+            ]);
+
+            $hashedPassword = bcrypt($request->password);
+
+            $user =  User::find(auth()->user()->id);
+            $user->name = $validatedData['name'];
+            $user->email = $validatedData['email'];
+            $user->password = $hashedPassword;
+            $user->role = 2;
+            $user->save();
+
+            $company = Company::find($user->company_id);
+            $company->register_certificate = $this->uploadFiles($request->file('register_certificate'), 'register_certificate');
+            $company->commercial_certificate = $this->uploadFiles($request->file('commercial_certificate'), 'commercial_certificate');
+            $company->licenses = $this->uploadFiles($request->file('licenses'), 'licenses');
+
+            $company->name = $validatedData['name'];
+            $company->phone = $validatedData['phone'];
+            $company->register_num = $validatedData['register_num'];
+            $company->email = $validatedData['email'];
+            $company->address = $validatedData['address'];
+            $company->password = $hashedPassword;
+            $company->user_id = $user->id;
+            $company->save();
+            $user->company_id = $company->id;
+            $user->save();
+
+            return response()->json([
+                'message' => 'Company registered successfully.',
+                'company' => $company,
+            ], 201);
+
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Validation Error',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An unexpected error occurred.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
     private function uploadFiles($files, $folder)
     {
         $uploadedFiles = [];

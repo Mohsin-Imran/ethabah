@@ -21,32 +21,32 @@
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa fa-chart-line"></i> <!-- تم تحديثه إلى أيقونة "chart-line" للإيرادات -->
+                            <i class="fa fa-chart-line"></i> 
                         </div>
                         <div class="dashboard-content">
-                            <h5>78.423K</h5>
-                            <p>إجمالي الإيرادات <span class="growth">15.2% ↑</span></p>
+                            <h5>إجمالي الطلبات</h5>
+                            <p><span class="growth">{{ $requestBikes ?? '' }}</span></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa fa-hand-holding-usd"></i> <!-- تم تحديثه إلى أيقونة "hand-holding-usd" للصندوق -->
+                            <i class="fa fa-hand-holding-usd"></i> 
                         </div>
                         <div class="dashboard-content">
-                            <h5> إجمالي صناديق الإستثمار</h5>
-                            <p>المستثمرين <span class="growth">{{ $investorFunds ?? '' }}</span></p>
+                            <h5>إجمالي أموال المستثمرين</h5>
+                            <p><span class="growth">{{ $investorFunds ?? '' }}</span></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa fa-users"></i> <!-- تم تحديثه إلى أيقونة "users" للشركات -->
+                            <i class="fa fa-users"></i> 
                         </div>
                         <div class="dashboard-content">
-                            <h5>الشركات</h5>
+                            <h5>إجمالي الشركات</h5>
                             <p>{{ $companiesCounts ?? '' }}</p>
                         </div>
                     </div>
@@ -54,20 +54,18 @@
                 <div class="col-md-3">
                     <div class="dashboard-card">
                         <div class="dashboard-icon">
-                            <i class="fa fa-people-carry"></i> <!-- تم تحديثه إلى أيقونة "people-carry" للمستثمرين -->
+                            <i class="fa fa-people-carry"></i> 
                         </div>
                         <div class="dashboard-content">
-                            <h5>المستثمرين</h5>
+                            <h5>إجمالي المستثمرين</h5>
                             <p>{{ $investorCounts ?? '' }}</p>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </div>            
         </div>
 
         <div class="row align-items-stretch">
-            <!-- البطاقة اليسرى -->
             <div class="col-lg-8 mt-5" dir="rtl">
                 <div class="card h-100 p-2">
                     <div class="table-responsive mt-4">

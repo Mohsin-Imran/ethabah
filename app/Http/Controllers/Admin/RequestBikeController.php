@@ -18,8 +18,9 @@ class RequestBikeController extends Controller
         $companiesCounts = Company::count();
         $investorCounts = User::where('role', 0)->get()->count();
         $investorFunds = InvestorRequest::sum('amount');
+        $requestBikesCount  = RequestBike::where('status',1)->count();
         $investors = User::orderBy('created_at', 'desc')->where('role', 0)->get();
-        return view('admin.request_bike.index', compact('requestBikes'));
+        return view('admin.request_bike.index', get_defined_vars());
     }
 
     public function view($id)

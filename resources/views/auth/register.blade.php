@@ -71,7 +71,7 @@
                         <h2 class="card-title">تسجيل الشركة</h2>
                         <div class="">
                             <label for="company-name" class="form-label">اسم الشركة الكامل</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus id="company-name" placeholder="أدخل اسم الشركة الكامل">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus id="company-name" placeholder="اسم الشركة الكامل">
                             @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -108,15 +108,15 @@
                         <div class="">
                             <label for="phone" class="form-label">رقم الهاتف</label>
                             <div class="input-group">
-                                <select class="form-select" style="max-width: 120px;background-color: #b4d7c3;">
-                                    <option value="+966">+966</option>
-                                </select>
                                 <input type="tel" dir="rtl" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
                                 @error('phone')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
+                                <select class="form-select" dir="ltr" style="max-width: 120px;background-color: #b4d7c3;border-radius:6px;">
+                                    <option value="+966">+966</option>
+                                </select>
                             </div>
                         </div>
                         <div class="">

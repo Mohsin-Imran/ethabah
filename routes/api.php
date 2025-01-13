@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\InvestorFundsController;
 use App\Http\Controllers\Api\InvestorRequestController;
 use App\Http\Controllers\Api\ProjectUpdateDocument;
 use App\Http\Controllers\Api\RequestController;
+use App\Http\Controllers\Api\CompanyController;
 use App\Models\InvestorRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/investment/funds/name/get', [InvestorFundsController::class, 'investmentFundsNames']);
     Route::get('/investor/invest/data/get', [InvestorRequestController::class, 'getInvestorData']);
     Route::get('/investor/dashboard/data', [InvestorRequestController::class, 'investorDashboard']);
+    Route::get('/edit/company', [CompanyController::class, 'editCompany']);
+    Route::post('/update/company', [CompanyController::class, 'update']);
+
 });
 
 // Fallback route
