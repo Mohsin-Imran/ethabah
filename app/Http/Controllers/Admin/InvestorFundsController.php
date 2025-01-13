@@ -203,7 +203,7 @@ class InvestorFundsController extends Controller
         }
         $investorFund->duration_of_investment = $request->duration_of_investment;
         $investorFund->save();
-        $investorFund->companies()->sync($request->company_id);
+        // $investorFund->companies()->sync($request->company_id);
 
         // Handle saving request_ids (data-ids from the select options)
         $companyIds = $request->company_id; // Array of selected company IDs

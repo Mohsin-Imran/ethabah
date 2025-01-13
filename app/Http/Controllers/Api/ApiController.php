@@ -241,7 +241,7 @@ class ApiController extends Controller
 
             $hashedPassword = bcrypt($validatedData['password']);
 
-            $userID = auth()->user()->id();
+            $userID = auth()->user()->id;
             if (!$userID) {
                 return response()->json(['message' => 'Unauthorized'], 401);
             }
