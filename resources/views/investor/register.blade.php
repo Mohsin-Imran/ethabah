@@ -98,15 +98,28 @@
                         <div class="">
                             <label for="phone" class="form-label">رقم الهاتف</label>
                             <div class="input-group">
-                                <input type="tel" dir="rtl" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
-                                <select class="form-select" dir="ltr" style="max-width: 120px;background-color: #b4d7c3;border-radius:5px;">
-                                    <option value="+966">+966</option>
-                                </select>
-                                @error('phone')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                <input type="tel" id="phone" dir="rtl" placeholder="رقم الهاتف" name="phone" class="form-control" value="{{ old('phone') }}">
+                                <span id="phone-error" class="invalid-feedback" role="alert" style="display: none;">
+                                    <strong>رقم الهاتف غير صالح. يُسمح فقط بأرقام السعودية ودبي وباكستان.</strong>
                                 </span>
-                                @enderror
+
+                                <script>
+                                    document.getElementById('phone').addEventListener('input', function () {
+                                        const phoneInput = this.value.trim();
+                                        const errorSpan = document.getElementById('phone-error');
+                                        const saudiRegex = /^(\+966|0)?5\d{8}$/;
+                                        const dubaiRegex = /^(\+971|0)?5\d{8}$/;
+                                        const pakistanRegex = /^(\+92|0)?3\d{9}$/;
+
+                                        if (saudiRegex.test(phoneInput) || dubaiRegex.test(phoneInput) || pakistanRegex.test(phoneInput)) {
+                                            this.classList.remove('is-invalid');
+                                            errorSpan.style.display = 'none';
+                                        } else {
+                                            this.classList.add('is-invalid');
+                                            errorSpan.style.display = 'block';
+                                        }
+                                    });
+                                </script>
                             </div>
                         </div>
                         <div class="">

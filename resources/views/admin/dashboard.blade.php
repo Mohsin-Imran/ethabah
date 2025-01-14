@@ -19,9 +19,9 @@
             </div>
             <div class="row gy-3">
                 <div class="col-md-3">
-                    <div class="dashboard-card">
+                    <div class="dashboard-card" style="background-color: #fcfcdf;">
                         <div class="dashboard-icon">
-                            <i class="fa fa-chart-line"></i> 
+                            <i class="fa fa-chart-line"></i>
                         </div>
                         <div class="dashboard-content">
                             <h5>إجمالي الطلبات</h5>
@@ -30,9 +30,9 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="dashboard-card">
+                    <div class="dashboard-card" style="background-color: #fcfcdf;">
                         <div class="dashboard-icon">
-                            <i class="fa fa-hand-holding-usd"></i> 
+                            <i class="fa fa-hand-holding-usd"></i>
                         </div>
                         <div class="dashboard-content">
                             <h5>إجمالي أموال المستثمرين</h5>
@@ -41,9 +41,9 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="dashboard-card">
+                    <div class="dashboard-card" style="background-color: #fcfcdf;">
                         <div class="dashboard-icon">
-                            <i class="fa fa-users"></i> 
+                            <i class="fa fa-users"></i>
                         </div>
                         <div class="dashboard-content">
                             <h5>إجمالي الشركات</h5>
@@ -52,9 +52,9 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="dashboard-card">
+                    <div class="dashboard-card" style="background-color: #fcfcdf;">
                         <div class="dashboard-icon">
-                            <i class="fa fa-people-carry"></i> 
+                            <i class="fa fa-people-carry"></i>
                         </div>
                         <div class="dashboard-content">
                             <h5>إجمالي المستثمرين</h5>
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
 
         <div class="row align-items-stretch">

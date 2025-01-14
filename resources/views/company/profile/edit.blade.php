@@ -24,63 +24,6 @@
                 <form method="POST" action="{{ route('company.profile.update') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-6" style="direction: rtl;">
-                            <div class="mb-3 mt-2 col-lg-12">
-                                <label for="name" class="form-label">الاسم <span style="color: red;">*</span></label>
-                                <input type="text" value="{{ $profile->name ?? '' }}" placeholder="الاسم" class="form-control @error('name') is-invalid @enderror" name="name" id="name">
-                                @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3 mt-2 col-lg-12">
-                                <label for="email" class="form-label">البريد الإلكتروني <span style="color: red;">*</span></label>
-                                <input type="email" value="{{ $profile->email ?? '' }}" placeholder="البريد الإلكتروني" class="form-control @error('email') is-invalid @enderror" name="email" id="email">
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3 mt-2 col-lg-12">
-                                <label for="phone" class="form-label">رقم الهاتف <span style="color: red;">*</span></label>
-                                <input type="tel" dir="rtl" value="{{ $profile->company->phone ?? '' }}" placeholder="رقم الهاتف" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone">
-                                @error('phone')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3 mt-2 col-lg-12">
-                                <label for="registration_number" class="form-label">رقم تسجيل الشركة <span style="color: red;">*</span></label>
-                                <input id="registration_number" dir="rtl" name="register_num" type="text" placeholder="رقم تسجيل الشركة" class="form-control @error('register_num') is-invalid @enderror" value="{{ $profile->company->register_num ?? '' }}" required autofocus>
-                                @error('register_num')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3 mt-2 col-lg-12">
-                                <label for="password" class="form-label">كلمة المرور <span style="color: red;">*</span></label>
-                                <input type="password" value="" placeholder="كلمة المرور الجديدة" class="form-control @error('password') is-invalid @enderror" name="password" id="password">
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3 mt-2 col-lg-12">
-                                <label for="password_confirmation" class="form-label">تأكيد كلمة المرور <span style="color: red;">*</span></label>
-                                <input type="password" value="" placeholder="تأكيد كلمة المرور" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" id="password_confirmation">
-                                @error('password_confirmation')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
 
                         <div class="col-lg-6" style="direction: rtl;">
                             <div class="mb-3 mt-2 col-lg-12">
@@ -185,7 +128,62 @@
                                 @endforeach
                             </div>
                         </div>
-
+                        <div class="col-lg-6" style="direction: rtl;">
+                            <div class="mb-3 mt-2 col-lg-12">
+                                <label for="name" class="form-label">الاسم <span style="color: red;">*</span></label>
+                                <input type="text" value="{{ $profile->name ?? '' }}" placeholder="الاسم" class="form-control @error('name') is-invalid @enderror" name="name" id="name">
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3 mt-2 col-lg-12">
+                                <label for="email" class="form-label">البريد الإلكتروني <span style="color: red;">*</span></label>
+                                <input type="email" value="{{ $profile->email ?? '' }}" placeholder="البريد الإلكتروني" class="form-control @error('email') is-invalid @enderror" name="email" id="email">
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3 mt-2 col-lg-12">
+                                <label for="phone" class="form-label">رقم الهاتف <span style="color: red;">*</span></label>
+                                <input type="tel" dir="rtl" value="{{ $profile->company->phone ?? '' }}" placeholder="رقم الهاتف" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone">
+                                @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3 mt-2 col-lg-12">
+                                <label for="registration_number" class="form-label">رقم تسجيل الشركة <span style="color: red;">*</span></label>
+                                <input id="registration_number" dir="rtl" name="register_num" type="text" placeholder="رقم تسجيل الشركة" class="form-control @error('register_num') is-invalid @enderror" value="{{ $profile->company->register_num ?? '' }}" required autofocus>
+                                @error('register_num')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3 mt-2 col-lg-12">
+                                <label for="password" class="form-label">كلمة المرور <span style="color: red;">*</span></label>
+                                <input type="password" value="" placeholder="كلمة المرور الجديدة" class="form-control @error('password') is-invalid @enderror" name="password" id="password">
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                            <div class="mb-3 mt-2 col-lg-12">
+                                <label for="password_confirmation" class="form-label">تأكيد كلمة المرور <span style="color: red;">*</span></label>
+                                <input type="password" value="" placeholder="تأكيد كلمة المرور" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" id="password_confirmation">
+                                @error('password_confirmation')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
 
                     </div>
                     <button type="submit" class="btn-sm btn-primary">Update</button>

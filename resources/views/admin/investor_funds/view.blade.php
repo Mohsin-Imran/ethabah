@@ -135,7 +135,7 @@
                                         <th style="font-size: 13px;">المبلغ</th>
                                         <th style="font-size: 13px;">نسبة الربح</th>
                                         <th style="font-size: 13px;">الربح المحسوب</th>
-                                        <th style="font-size: 13px;">Total Pay</th>
+                                        <th style="font-size: 13px;">دفع المبلغ الإجمالي</th>
                                         <th style="font-size: 13px;">أضف المبلغ</th>
                                     </tr>
                                 </thead>

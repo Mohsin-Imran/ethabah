@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -65,23 +64,22 @@ class CompanyController extends Controller
     //     return response()->json(['message' => 'Data saved successfully!', 'data' => $company], 201);
     // }
 
-
     public function store(Request $request)
     {
         try {
             // Validate incoming request data
             $validatedData = $request->validate([
-                'name' => 'required|string|max:255',
-                'phone' => 'required|string',
-                'register_certificate' => 'required',
-                'register_certificate.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
-                'commercial_certificate' => 'required',
+                'name'                     => 'required|string|max:255',
+                'phone'                    => 'required|string',
+                'register_certificate'     => 'required',
+                'register_certificate.*'   => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
+                'commercial_certificate'   => 'required',
                 'commercial_certificate.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
-                'licenses' => 'nullable',
-                'licenses.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required|string|min:8',
-                'register_num' => 'required|string',
+                'licenses'                 => 'nullable',
+                'licenses.*'               => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
+                'email'                    => 'required|email|unique:users,email',
+                'password'                 => 'required|string|min:8',
+                'register_num'             => 'required|string',
             ]);
 
             // Hash the password
@@ -91,23 +89,23 @@ class CompanyController extends Controller
             $company = new Company();
 
             // Handle file uploads using private method for each category
-            $company->register_certificate = $this->uploadFiles($request->file('register_certificate'), 'register_certificate');
+            $company->register_certificate   = $this->uploadFiles($request->file('register_certificate'), 'register_certificate');
             $company->commercial_certificate = $this->uploadFiles($request->file('commercial_certificate'), 'commercial_certificate');
-            $company->licenses = $this->uploadFiles($request->file('licenses'), 'licenses');
+            $company->licenses               = $this->uploadFiles($request->file('licenses'), 'licenses');
 
             // Save company information
-            $company->name = $validatedData['name'];
-            $company->phone = $validatedData['phone'];
+            $company->name         = $validatedData['name'];
+            $company->phone        = $validatedData['phone'];
             $company->register_num = $validatedData['register_num'];
-            $company->email = $validatedData['email'];
-            $company->password = $hashedPassword;
+            $company->email        = $validatedData['email'];
+            $company->password     = $hashedPassword;
 
             // Save user information
-            $user = new User();
-            $user->name = $validatedData['name'];
-            $user->email = $validatedData['email'];
+            $user           = new User();
+            $user->name     = $validatedData['name'];
+            $user->email    = $validatedData['email'];
             $user->password = $hashedPassword;
-            $user->role = 2; // Adjust the role as needed
+            $user->role     = 2; // Adjust the role as needed
             $user->save();
 
             // Associate user to the company
@@ -123,38 +121,37 @@ class CompanyController extends Controller
         } catch (ValidationException $e) {
             return response()->json([
                 'message' => 'Validation Error',
-                'errors' => $e->errors(),
+                'errors'  => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'An unexpected error occurred.',
-                'error' => $e->getMessage(),
+                'error'   => $e->getMessage(),
             ], 500);
         }
     }
 
-
     public function editCompany()
     {
         $companyId = auth()->user()->company_id;
-        if (!$companyId) {
+        if (! $companyId) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
         try {
             $user = Company::findOrFail($companyId);
             return response()->json([
                 'message' => 'Investor details fetched successfully.',
-                'data' => $user,
+                'data'    => $user,
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Investor not found.',
-                'error' => $e->getMessage(),
+                'error'   => $e->getMessage(),
             ], 404);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'An unexpected error occurred.',
-                'error' => $e->getMessage(),
+                'error'   => $e->getMessage(),
             ], 500);
         }
     }
@@ -163,74 +160,78 @@ class CompanyController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'name' => 'required|string|max:255',
-                'phone' => 'required|string',
-                'address' => 'required|string',
-                'email' => 'required|email|unique:users,email,' . auth()->user()->id,
-                'password' => 'required|string|min:8',
+                'name'         => 'required|string|max:255',
+                'phone'        => 'required|string',
+                'address'      => 'required|string',
+                'email'        => 'required|email|unique:users,email,' . auth()->user()->id,
+                'password'     => 'sometimes|nullable|string|min:8',
                 'register_num' => 'required|string',
             ]);
 
-            $hashedPassword = bcrypt($request->password);
+            $user = User::find(auth()->user()->id);
+            if (! $user) {
+                return response()->json(['message' => 'User not found.'], 404);
+            }
 
-            $user =  User::find(auth()->user()->id);
-            $user->name = $validatedData['name'];
+            $user->name  = $validatedData['name'];
             $user->email = $validatedData['email'];
-            $user->password = $hashedPassword;
-            $user->role = 2;
+            if (! empty($request->password)) {
+                $user->password = bcrypt($request->password);
+            }
             $user->save();
 
             $company = Company::find($user->company_id);
-            $company->register_certificate = $this->uploadFiles($request->file('register_certificate'), 'register_certificate');
-            $company->commercial_certificate = $this->uploadFiles($request->file('commercial_certificate'), 'commercial_certificate');
-            $company->licenses = $this->uploadFiles($request->file('licenses'), 'licenses');
+            if (! $company) {
+                return response()->json(['message' => 'Company not found.'], 404);
+            }
 
-            $company->name = $validatedData['name'];
-            $company->phone = $validatedData['phone'];
+            if (! $company->register_certificate || ! $company->commercial_certificate || ! $company->licenses) {
+                $company->register_certificate   = $this->uploadFiles($request->file('register_certificate'), 'register_certificate');
+                $company->commercial_certificate = $this->uploadFiles($request->file('commercial_certificate'), 'commercial_certificate');
+                $company->licenses               = $this->uploadFiles($request->file('licenses'), 'licenses');
+            }
+            $company->name         = $validatedData['name'];
+            $company->phone        = $validatedData['phone'];
             $company->register_num = $validatedData['register_num'];
-            $company->email = $validatedData['email'];
-            $company->address = $validatedData['address'];
-            $company->password = $hashedPassword;
-            $company->user_id = $user->id;
+            $company->email        = $validatedData['email'];
+            $company->address      = $validatedData['address'];
+            $company->user_id      = $user->id;
+
             $company->save();
-            $user->company_id = $company->id;
-            $user->save();
 
             return response()->json([
-                'message' => 'Company registered successfully.',
+                'message' => 'Company updated successfully.',
                 'company' => $company,
-            ], 201);
+            ], 200);
 
         } catch (ValidationException $e) {
             return response()->json([
                 'message' => 'Validation Error',
-                'errors' => $e->errors(),
+                'errors'  => $e->errors(),
             ], 422);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'An unexpected error occurred.',
-                'error' => $e->getMessage(),
+                'error'   => $e->getMessage(),
             ], 500);
         }
     }
+
     private function uploadFiles($files, $folder)
     {
         $uploadedFiles = [];
-
-        // Check if files are present
         if ($files) {
-            // Ensure files are treated as an array
             $files = is_array($files) ? $files : [$files];
-
-            // Loop through each file and move them to the designated folder
             foreach ($files as $file) {
                 $fileName = time() . '_' . uniqid() . '.' . $file->extension();
-                $file->move(public_path($folder), $fileName);
-                $uploadedFiles[] = $fileName; // Store the file name in the array
+                $filePath = public_path($folder);
+                if (! file_exists($filePath)) {
+                    mkdir($filePath, 0755, true);
+                }
+                $file->move($filePath, $fileName);
+                $uploadedFiles[] = $fileName;
             }
         }
-
-        // Return the array of uploaded file names as a JSON string
         return json_encode($uploadedFiles);
     }
 
