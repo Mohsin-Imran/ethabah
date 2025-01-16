@@ -95,7 +95,10 @@
                             <textarea name="description" id="description" placeholder="الوصف" class="form-control"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn-sm btn-primary">إضافة</button>
+                    <div class="d-flex flex-row">
+                        <button type="submit" class="btn-sm btn-primary m-2">إضافة</button>
+                        <a href="{{ route('company.request.index') }}" class="btn-sm btn-danger text-dark m-2">Go Back</a>
+                    </div>
                 </form>
             </div>
         </div>

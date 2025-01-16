@@ -42,7 +42,7 @@
                         @if($data->image)
                         <img src="{{ asset('investorFund/'.$data->image) }}" height="200px" style="border: 1px solid black; border-style: dashed;" class="card-img-top" alt="Investment Image">
                         @else
-                        <img src="https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png" height="200px" class="card-img-top" alt="Default Image">
+                        <img src="{{ asset('images.png') }}" height="200px" class="card-img-top" alt="Default Image">
                         @endif
                     </div>
                     <div class="card bg-primary p-3" style="border-radius: 0px;">

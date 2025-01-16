@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="mb-3 mt-2 col-lg-12" id="amount-container" style="display: none;">
-                            <label for="pending_amount" class="form-label">الصناديق المعلقة</label>
+                            <label for="pending_amount" class="form-label">المبلغ المعلق</label>
                             <input type="text" id="pending_amount" class="form-control" readonly>
                         </div>
                         <div class="mb-3 mt-2 col-lg-12">
@@ -49,7 +49,10 @@
                             <span id="error_message" class="text-danger" style="display: none;">المبلغ يتجاوز الصناديق المعلقة!</span>
                         </div>
                     </div>
-                    <button type="submit" class="btn-sm btn-primary">إضافة</button>
+                    <div class="d-flex flex-row">
+                        <button type="submit" class="btn-sm btn-primary m-2">إضافة</button>
+                        <a href="{{ route('investor.request.index') }}" class="btn-sm btn-danger text-dark m-2">Go Back</a>
+                    </div>
                 </form>
             </div>
         </div>

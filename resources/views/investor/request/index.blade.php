@@ -31,7 +31,7 @@
                 @if($data->investmentFund && $data->investmentFund->image)
                 <img src="{{ asset('investorFund/' . $data->investmentFund->image) }}" height="200px" class="card-img-top rounded" alt="صورة الاستثمار">
                 @else
-                <img src="https://static.toiimg.com/photo/80452572.cms?imgsize=156776" height="200px" class="card-img-top rounded" alt="الصورة الافتراضية">
+                <img src="{{ asset('images.png') }}" height="200px" class="card-img-top rounded" alt="الصورة الافتراضية">
                 @endif
                 <div class="card-body">
                     <h5 class="card-title text-dark" style="color: black; font-weight: bold;">{{ $data->name ?? '' }}</h5>

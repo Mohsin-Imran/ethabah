@@ -19,7 +19,9 @@ class InvestorRequestController extends Controller
         if (!$investorReq) {
             return back()->with('error', 'Investor Request not found.');
         }
-        $payment = Payment::where('user_id',$investorReq->user_id)->sum('amount');
+        $payment = Payment::where('user_id', $investorReq->user_id)
+        ->where('investor_funds_id', $investorReq->investor_funds_id)
+        ->sum('amount');
         $profitPercentage = $investorReq->investmentFund->profit_percentage ?? 0;
         $calculatedProfit = ($investorReq->amount * $profitPercentage) / 100;
 

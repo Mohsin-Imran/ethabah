@@ -48,12 +48,12 @@
                         <tr>
                             <td>{{ $data->user->name ?? 'غير متوفر'}}</td>
                             <td>{{ $data->amount ?? 'غير متوفر'}}</td>
-                            <td>{{ $data->start_of_period ? \Carbon\Carbon::parse($data->start_of_period)->format('d M,Y') : 'غير متوفر' }}
+                            <td>{{ $data->investmentFund->start_of_period ? \Carbon\Carbon::parse($data->investmentFund->start_of_period)->format('d M,Y') : 'غير متوفر' }}
                             </td>
-                            <td>{{ $data->end_of_period ? \Carbon\Carbon::parse($data->end_of_period)->format('d M,Y') : 'غير متوفر' }}
+                            <td>{{ $data->investmentFund->end_of_period ? \Carbon\Carbon::parse($data->investmentFund->end_of_period)->format('d M,Y') : 'غير متوفر' }}
                             </td>
                             {{-- <td>{{ $data->time_of_investment ?? 'غير متوفر'}}</td> --}}
-                            <td>{{ $data->investment_fund ?? 'غير متوفر'}}</td>
+                            <td>{{ $data->amount ?? 'غير متوفر'}}</td>
                             {{-- <td class="p-1">
                                 @if($data->status == 1)
                                 <span class="badge bg-success">مقبول</span>
