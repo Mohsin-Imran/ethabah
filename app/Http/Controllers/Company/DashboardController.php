@@ -41,7 +41,7 @@ class DashboardController extends Controller
                 ->count();
             $requestFundsSum = RequestBike::where('user_id', $id)
                 ->sum('total_funds');
-            $requestTotal = RequestBike::where('user_id', $id)->count();
+            $requestTotal = RequestBike::count();
             $requestesDatas = RequestBike::where('user_id', auth()->user()->id)->get();
 
             return view('company.dashboard', [

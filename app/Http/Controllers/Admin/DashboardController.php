@@ -17,7 +17,7 @@ class DashboardController extends Controller
         $companiesCounts  = Company::count();
         $investorCounts  = User::where('role', 0)->get()->count();
         $investorFunds  = InvestorRequest::sum('amount');
-        $requestBikes  = RequestBike::where('status',1)->count();
+        $requestBikes  = RequestBike::count();
         $investors = User::orderBy('created_at', 'desc')->where('role', 0)->get();
         return view('admin.dashboard', get_defined_vars());
     }
