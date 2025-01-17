@@ -286,4 +286,46 @@ class ApiController extends Controller
             ], 500);
         }
     }
+
+
+    public function loginWithNumber(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                'phone' => 'required',
+                'password' => 'required|string|min:8',
+            ]);
+
+            $credentials = [
+                'phone' => $validatedData['phone'],
+                'password' => $validatedData['password'],
+            ];
+    
+            if (!Auth::attempt($credentials)) {
+                return response()->json([
+                    'message' => 'Invalid phone number or password.',
+                ], 401);
+            }
+
+            $user = Auth::user();
+            $token = $user->createToken('authToken')->plainTextToken;
+
+            return response()->json([
+                'message' => 'Login successful.',
+                'user' => $user,
+                'token' => $token,
+            ]);
+
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Validation Error',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An unexpected error occurred.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

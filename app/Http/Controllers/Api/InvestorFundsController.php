@@ -13,6 +13,13 @@ class InvestorFundsController extends Controller
     {
         try {
             $investmentFunds = InvestorFunds::with('investmentFundCompanies.companies')->get();
+            foreach ($investmentFunds as $fund) {
+                $fund->amountSum = InvestorRequest::where('investor_funds_id', $fund->id)->sum('amount');
+                $fund->total_funds = $fund->amount; // Example: total funds logic
+                $fund->amount_received = $fund->amountSum; // Sum of all received amounts
+                $fund->progress_percentage = $fund->amount > 0 ? ($fund->amount_received / $fund->amount) * 100 : 0;
+                $fund->investorCounts = $investorCounts[$fund->id] ?? 0; // Default to 0 if no investors
+            }
             return response()->json([
                 'success' => true,
                 'message' => 'Investment Funds retrieved successfully.',

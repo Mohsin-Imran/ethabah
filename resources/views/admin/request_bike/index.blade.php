@@ -77,7 +77,7 @@
                             <th dir="rtl" style="text-align: justify;">الإجراءات</th>
                             <th dir="rtl" style="text-align: justify;">الحالة</th>
                             <th dir="rtl" style="text-align: justify;">إجمالي التمويل المطلوب</th>
-                            <th dir="rtl" style="text-align: justify;">الاستثمار</th>
+                            <th dir="rtl" style="text-align: justify;">اسم المشروع</th>
                             <th dir="rtl" style="text-align: justify;">فئة</th>
                             <th dir="rtl" style="text-align: justify;">البريد الإلكتروني للشركة</th>
                             <th dir="rtl" style="text-align: justify;">اسم الشركة</th>
