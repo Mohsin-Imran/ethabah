@@ -251,10 +251,10 @@
                     <strong class="text-dark">نسبة الربح</strong>
                     <span class="text-secondary">{{ $investorFund->profit_percentage ?? 'Not Available' }}%</span>
                 </div>
-                <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
+                {{-- <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">مدة الاستثمار</strong>
                     <span class="text-secondary">{{ $investorFund->duration_of_investment ?? 'Not Available' }}</span>
-                </div>
+                </div> --}}
                 <div class="d-flex flex-row justify-content-between mt-4 p-1 border-bottom">
                     <strong class="text-dark">سيتم دفع الربح</strong>
                     <span class="text-secondary">{{ $investorFund->profit ?? 'Not Available' }}</span>

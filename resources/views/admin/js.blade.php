@@ -100,7 +100,7 @@
                         },
                         ticks: {
                             callback: function(value) {
-                                return `$${value / 1000}k`;
+                                return `SAR${value / 1000}k`;
                             }
                         }
                     }

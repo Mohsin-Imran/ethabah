@@ -38,7 +38,6 @@
                             <th>  بداية الفترة </th>
                             <th>   نهاية الفترة </th>
                             {{-- <th>وقت الاستثمار</th> --}}
-                            <th>صندوق الاستثمار</th>
                             {{-- <th>الحالة</th> --}}
                             <th>الإجراءات</th>
                         </tr>
@@ -53,7 +52,6 @@
                             <td>{{ $data->investmentFund->end_of_period ? \Carbon\Carbon::parse($data->investmentFund->end_of_period)->format('d M,Y') : 'غير متوفر' }}
                             </td>
                             {{-- <td>{{ $data->time_of_investment ?? 'غير متوفر'}}</td> --}}
-                            <td>{{ $data->amount ?? 'غير متوفر'}}</td>
                             {{-- <td class="p-1">
                                 @if($data->status == 1)
                                 <span class="badge bg-success">مقبول</span>
